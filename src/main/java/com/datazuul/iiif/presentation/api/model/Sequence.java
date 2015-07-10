@@ -15,10 +15,17 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
+ * <p>
+ * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/sequence/{name}</p>
+ *
+ * <ul>
+ * <li>Each sequence must have at least one canvas and is likely to have more than one.</li>
+ * </ul>
  *
  * @author Ralf Eichinger
  */
@@ -31,7 +38,7 @@ public class Sequence {
     private String label; // optional
     private String license; // optional
     private String logo; // optional
-    private String metadata; // optional
+    private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
@@ -81,6 +88,10 @@ public class Sequence {
         return label;
     }
 
+    /**
+     * @param label A sequence may have a label, and if there are multiple sequences in a single manifest then they must
+     * have labels. The label should briefly convey the nature of sequence, such as “Current Page Order”.
+     */
     public void setLabel(String label) {
         this.label = label;
     }
@@ -101,11 +112,15 @@ public class Sequence {
         this.logo = logo;
     }
 
-    public String getMetadata() {
+    public List<Metadata> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(String metadata) {
+    /**
+     * @param metadata A sequence may have metadata pairs associated with it to describe the difference between it and
+     * other sequences.
+     */
+    public void setMetadata(List<Metadata> metadata) {
         this.metadata = metadata;
     }
 

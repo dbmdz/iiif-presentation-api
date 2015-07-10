@@ -15,10 +15,13 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Service;
+import java.util.List;
 
 /**
- *
+ * <p>Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/layer/{name}</p>
+ * 
  * @author Ralf Eichinger
  */
 public class Layer {
@@ -28,7 +31,7 @@ public class Layer {
     private final String label; // required
     private String license; // optional
     private String logo; // optional
-    private String metadata; // optional
+    private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
@@ -86,11 +89,11 @@ public class Layer {
         this.logo = logo;
     }
 
-    public String getMetadata() {
+    public List<Metadata> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(String metadata) {
+    public void setMetadata(List<Metadata> metadata) {
         this.metadata = metadata;
     }
 

@@ -15,10 +15,12 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Service;
+import java.util.List;
 
 /**
- *
+ * <p>Recommended URI Pattern: {scheme}://{host}/{prefix}/collection/{name}</p>
  * @author Ralf Eichinger
  */
 public class Collection {
@@ -29,7 +31,7 @@ public class Collection {
     private final String label; // required
     private String license; // optional
     private String logo; // optional
-    private final String metadata; // recommended
+    private final List<Metadata> metadata; // recommended
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
@@ -38,7 +40,7 @@ public class Collection {
     private String viewingHint; // optional
     private String within; // optional
 
-    public Collection(String id, String label, String metadata) {
+    public Collection(String id, String label, List<Metadata> metadata) {
         assert id != null;
         assert label != null;
 
@@ -88,7 +90,7 @@ public class Collection {
         this.logo = logo;
     }
 
-    public String getMetadata() {
+    public List<Metadata> getMetadata() {
         return metadata;
     }
 

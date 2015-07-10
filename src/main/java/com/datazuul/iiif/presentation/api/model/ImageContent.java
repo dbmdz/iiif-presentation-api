@@ -15,9 +15,13 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Service;
+import java.util.List;
 
 /**
+ * <p>
+ * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format}</p>
  *
  * @author Ralf Eichinger
  */
@@ -31,7 +35,7 @@ public class ImageContent {
     private String label; // optional
     private String license; // optional
     private String logo; // optional
-    private String metadata; // optional
+    private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
@@ -86,6 +90,11 @@ public class ImageContent {
         return label;
     }
 
+    /**
+     * @param label A content resource may have a label, and if there is a choice of content resource for the same
+     * canvas, then they must have labels. The label should be a brief description of the resource, such as “black and
+     * white” versus “color photograph”.
+     */
     public void setLabel(String label) {
         this.label = label;
     }
@@ -106,11 +115,11 @@ public class ImageContent {
         this.logo = logo;
     }
 
-    public String getMetadata() {
+    public List<Metadata> getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(String metadata) {
+    public void setMetadata(List<Metadata> metadata) {
         this.metadata = metadata;
     }
 
