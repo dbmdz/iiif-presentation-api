@@ -22,9 +22,9 @@ import java.util.List;
  * @author Ralf Eichinger
  */
 public class Sequence {
-    private String id;
+    private String id; // optional
     private String label;
-    private final String type = "sc:Sequence";
+    private final String type = "sc:Sequence"; // required
     private String viewingDirection = "left-to-right";
     private String viewingHint = "paged";
 

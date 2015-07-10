@@ -27,9 +27,9 @@ import java.util.List;
 public class Canvas {
 
     private int height;
-    private String id;
+    private String id; // required
     private String label;
-    private final String type = "sc:Canvas";
+    private final String type = "sc:Canvas"; // required
     private int width;
 
     private List<Image> images;

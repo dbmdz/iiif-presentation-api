@@ -27,10 +27,10 @@ public class Manifest {
     private String attribution;
     private final String context = "http://iiif.io/api/presentation/2/context.json";
     private String description;
-    private String id;
+    private String id; // required
     private String label;
     private String license;
-    private final String type = "sc:Manifest";
+    private final String type = "sc:Manifest"; // required
     private String within;
     private List<Sequence> sequences;
 
