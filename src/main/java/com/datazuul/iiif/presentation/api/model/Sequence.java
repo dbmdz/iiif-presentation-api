@@ -15,6 +15,7 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
@@ -22,16 +23,50 @@ import java.util.List;
  * @author Ralf Eichinger
  */
 public class Sequence {
-    private String id; // optional
-    private String label;
-    private final String type = "sc:Sequence"; // required
-    private String viewingDirection = "left-to-right";
-    private String viewingHint = "paged";
 
+    private String attribution; // optional
     private List<Canvas> canvases;
+    private String description; // optional
+    private String id; // optional
+    private String label; // optional
+    private String license; // optional
+    private String logo; // optional
+    private String metadata; // optional
+    private String related; // optional
+    private String seeAlso; // optional
+    private Service service; // optional
+    private String startCanvas; // optional
+    private String thumbnail; // optional
+    private final String type = "sc:Sequence"; // required
+    private String viewingDirection = "left-to-right"; // optional
+    private String viewingHint = "paged"; // optional
+    private String within; // optional
 
-    public String getType() {
-        return type;
+    public Sequence() {
+    }
+
+    public String getAttribution() {
+        return attribution;
+    }
+
+    public void setAttribution(String attribution) {
+        this.attribution = attribution;
+    }
+
+    public List<Canvas> getCanvases() {
+        return canvases;
+    }
+
+    public void setCanvases(List<Canvas> canvases) {
+        this.canvases = canvases;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getId() {
@@ -50,6 +85,74 @@ public class Sequence {
         this.label = label;
     }
 
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public String getRelated() {
+        return related;
+    }
+
+    public void setRelated(String related) {
+        this.related = related;
+    }
+
+    public String getSeeAlso() {
+        return seeAlso;
+    }
+
+    public void setSeeAlso(String seeAlso) {
+        this.seeAlso = seeAlso;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public String getStartCanvas() {
+        return startCanvas;
+    }
+
+    public void setStartCanvas(String startCanvas) {
+        this.startCanvas = startCanvas;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
+    }
+
+    public String getType() {
+        return type;
+    }
+
     public String getViewingDirection() {
         return viewingDirection;
     }
@@ -66,13 +169,12 @@ public class Sequence {
         this.viewingHint = viewingHint;
     }
 
-    public List<Canvas> getCanvases() {
-        return canvases;
+    public String getWithin() {
+        return within;
     }
 
-    public void setCanvases(List<Canvas> canvases) {
-        this.canvases = canvases;
+    public void setWithin(String within) {
+        this.within = within;
     }
-    
-    
+
 }

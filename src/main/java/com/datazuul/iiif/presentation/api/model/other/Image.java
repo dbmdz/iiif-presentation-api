@@ -13,29 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datazuul.iiif.presentation.api.model;
+package com.datazuul.iiif.presentation.api.model.other;
 
 /**
  *
  * @author Ralf Eichinger
  */
-public class Tile {
-    private int width;
-    private int[] scaleFactors;
+public class Image {
+    private final String motivation = "sc:painting";
+    private final String type = "oa:Annotation";
+    
+    private Resource resource;
 
-    public int getWidth() {
-        return width;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
-    public int[] getScaleFactors() {
-        return scaleFactors;
+    public String getMotivation() {
+        return motivation;
     }
 
-    public void setScaleFactors(int[] scaleFactors) {
-        this.scaleFactors = scaleFactors;
+    public String getType() {
+        return type;
     }
 }

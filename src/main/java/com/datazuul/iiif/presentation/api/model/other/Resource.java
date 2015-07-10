@@ -13,26 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datazuul.iiif.presentation.api.model;
+package com.datazuul.iiif.presentation.api.model.other;
 
 /**
  *
  * @author Ralf Eichinger
  */
-public class Service {
-
-    protected String context;
-    // If a IIIF Image API service is available for the image,
-    // then a link to the service’s base URI should be included:
+public class Resource {
+    protected String format;
+    // the URI at which the image can be obtained: "%3A" == ":"
+    // {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
     protected String id;
-    protected String profile;
+    protected String type;
+    
+    private Service service;
 
-    public String getContext() {
-        return context;
+    public String getFormat() {
+        return format;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     public String getId() {
@@ -43,12 +44,21 @@ public class Service {
         this.id = id;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getType() {
+        return type;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setType(String type) {
+        this.type = type;
     }
 
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+    
+    
 }

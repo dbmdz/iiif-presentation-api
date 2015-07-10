@@ -15,6 +15,8 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Image;
+import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
@@ -26,16 +28,52 @@ import java.util.List;
  */
 public class Canvas {
 
-    private int height;
+    private String attribution; // optional
+    private String description; // optional
+    private int height; // required
     private String id; // required
-    private String label;
-    private final String type = "sc:Canvas"; // required
-    private int width;
-
     private List<Image> images;
+    private String label; // required
+    private String license; // optional
+    private String logo; // optional
+    private String metadata; // optional
+    private String related; // optional
+    private String seeAlso; // optional
+    private Service service; // optional
+    private final String thumbnail; // recommended
+    private final String type = "sc:Canvas"; // required
+    private String viewingHint; // optional
+    private int width; // required
+    private String within; // optional
 
-    public String getType() {
-        return type;
+    public Canvas(String id, String label, int height, int width, String thumbnail) {
+        assert id != null;
+        assert label != null;
+        assert height > -1;
+        assert width > -1;
+
+        this.id = id;
+        this.height = height;
+        this.label = label;
+        this.width = width;
+
+        this.thumbnail = thumbnail;
+    }
+
+    public String getAttribution() {
+        return attribution;
+    }
+
+    public void setAttribution(String attribution) {
+        this.attribution = attribution;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getHeight() {
@@ -54,12 +92,84 @@ public class Canvas {
         this.id = id;
     }
 
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
     public String getLabel() {
         return label;
     }
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public String getRelated() {
+        return related;
+    }
+
+    public void setRelated(String related) {
+        this.related = related;
+    }
+
+    public String getSeeAlso() {
+        return seeAlso;
+    }
+
+    public void setSeeAlso(String seeAlso) {
+        this.seeAlso = seeAlso;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getViewingHint() {
+        return viewingHint;
+    }
+
+    public void setViewingHint(String viewingHint) {
+        this.viewingHint = viewingHint;
     }
 
     public int getWidth() {
@@ -70,12 +180,12 @@ public class Canvas {
         this.width = width;
     }
 
-    public List<Image> getImages() {
-        return images;
+    public String getWithin() {
+        return within;
     }
 
-    public void setImages(List<Image> images) {
-        this.images = images;
+    public void setWithin(String within) {
+        this.within = within;
     }
 
 }

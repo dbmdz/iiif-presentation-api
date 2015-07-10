@@ -13,19 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datazuul.iiif.presentation.api.model;
-
-import java.util.List;
+package com.datazuul.iiif.presentation.api.model.other;
 
 /**
  *
  * @author Ralf Eichinger
  */
-public class ImageService extends Service {
+public class ImageResource extends Resource {
+
     private int height;
     private int width;
-    
-    private List<Tile> tiles;
+
+    public ImageResource() {
+        type = "dctypes:Image";
+    }
 
     public int getHeight() {
         return height;
@@ -42,14 +43,4 @@ public class ImageService extends Service {
     public void setWidth(int width) {
         this.width = width;
     }
-
-    public List<Tile> getTiles() {
-        return tiles;
-    }
-
-    public void setTiles(List<Tile> tiles) {
-        this.tiles = tiles;
-    }
-    
-    
 }

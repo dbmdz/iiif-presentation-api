@@ -15,6 +15,7 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
@@ -24,16 +25,36 @@ import java.util.List;
  * @see http://iiif.io/api/presentation/2.0/#manifest
  */
 public class Manifest {
-    private String attribution;
+    private String attribution; // optional
     private final String context = "http://iiif.io/api/presentation/2/context.json";
-    private String description;
-    private String id; // required
-    private String label;
-    private String license;
-    private final String type = "sc:Manifest"; // required
-    private String within;
+    private final String description; // recommended
+    private final String id; // required
+    private final String label; // required
+    private String license; // optional
+    private String logo; // optional
+    private final String metadata; // recommended
+    private String related; // optional
+    private String seeAlso; // optional
     private List<Sequence> sequences;
+    private Service service; // optional
+    private final String thumbnail; // recommended
+    private final String type = "sc:Manifest"; // required
+    private String viewingDirection; // optional
+    private String viewingHint; // optional
+    private String within; // optional
 
+    public Manifest(String id, String label, String description, String metadata, String thumbnail) {
+        assert id != null;
+        assert label != null;
+        
+        this.id = id;
+        this.label = label;
+        
+        this.description = description;
+        this.metadata = metadata;
+        this.thumbnail = thumbnail;
+    }
+    
     public String getAttribution() {
         return attribution;
     }
@@ -42,12 +63,20 @@ public class Manifest {
         this.attribution = attribution;
     }
 
+    public String getContext() {
+        return context;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getId() {
+        return id;
+    }
+
+    public String getLabel() {
+        return label;
     }
 
     public String getLicense() {
@@ -58,12 +87,32 @@ public class Manifest {
         this.license = license;
     }
 
-    public String getWithin() {
-        return within;
+    public String getLogo() {
+        return logo;
     }
 
-    public void setWithin(String within) {
-        this.within = within;
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public String getRelated() {
+        return related;
+    }
+
+    public void setRelated(String related) {
+        this.related = related;
+    }
+
+    public String getSeeAlso() {
+        return seeAlso;
+    }
+
+    public void setSeeAlso(String seeAlso) {
+        this.seeAlso = seeAlso;
     }
 
     public List<Sequence> getSequences() {
@@ -74,23 +123,43 @@ public class Manifest {
         this.sequences = sequences;
     }
 
-    public String getId() {
-        return id;
+    public Service getService() {
+        return service;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setService(Service service) {
+        this.service = service;
     }
 
-    public String getLabel() {
-        return label;
-    }
-
-    public String getContext() {
-        return context;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
     public String getType() {
         return type;
+    }
+
+    public String getViewingDirection() {
+        return viewingDirection;
+    }
+
+    public void setViewingDirection(String viewingDirection) {
+        this.viewingDirection = viewingDirection;
+    }
+
+    public String getViewingHint() {
+        return viewingHint;
+    }
+
+    public void setViewingHint(String viewingHint) {
+        this.viewingHint = viewingHint;
+    }
+
+    public String getWithin() {
+        return within;
+    }
+
+    public void setWithin(String within) {
+        this.within = within;
     }
 }
