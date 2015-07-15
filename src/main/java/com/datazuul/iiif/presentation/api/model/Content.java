@@ -15,77 +15,51 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
-import com.datazuul.iiif.presentation.api.model.other.Image;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
  * <p>
- * The canvas represents an individual page or view and acts as a central point for laying out the different content
- * resources that make up the display. As with sequences, the name should not begin with a number. Suggested patterns
- * are “f1r” or “p1”.</p>
+ * Content resources such as images or texts that are associated with a canvas.</p>
  *
  * <p>
- * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/canvas/{name}</p>
- *
- * <ul>
- * <li>Each canvas should have one or more content resources associated with it. Zero is possible but unlikely; it
- * represents the case where the page exists (or existed) but has not been digitized.</li>
- * </ul>
+ * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format}</p>
  *
  * @author Ralf Eichinger
  */
-public class Canvas {
+public class Content {
 
     private String attribution; // optional
     private String description; // optional
-    private final int height; // required
+    private String format; // optional
+    private int height; // optional
     private final String id; // required
-    private List<Image> images;
-    private final String label; // required
+    private String label; // optional
     private String license; // optional
     private String logo; // optional
     private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
-    private String thumbnail; // recommended
-    private final String type = "sc:Canvas"; // required
+    private String thumbnail; // optional
+    private final String type = "oa:Annotation"; // required
     private String viewingHint; // optional
-    private final int width; // required
+    private int width; // optional
     private String within; // optional
 
-    public Canvas(String id, String label, int height, int width) {
+    public Content(String id) {
         assert id != null;
-        assert label != null;
-        assert height > -1;
-        assert width > -1;
-
         this.id = id;
-        this.height = height;
-        this.label = label;
-        this.width = width;
-    }
-
-    /**
-     * @param id
-     * @param label A canvas must have a label, and it should be the page or view label such as “p. 1”, “front”, or
-     * “north view”.
-     * @param height
-     * @param width
-     * @param thumbnail
-     */
-    public Canvas(String id, String label, int height, int width, String thumbnail) {
-        this(id, label, height, width);
-
-        this.thumbnail = thumbnail;
     }
 
     public String getAttribution() {
         return attribution;
     }
 
+    /**
+     * @param attribution Any resource may have an attribution label.
+     */
     public void setAttribution(String attribution) {
         this.attribution = attribution;
     }
@@ -95,36 +69,52 @@ public class Canvas {
     }
 
     /**
-     * @param description A canvas may have a description to describe particular features of the view.
+     * @param description A content resource may have a description.
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
     }
 
     public int getHeight() {
         return height;
     }
 
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
     public String getId() {
         return id;
-    }
-
-    public List<Image> getImages() {
-        return images;
-    }
-
-    public void setImages(List<Image> images) {
-        this.images = images;
     }
 
     public String getLabel() {
         return label;
     }
 
+    /**
+     * @param label A content resource may have a label, and if there is a choice of content resource for the same
+     * canvas, then they must have labels. The label should be a brief description of the resource, such as "black and
+     * white" versus "color photograph".
+     */
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public String getLicense() {
         return license;
     }
 
+    /**
+     * @param license Any resource may have a license associated with it.
+     */
     public void setLicense(String license) {
         this.license = license;
     }
@@ -133,6 +123,9 @@ public class Canvas {
         return logo;
     }
 
+    /**
+     * @param logo Any resource may have a logo associated with it.
+     */
     public void setLogo(String logo) {
         this.logo = logo;
     }
@@ -142,7 +135,7 @@ public class Canvas {
     }
 
     /**
-     * @param metadata A canvas may have metadata pairs associated with it to describe its particular features.
+     * @param metadata A content resource may have metadata pairs associated with it.
      */
     public void setMetadata(List<Metadata> metadata) {
         this.metadata = metadata;
@@ -177,8 +170,8 @@ public class Canvas {
     }
 
     /**
-     * @param thumbnail A canvas may have a thumbnail and should have a thumbnail if there are multiple images or
-     * resources that make up the representation.
+     * @param thumbnail A content resource may have a thumbnail and should have a thumbnail if it is an option in a
+     * choice of resources.
      */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
@@ -200,6 +193,10 @@ public class Canvas {
         return width;
     }
 
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
     public String getWithin() {
         return within;
     }
@@ -207,5 +204,4 @@ public class Canvas {
     public void setWithin(String within) {
         this.within = within;
     }
-
 }

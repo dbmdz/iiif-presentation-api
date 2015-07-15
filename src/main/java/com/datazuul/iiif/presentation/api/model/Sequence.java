@@ -52,6 +52,15 @@ public class Sequence {
     public Sequence() {
     }
 
+    /**
+     * @param label A sequence may have a label, and if there are multiple sequences in a single manifest then they must
+     * have labels. The label should briefly convey the nature of sequence, such as “Current Page Order”.
+     */
+    public Sequence(String label) {
+        assert label != null;
+        this.label = label;
+    }
+
     public String getAttribution() {
         return attribution;
     }
@@ -72,6 +81,9 @@ public class Sequence {
         return description;
     }
 
+    /**
+     * @param description A sequence may have a description to further explain how it differs from other sequences.
+     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -88,10 +100,6 @@ public class Sequence {
         return label;
     }
 
-    /**
-     * @param label A sequence may have a label, and if there are multiple sequences in a single manifest then they must
-     * have labels. The label should briefly convey the nature of sequence, such as “Current Page Order”.
-     */
     public void setLabel(String label) {
         this.label = label;
     }
@@ -160,6 +168,10 @@ public class Sequence {
         return thumbnail;
     }
 
+    /**
+     * @param thumbnail A sequence may have a thumbnail and should have a thumbnail if there are multiple sequences in a
+     * single manifest. Each of the thumbnails should be different.
+     */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }

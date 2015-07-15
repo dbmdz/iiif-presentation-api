@@ -31,7 +31,7 @@ public class ManifestGeneratorTest {
 
     @Test
     public void testGenerateJson() throws JsonProcessingException {
-        Manifest manifest = new Manifest("testid", "testlabel", "testdescription", "testmetadata", "testthumbnail");
+        Manifest manifest = new Manifest("testid", "testlabel");
         ManifestGenerator mg = new ManifestGenerator();
         String json = mg.generateJson(manifest);
         System.out.println(json);
