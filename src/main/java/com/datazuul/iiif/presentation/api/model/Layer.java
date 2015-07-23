@@ -24,19 +24,15 @@ import java.util.List;
  * 
  * @author Ralf Eichinger
  */
-public class Layer {
-    private String attribution; // optional
+public class Layer extends AbstractIiifResource {
     private String description; // optional
     private final String id; // required
     private final String label; // required
-    private String license; // optional
-    private String logo; // optional
     private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
     private String thumbnail; // optional
-    private final String type = "sc:Layer"; // required
     private String viewingDirection; // optional
     private String viewingHint; // optional
     private String within; // optional
@@ -47,14 +43,8 @@ public class Layer {
         
         this.id = id;
         this.label = label;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
+        
+        type = "sc:Layer";
     }
 
     public String getDescription() {
@@ -71,22 +61,6 @@ public class Layer {
 
     public String getLabel() {
         return label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -129,14 +103,15 @@ public class Layer {
         this.thumbnail = thumbnail;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getViewingDirection() {
         return viewingDirection;
     }
 
+    /**
+     * @see ViewingDirections
+     * @param viewingDirection The direction that canvases of the resource should be presented when rendered for the
+     * user to navigate and/or read. A range or layer may have a viewing direction.
+     */
     public void setViewingDirection(String viewingDirection) {
         this.viewingDirection = viewingDirection;
     }

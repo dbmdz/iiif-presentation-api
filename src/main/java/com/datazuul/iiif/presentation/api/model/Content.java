@@ -16,118 +16,39 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
-import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
  * <p>
  * Content resources such as images or texts that are associated with a canvas.</p>
  *
- * <p>
- * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format}</p>
+ * <ul>
+ * <li>A canvas or content resource must not have a viewing direction.</li>
+ * </ul>
  *
  * @author Ralf Eichinger
  */
-public class Content {
+public class Content extends AbstractIiifResource {
 
-    private String attribution; // optional
-    private String description; // optional
-    private String format; // optional
-    private int height; // optional
-    private final String id; // required
-    private String label; // optional
-    private String license; // optional
-    private String logo; // optional
-    private List<Metadata> metadata; // optional
-    private String related; // optional
-    private String seeAlso; // optional
-    private Service service; // optional
-    private String thumbnail; // optional
-    private final String type = "oa:Annotation"; // required
-    private String viewingHint; // optional
-    private int width; // optional
-    private String within; // optional
+    protected String id; // required
+    protected List<Metadata> metadata; // optional
+    protected String description; // optional
+    protected String thumbnail; // optional
+    protected String format; // optional
+    protected int height; // optional
+    protected int width; // optional
 
+    /**
+     * @param id A content resource must have an id unless it is embedded in the response, and it must be the http(s)
+     * URI at which the resource is published.
+     */
     public Content(String id) {
         assert id != null;
         this.id = id;
     }
 
-    public String getAttribution() {
-        return attribution;
-    }
-
-    /**
-     * @param attribution Any resource may have an attribution label.
-     */
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * @param description A content resource may have a description.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public String getId() {
         return id;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * @param label A content resource may have a label, and if there is a choice of content resource for the same
-     * canvas, then they must have labels. The label should be a brief description of the resource, such as "black and
-     * white" versus "color photograph".
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    /**
-     * @param license Any resource may have a license associated with it.
-     */
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    /**
-     * @param logo Any resource may have a logo associated with it.
-     */
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -141,28 +62,15 @@ public class Content {
         this.metadata = metadata;
     }
 
-    public String getRelated() {
-        return related;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRelated(String related) {
-        this.related = related;
-    }
-
-    public String getSeeAlso() {
-        return seeAlso;
-    }
-
-    public void setSeeAlso(String seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
+    /**
+     * @param description A content resource may have a description.
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getThumbnail() {
@@ -177,31 +85,45 @@ public class Content {
         this.thumbnail = thumbnail;
     }
 
-    public String getType() {
-        return type;
+    public String getFormat() {
+        return format;
     }
 
-    public String getViewingHint() {
-        return viewingHint;
+    /**
+     * @param format The specific media type (often called a MIME type) of a content resource, for example “image/jpeg”.
+     * This is important for distinguishing text in XML from plain text, for example. A content resource may have a
+     * format, and if so, it must be the value of the Content-Type header returned when the resource is dereferenced.
+     * N.B. This is different to the formats property in the Image API, which gives the extension to use within that
+     * API. It would be inappropriate to use in this case, as format can be used with any content resource, not just
+     * images.
+     */
+    public void setFormat(String format) {
+        this.format = format;
     }
 
-    public void setViewingHint(String viewingHint) {
-        this.viewingHint = viewingHint;
+    public int getHeight() {
+        return height;
+    }
+
+    /**
+     * @param height The height of a canvas or image resource. For images, this is in pixels. No particular units are
+     * required for canvases, as the dimensions provide an aspect ratio for the resources to be located within rather
+     * than measuring any physical property of the object. Content resources may have a height, given in pixels, if
+     * appropriate.
+     */
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public int getWidth() {
         return width;
     }
 
+    /**
+     * @param width The width of a canvas or image resource. For images, this is in pixels. No particular units are
+     * required for canvases. Content resources may have a height, given in pixels, if appropriate.
+     */
     public void setWidth(int width) {
         this.width = width;
-    }
-
-    public String getWithin() {
-        return within;
-    }
-
-    public void setWithin(String within) {
-        this.within = within;
     }
 }

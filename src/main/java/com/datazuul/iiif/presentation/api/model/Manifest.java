@@ -26,43 +26,26 @@ import java.util.List;
  *
  * <ul>
  * <li>Each manifest must, and is very likely to, have one sequence, but may have more than one.</li>
+ * <li>A manifest, sequence or canvas must not have a format.</li>
+ * <li>A manifest or sequence must not have a height.</li>
+ * <li>A manifest or sequence must not have a width.</li>
  * </ul>
  *
  * @author Ralf Eichinger
  * @see http://iiif.io/api/presentation/2.0/#manifest
  */
-public class Manifest {
+public class Manifest extends AbstractIiifResource {
 
-    /**
-     * A human readable label that must be displayed when the resource it is associated with is displayed or used. For
-     * example, this could be used to present copyright or ownership statements, or simply an acknowledgement of the
-     * owning and/or publishing institutions.
-     */
-    private String attribution; // optional
     private final String context = "http://iiif.io/api/presentation/2/context.json";
     private String description; // recommended
     private final String id; // required
     private final String label; // required
-    /**
-     * A link to an external resource that describes the license or rights statement under which the resource is being
-     * used. The rationale for this being a URI and not a human readable label is that typically there is one license
-     * for many resources, and the text is too long to be displayed to the user along with the object. If displaying the
-     * text is a requirement, then it is recommended to include the information using the attribution property instead.
-     */
-    private String license; // optional
-    /**
-     * A small image that represents an individual or organization associated with the resource it is attached to. This
-     * could be the logo of the owning or hosting institution. It is recommended that a IIIF Image API service be
-     * available for this image for manipulations such as resizing.
-     */
-    private String logo; // optional
     private List<Metadata> metadata; // recommended
     private String related; // optional
     private String seeAlso; // optional
     private List<Sequence> sequences;
     private Service service; // optional
     private String thumbnail; // recommended
-    private final String type = "sc:Manifest"; // required
     private String viewingDirection; // optional
     private String viewingHint; // optional
     private String within; // optional
@@ -73,11 +56,18 @@ public class Manifest {
 
         this.id = id;
         this.label = label;
+        
+        this.type = "sc:Manifest";
     }
 
     /**
      *
-     * @param id
+     * @param id The URI that identifies the resource. It is recommended that an HTTP URI be used for all resources.
+     * Recommended HTTP URI patterns for the different classes of resource are given below. URIs from any registered
+     * scheme may be used, and implementers may find it convenient to use a UUID URN of the form:
+     * "urn:uuid:uuid-goes-here-1234". Resources that do not require URIs may be assigned blank node identifiers; this
+     * is the same as omitting @id. A manifest must have an id, and it must be the http(s) URI at which the manifest is
+     * published.
      * @param label A human readable label, name or title for the resource. This property is intended to be displayed as
      * a short, textual surrogate for the resource if a human needs to make a distinction between it and similar
      * resources, for example between pages or between a choice of images to display. A manifest must have a label, and
@@ -112,14 +102,6 @@ public class Manifest {
         this.thumbnail = thumbnail;
     }
 
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
-    }
-
     public String getContext() {
         return context;
     }
@@ -134,22 +116,6 @@ public class Manifest {
 
     public String getLabel() {
         return label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -192,14 +158,16 @@ public class Manifest {
         return thumbnail;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getViewingDirection() {
         return viewingDirection;
     }
 
+    /**
+     * @see ViewingDirections
+     * @param viewingDirection The direction that canvases of the resource should be presented when rendered for the
+     * user to navigate and/or read. A manifest may have a viewing direction, and if so, it applies to all of its
+     * sequences unless the sequence specifies its own viewing direction.
+     */
     public void setViewingDirection(String viewingDirection) {
         this.viewingDirection = viewingDirection;
     }

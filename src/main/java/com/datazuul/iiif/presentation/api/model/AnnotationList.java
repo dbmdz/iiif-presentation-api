@@ -24,34 +24,24 @@ import java.util.List;
  * 
  * @author Ralf Eichinger
  */
-public class AnnotationList {
+public class AnnotationList extends AbstractIiifResource {
 
-    private String attribution; // optional
     private String description; // optional
     private final String id; // required
     private String label; // optional
-    private String license; // optional
-    private String logo; // optional
     private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
     private String thumbnail; // optional
-    private final String type = "sc:AnnotationList"; // required
     private String viewingHint; // optional
     private String within; // optional
 
     public AnnotationList(String id) {
         assert id != null;
         this.id = id;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
+        
+        type = "sc:AnnotationList";
     }
 
     public String getDescription() {
@@ -72,22 +62,6 @@ public class AnnotationList {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -128,10 +102,6 @@ public class AnnotationList {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getViewingHint() {

@@ -32,26 +32,24 @@ import java.util.List;
  * <ul>
  * <li>Each canvas should have one or more content resources associated with it. Zero is possible but unlikely; it
  * represents the case where the page exists (or existed) but has not been digitized.</li>
+ * <li>A manifest, sequence or canvas must not have a format.</li>
+ * <li>A canvas or content resource must not have a viewing direction.</li>
  * </ul>
  *
  * @author Ralf Eichinger
  */
-public class Canvas {
+public class Canvas extends AbstractIiifResource {
 
-    private String attribution; // optional
     private String description; // optional
     private final int height; // required
     private final String id; // required
     private List<Image> images;
     private final String label; // required
-    private String license; // optional
-    private String logo; // optional
     private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
     private String thumbnail; // recommended
-    private final String type = "sc:Canvas"; // required
     private String viewingHint; // optional
     private final int width; // required
     private String within; // optional
@@ -66,28 +64,28 @@ public class Canvas {
         this.height = height;
         this.label = label;
         this.width = width;
+        
+        type = "sc:Canvas";
     }
 
     /**
-     * @param id
+     * @param id A canvas must have an id, and it must be an http(s) URI. The canvas’s JSON representation should be
+     * published at that URI.
      * @param label A canvas must have a label, and it should be the page or view label such as “p. 1”, “front”, or
      * “north view”.
-     * @param height
-     * @param width
-     * @param thumbnail
+     * @param height The height of a canvas or image resource. For images, this is in pixels. No particular units are
+     * required for canvases, as the dimensions provide an aspect ratio for the resources to be located within rather
+     * than measuring any physical property of the object. A canvas must have a height, which does not have a unit type.
+     * It merely conveys, along with width, an aspect ratio.
+     * @param width The width of a canvas or image resource. For images, this is in pixels. No particular units are
+     * required for canvases. A canvas must have a height, which does not have a unit type. It merely conveys, along
+     * with width, an aspect ratio.
+     * @param thumbnail A canvas may have a thumbnail and should have a thumbnail if there are multiple images or
+     * resources that make up the representation.
      */
     public Canvas(String id, String label, int height, int width, String thumbnail) {
         this(id, label, height, width);
-
         this.thumbnail = thumbnail;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
     }
 
     public String getDescription() {
@@ -119,22 +117,6 @@ public class Canvas {
 
     public String getLabel() {
         return label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -182,10 +164,6 @@ public class Canvas {
      */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getViewingHint() {

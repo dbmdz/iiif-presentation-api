@@ -23,20 +23,16 @@ import java.util.List;
  * <p>Recommended URI Pattern: {scheme}://{host}/{prefix}/collection/{name}</p>
  * @author Ralf Eichinger
  */
-public class Collection {
+public class Collection extends AbstractIiifResource {
 
-    private String attribution; // optional
     private String description; // recommended
     private final String id; // required
     private final String label; // required
-    private String license; // optional
-    private String logo; // optional
     private final List<Metadata> metadata; // recommended
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
     private String thumbnail; // recommended
-    private final String type = "sc:Collection"; // required
     private String viewingHint; // optional
     private String within; // optional
 
@@ -48,14 +44,8 @@ public class Collection {
         this.label = label;
 
         this.metadata = metadata;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
+        
+        type = "sc:Collection";
     }
 
     public String getDescription() {
@@ -72,22 +62,6 @@ public class Collection {
 
     public String getLabel() {
         return label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -124,10 +98,6 @@ public class Collection {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getViewingHint() {

@@ -17,6 +17,7 @@ package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Service;
+import com.datazuul.iiif.presentation.api.model.other.ViewingDirections;
 import java.util.List;
 
 /**
@@ -25,31 +26,31 @@ import java.util.List;
  *
  * <ul>
  * <li>Each sequence must have at least one canvas and is likely to have more than one.</li>
+ * <li>A manifest, sequence or canvas must not have a format.</li>
+ * <li>A manifest or sequence must not have a height.</li>
+ * <li>A manifest or sequence must not have a width.</li>
  * </ul>
  *
  * @author Ralf Eichinger
  */
-public class Sequence {
+public class Sequence extends AbstractIiifResource {
 
-    private String attribution; // optional
     private List<Canvas> canvases;
     private String description; // optional
     private String id; // optional
     private String label; // optional
-    private String license; // optional
-    private String logo; // optional
     private List<Metadata> metadata; // optional
     private String related; // optional
     private String seeAlso; // optional
     private Service service; // optional
     private String startCanvas; // optional
     private String thumbnail; // optional
-    private final String type = "sc:Sequence"; // required
-    private String viewingDirection = "left-to-right"; // optional
+    private String viewingDirection = ViewingDirections.LTR; // optional
     private String viewingHint = "paged"; // optional
     private String within; // optional
 
     public Sequence() {
+        type = "sc:Sequence";
     }
 
     /**
@@ -57,16 +58,9 @@ public class Sequence {
      * have labels. The label should briefly convey the nature of sequence, such as “Current Page Order”.
      */
     public Sequence(String label) {
+        this();
         assert label != null;
         this.label = label;
-    }
-
-    public String getAttribution() {
-        return attribution;
-    }
-
-    public void setAttribution(String attribution) {
-        this.attribution = attribution;
     }
 
     public List<Canvas> getCanvases() {
@@ -92,6 +86,9 @@ public class Sequence {
         return id;
     }
 
+    /**
+     * @param id A sequence may have an id.
+     */
     public void setId(String id) {
         this.id = id;
     }
@@ -102,22 +99,6 @@ public class Sequence {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
-    public String getLogo() {
-        return logo;
-    }
-
-    public void setLogo(String logo) {
-        this.logo = logo;
     }
 
     public List<Metadata> getMetadata() {
@@ -176,14 +157,16 @@ public class Sequence {
         this.thumbnail = thumbnail;
     }
 
-    public String getType() {
-        return type;
-    }
-
     public String getViewingDirection() {
         return viewingDirection;
     }
 
+    /**
+     * @see ViewingDirections
+     * @param viewingDirection The direction that canvases of the resource should be presented when rendered for the
+     * user to navigate and/or read. A sequence may have a viewing direction, and it MAY be different to that of the
+     * manifest.
+     */
     public void setViewingDirection(String viewingDirection) {
         this.viewingDirection = viewingDirection;
     }
