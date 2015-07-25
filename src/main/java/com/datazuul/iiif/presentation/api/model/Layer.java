@@ -27,7 +27,6 @@ import java.util.List;
 public class Layer extends AbstractIiifResource {
 
     private String description; // optional
-    private final String id; // required
     private final String label; // required
     private List<Metadata> metadata; // optional
     private String thumbnail; // optional
@@ -50,10 +49,6 @@ public class Layer extends AbstractIiifResource {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getLabel() {

@@ -31,6 +31,7 @@ public abstract class AbstractIiifResource {
     protected Service service; // optional
     protected String seeAlso; // optional
     protected String within; // optional
+    protected String id; // optional
 
     public String getAttribution() {
         return attribution;
@@ -139,6 +140,14 @@ public abstract class AbstractIiifResource {
      */
     public void setWithin(String within) {
         this.within = within;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
 }

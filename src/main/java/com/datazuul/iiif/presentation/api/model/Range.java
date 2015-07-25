@@ -27,7 +27,6 @@ import java.util.List;
 public class Range extends AbstractIiifResource {
 
     private String description; // optional
-    private final String id; // required
     private final String label; // required
     private List<Metadata> metadata; // optional
     private String startCanvas; // optional
@@ -51,10 +50,6 @@ public class Range extends AbstractIiifResource {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getLabel() {

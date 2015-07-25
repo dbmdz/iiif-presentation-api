@@ -15,17 +15,11 @@
  */
 package com.datazuul.iiif.presentation.api;
 
-import com.datazuul.iiif.presentation.api.json.CanvasMixIn;
-import com.datazuul.iiif.presentation.api.json.ImageMixIn;
+import com.datazuul.iiif.presentation.api.json.AbstractIiifResourceMixIn;
 import com.datazuul.iiif.presentation.api.json.ManifestMixIn;
-import com.datazuul.iiif.presentation.api.json.ResourceMixIn;
-import com.datazuul.iiif.presentation.api.json.SequenceMixIn;
 import com.datazuul.iiif.presentation.api.json.ServiceMixIn;
-import com.datazuul.iiif.presentation.api.model.Canvas;
-import com.datazuul.iiif.presentation.api.model.other.Image;
+import com.datazuul.iiif.presentation.api.model.AbstractIiifResource;
 import com.datazuul.iiif.presentation.api.model.Manifest;
-import com.datazuul.iiif.presentation.api.model.other.Resource;
-import com.datazuul.iiif.presentation.api.model.Sequence;
 import com.datazuul.iiif.presentation.api.model.other.Service;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -92,11 +86,8 @@ public class ManifestGenerator {
 
     public String generateJson(Manifest manifest) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        mapper.addMixIn(Canvas.class, CanvasMixIn.class);
-        mapper.addMixIn(Image.class, ImageMixIn.class);
+        mapper.addMixIn(AbstractIiifResource.class, AbstractIiifResourceMixIn.class);
         mapper.addMixIn(Manifest.class, ManifestMixIn.class);
-        mapper.addMixIn(Resource.class, ResourceMixIn.class);
-        mapper.addMixIn(Sequence.class, SequenceMixIn.class);
         mapper.addMixIn(Service.class, ServiceMixIn.class);
         mapper.setSerializationInclusion(Include.NON_NULL);
         String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);

@@ -27,7 +27,6 @@ import java.util.List;
 public class Collection extends AbstractIiifResource {
 
     private String description; // recommended
-    private final String id; // required
     private final String label; // required
     private final List<Metadata> metadata; // recommended
     private String thumbnail; // recommended
@@ -51,10 +50,6 @@ public class Collection extends AbstractIiifResource {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getLabel() {

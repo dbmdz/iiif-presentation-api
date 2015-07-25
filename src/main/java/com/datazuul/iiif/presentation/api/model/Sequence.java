@@ -36,7 +36,6 @@ public class Sequence extends AbstractIiifResource {
 
     private List<Canvas> canvases;
     private String description; // optional
-    private String id; // optional
     private String label; // optional
     private List<Metadata> metadata; // optional
     private String startCanvas; // optional
@@ -77,13 +76,10 @@ public class Sequence extends AbstractIiifResource {
         this.description = description;
     }
 
-    public String getId() {
-        return id;
-    }
-
     /**
      * @param id A sequence may have an id.
      */
+    @Override
     public void setId(String id) {
         this.id = id;
     }

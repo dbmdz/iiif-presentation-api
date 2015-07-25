@@ -204,7 +204,6 @@ public class Manifest extends AbstractIiifResource {
 
     private final String context = "http://iiif.io/api/presentation/2/context.json";
     private String description; // recommended
-    private final String id; // required
     private final String label; // required
     private List<Metadata> metadata; // recommended
     private List<Sequence> sequences;
@@ -270,10 +269,6 @@ public class Manifest extends AbstractIiifResource {
 
     public String getDescription() {
         return description;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getLabel() {

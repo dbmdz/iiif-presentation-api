@@ -30,7 +30,6 @@ import java.util.List;
  */
 public class Content extends AbstractIiifResource {
 
-    protected String id; // required
     protected List<Metadata> metadata; // optional
     protected String description; // optional
     protected String thumbnail; // optional
@@ -46,10 +45,6 @@ public class Content extends AbstractIiifResource {
     public Content(String id) {
         assert id != null;
         this.id = id;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public List<Metadata> getMetadata() {

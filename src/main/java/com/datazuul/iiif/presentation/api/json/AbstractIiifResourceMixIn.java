@@ -21,10 +21,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author Ralf Eichinger
  */
-public abstract class CanvasMixIn {
+public abstract class AbstractIiifResourceMixIn {
     @JsonProperty("@id")
     abstract String getId();
     
     @JsonProperty("@type")
     abstract String getType();
+    
 }

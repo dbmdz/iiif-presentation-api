@@ -27,7 +27,6 @@ import java.util.List;
 public class Annotation extends AbstractIiifResource {
 
     private String description; // optional
-    private String id; // optional
     private String label; // optional
     private List<Metadata> metadata; // optional
     private String thumbnail; // optional
@@ -45,13 +44,6 @@ public class Annotation extends AbstractIiifResource {
         this.description = description;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getLabel() {
         return label;

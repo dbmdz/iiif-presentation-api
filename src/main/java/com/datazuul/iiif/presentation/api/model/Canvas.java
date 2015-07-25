@@ -41,7 +41,6 @@ public class Canvas extends AbstractIiifResource {
 
     private String description; // optional
     private final int height; // required
-    private final String id; // required
     private List<Image> images;
     private final String label; // required
     private List<Metadata> metadata; // optional
@@ -96,10 +95,6 @@ public class Canvas extends AbstractIiifResource {
 
     public int getHeight() {
         return height;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public List<Image> getImages() {
