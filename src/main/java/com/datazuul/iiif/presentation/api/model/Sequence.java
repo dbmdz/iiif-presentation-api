@@ -16,8 +16,7 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
-import com.datazuul.iiif.presentation.api.model.other.Service;
-import com.datazuul.iiif.presentation.api.model.other.ViewingDirections;
+import com.datazuul.iiif.presentation.api.model.other.ViewingDirection;
 import java.util.List;
 
 /**
@@ -40,14 +39,10 @@ public class Sequence extends AbstractIiifResource {
     private String id; // optional
     private String label; // optional
     private List<Metadata> metadata; // optional
-    private String related; // optional
-    private String seeAlso; // optional
-    private Service service; // optional
     private String startCanvas; // optional
     private String thumbnail; // optional
-    private String viewingDirection = ViewingDirections.LTR; // optional
+    private String viewingDirection; // optional
     private String viewingHint = "paged"; // optional
-    private String within; // optional
 
     public Sequence() {
         type = "sc:Sequence";
@@ -113,34 +108,17 @@ public class Sequence extends AbstractIiifResource {
         this.metadata = metadata;
     }
 
-    public String getRelated() {
-        return related;
-    }
-
-    public void setRelated(String related) {
-        this.related = related;
-    }
-
-    public String getSeeAlso() {
-        return seeAlso;
-    }
-
-    public void setSeeAlso(String seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
     public String getStartCanvas() {
         return startCanvas;
     }
 
+    /**
+     * @param startCanvas A link from a sequence or range to a canvas that is contained within the sequence. On seeing
+     * this relationship, a client should advance to the specified canvas when beginning navigation through the
+     * sequence/range. This allows the client to begin with the first canvas that contains interesting content rather
+     * than requiring the user to skip past blank or empty canvases manually. A sequence or a range may have this
+     * relationship, and the target must be a canvas.
+     */
     public void setStartCanvas(String startCanvas) {
         this.startCanvas = startCanvas;
     }
@@ -162,7 +140,7 @@ public class Sequence extends AbstractIiifResource {
     }
 
     /**
-     * @see ViewingDirections
+     * @see ViewingDirection
      * @param viewingDirection The direction that canvases of the resource should be presented when rendered for the
      * user to navigate and/or read. A sequence may have a viewing direction, and it MAY be different to that of the
      * manifest.
@@ -175,16 +153,10 @@ public class Sequence extends AbstractIiifResource {
         return viewingHint;
     }
 
+    /**
+     * @param viewingHint A manifest, sequence or range may have a viewing hint, with scope as per viewingDirection.
+     */
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
     }
-
-    public String getWithin() {
-        return within;
-    }
-
-    public void setWithin(String within) {
-        this.within = within;
-    }
-
 }

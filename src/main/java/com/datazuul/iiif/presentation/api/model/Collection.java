@@ -16,11 +16,12 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
-import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
- * <p>Recommended URI Pattern: {scheme}://{host}/{prefix}/collection/{name}</p>
+ * <p>
+ * Recommended URI Pattern: {scheme}://{host}/{prefix}/collection/{name}</p>
+ *
  * @author Ralf Eichinger
  */
 public class Collection extends AbstractIiifResource {
@@ -29,12 +30,8 @@ public class Collection extends AbstractIiifResource {
     private final String id; // required
     private final String label; // required
     private final List<Metadata> metadata; // recommended
-    private String related; // optional
-    private String seeAlso; // optional
-    private Service service; // optional
     private String thumbnail; // recommended
     private String viewingHint; // optional
-    private String within; // optional
 
     public Collection(String id, String label, List<Metadata> metadata) {
         assert id != null;
@@ -44,7 +41,7 @@ public class Collection extends AbstractIiifResource {
         this.label = label;
 
         this.metadata = metadata;
-        
+
         type = "sc:Collection";
     }
 
@@ -68,30 +65,6 @@ public class Collection extends AbstractIiifResource {
         return metadata;
     }
 
-    public String getRelated() {
-        return related;
-    }
-
-    public void setRelated(String related) {
-        this.related = related;
-    }
-
-    public String getSeeAlso() {
-        return seeAlso;
-    }
-
-    public void setSeeAlso(String seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
     public String getThumbnail() {
         return thumbnail;
     }
@@ -106,13 +79,5 @@ public class Collection extends AbstractIiifResource {
 
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
-    }
-
-    public String getWithin() {
-        return within;
-    }
-
-    public void setWithin(String within) {
-        this.within = within;
     }
 }

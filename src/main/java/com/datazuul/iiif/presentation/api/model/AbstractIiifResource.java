@@ -15,6 +15,8 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import com.datazuul.iiif.presentation.api.model.other.Service;
+
 /**
  *
  * @author Ralf Eichinger
@@ -25,6 +27,10 @@ public abstract class AbstractIiifResource {
     protected String license; // optional
     protected String logo; // optional
     protected String type; // required
+    protected String related; // optional
+    protected Service service; // optional
+    protected String seeAlso; // optional
+    protected String within; // optional
 
     public String getAttribution() {
         return attribution;
@@ -75,6 +81,64 @@ public abstract class AbstractIiifResource {
      */
     public String getType() {
         return type;
+    }
+
+    public String getRelated() {
+        return related;
+    }
+
+    /**
+     * @param related A link to an external resource intended to be displayed directly to the user, and is related to
+     * the resource that has the related property. Examples might include a video or academic paper about the resource,
+     * a website, an HTML description, and so forth. A label and the format of the related resource should be given to
+     * assist clients in rendering the resource to the user. Any resource may have an external resource related to it.
+     */
+    public void setRelated(String related) {
+        this.related = related;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    /**
+     * @param service A link to a service that makes more functionality available for the resource, such as from an
+     * image to the base URI of an associated IIIF Image API service. The service resource should have additional
+     * information associated with it in order to allow the client to determine how to make appropriate use of it, such
+     * as a profile link to a service description. It may also have relevant information copied from the service itself.
+     * This duplication is permitted in order to increase the performance of rendering the object without necessitating
+     * additional HTTP requests. Any resource may have a link to an external service.
+     */
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    public String getSeeAlso() {
+        return seeAlso;
+    }
+
+    /**
+     * @param seeAlso A link to a machine readable document that semantically describes the resource with the seeAlso
+     * property, such as an XML or RDF description. This document could be used for search and discovery or inferencing
+     * purposes, or just to provide a longer description of the resource. The profile and format properties of the
+     * document should be given to help the client to make appropriate use of the document. Any resource may have an
+     * external description related to it.
+     */
+    public void setSeeAlso(String seeAlso) {
+        this.seeAlso = seeAlso;
+    }
+
+    public String getWithin() {
+        return within;
+    }
+
+    /**
+     * @param within A link to a resource that contains the current resource, such as annotation lists within a layer.
+     * This also allows linking upwards to collections that allow browsing of the digitized objects available. Any
+     * resource may be within a containing resource.
+     */
+    public void setWithin(String within) {
+        this.within = within;
     }
 
 }

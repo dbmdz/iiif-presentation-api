@@ -21,7 +21,7 @@ package com.datazuul.iiif.presentation.api.model.other;
  *
  * @author Ralf Eichinger
  */
-public class ViewingDirections {
+public class ViewingDirection {
 
     /**
      * The object is read from left to right, and is the default if not specified.

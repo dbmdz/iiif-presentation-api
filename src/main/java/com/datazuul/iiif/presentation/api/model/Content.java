@@ -37,6 +37,7 @@ public class Content extends AbstractIiifResource {
     protected String format; // optional
     protected int height; // optional
     protected int width; // optional
+    protected String viewingHint; // optional
 
     /**
      * @param id A content resource must have an id unless it is embedded in the response, and it must be the http(s)
@@ -125,5 +126,17 @@ public class Content extends AbstractIiifResource {
      */
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    public String getViewingHint() {
+        return viewingHint;
+    }
+
+    /**
+     * @param viewingHint A content resource may have a viewing hint but there are no defined values in this
+     * specification.
+     */
+    public void setViewingHint(String viewingHint) {
+        this.viewingHint = viewingHint;
     }
 }

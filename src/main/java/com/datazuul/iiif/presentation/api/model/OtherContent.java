@@ -15,22 +15,15 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
-import com.datazuul.iiif.presentation.api.model.other.Service;
-
 /**
  * <p>
- * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/res/{name}.{format}</p>
+ * Recommended URI pattern: {scheme}://{host}/{prefix}/{identifier}/list/{name}</p>
  *
  * @author Ralf Eichinger
  */
 public class OtherContent extends Content {
 
     private String label; // optional
-    private String related; // optional
-    private String seeAlso; // optional
-    private Service service; // optional
-    private String viewingHint; // optional
-    private String within; // optional
 
     public OtherContent(String id) {
         super(id);
@@ -43,45 +36,5 @@ public class OtherContent extends Content {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public String getRelated() {
-        return related;
-    }
-
-    public void setRelated(String related) {
-        this.related = related;
-    }
-
-    public String getSeeAlso() {
-        return seeAlso;
-    }
-
-    public void setSeeAlso(String seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public String getViewingHint() {
-        return viewingHint;
-    }
-
-    public void setViewingHint(String viewingHint) {
-        this.viewingHint = viewingHint;
-    }
-
-    public String getWithin() {
-        return within;
-    }
-
-    public void setWithin(String within) {
-        this.within = within;
     }
 }

@@ -16,7 +16,6 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
-import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
@@ -30,12 +29,8 @@ public class AnnotationList extends AbstractIiifResource {
     private final String id; // required
     private String label; // optional
     private List<Metadata> metadata; // optional
-    private String related; // optional
-    private String seeAlso; // optional
-    private Service service; // optional
     private String thumbnail; // optional
     private String viewingHint; // optional
-    private String within; // optional
 
     public AnnotationList(String id) {
         assert id != null;
@@ -72,30 +67,6 @@ public class AnnotationList extends AbstractIiifResource {
         this.metadata = metadata;
     }
 
-    public String getRelated() {
-        return related;
-    }
-
-    public void setRelated(String related) {
-        this.related = related;
-    }
-
-    public String getSeeAlso() {
-        return seeAlso;
-    }
-
-    public void setSeeAlso(String seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
     public String getThumbnail() {
         return thumbnail;
     }
@@ -111,13 +82,4 @@ public class AnnotationList extends AbstractIiifResource {
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
     }
-
-    public String getWithin() {
-        return within;
-    }
-
-    public void setWithin(String within) {
-        this.within = within;
-    }
-
 }

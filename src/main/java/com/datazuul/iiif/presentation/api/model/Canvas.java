@@ -17,7 +17,6 @@ package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Image;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
-import com.datazuul.iiif.presentation.api.model.other.Service;
 import java.util.List;
 
 /**
@@ -46,13 +45,9 @@ public class Canvas extends AbstractIiifResource {
     private List<Image> images;
     private final String label; // required
     private List<Metadata> metadata; // optional
-    private String related; // optional
-    private String seeAlso; // optional
-    private Service service; // optional
     private String thumbnail; // recommended
     private String viewingHint; // optional
     private final int width; // required
-    private String within; // optional
 
     public Canvas(String id, String label, int height, int width) {
         assert id != null;
@@ -64,7 +59,7 @@ public class Canvas extends AbstractIiifResource {
         this.height = height;
         this.label = label;
         this.width = width;
-        
+
         type = "sc:Canvas";
     }
 
@@ -130,30 +125,6 @@ public class Canvas extends AbstractIiifResource {
         this.metadata = metadata;
     }
 
-    public String getRelated() {
-        return related;
-    }
-
-    public void setRelated(String related) {
-        this.related = related;
-    }
-
-    public String getSeeAlso() {
-        return seeAlso;
-    }
-
-    public void setSeeAlso(String seeAlso) {
-        this.seeAlso = seeAlso;
-    }
-
-    public Service getService() {
-        return service;
-    }
-
-    public void setService(Service service) {
-        this.service = service;
-    }
-
     public String getThumbnail() {
         return thumbnail;
     }
@@ -170,6 +141,12 @@ public class Canvas extends AbstractIiifResource {
         return viewingHint;
     }
 
+    /**
+     * @param viewingHint A manifest, sequence or range may have a viewing hint, with scope as per viewingDirection. A
+     * canvas may have a viewing hint, and the only hint defined by this specification for canvases is “non-paged”.
+     * “non-paged” is only valid if the canvas is within a manifest, sequence or range that is “paged”, and the
+     * particular canvas must not be displayed in a page-turning viewer.
+     */
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
     }
@@ -177,13 +154,4 @@ public class Canvas extends AbstractIiifResource {
     public int getWidth() {
         return width;
     }
-
-    public String getWithin() {
-        return within;
-    }
-
-    public void setWithin(String within) {
-        this.within = within;
-    }
-
 }
