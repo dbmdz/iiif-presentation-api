@@ -13,39 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datazuul.iiif.presentation.api.model.other;
+package com.datazuul.iiif.presentation.api.json;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  *
  * @author Ralf Eichinger
  */
-public class ImageResource extends Resource {
-
-    private int height;
-    private int width;
-
-    public ImageResource() {
-        type = "dctypes:Image";
-    }
-
-    public ImageResource(String id) {
-        this();
-        this.id = id;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
+public abstract class MetadataLocalizedValueMixIn {
+    @JsonProperty("@language")
+    abstract String getLanguage();
+    
+    @JsonProperty("@value")
+    abstract String getValue();
 }

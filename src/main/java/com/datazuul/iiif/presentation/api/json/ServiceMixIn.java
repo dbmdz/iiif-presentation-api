@@ -24,4 +24,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public abstract class ServiceMixIn {
     @JsonProperty("@context")
     abstract String getContext();
+    
+    @JsonProperty("@id")
+    abstract String getId();
 }

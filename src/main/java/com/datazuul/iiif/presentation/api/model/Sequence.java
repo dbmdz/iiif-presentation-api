@@ -41,7 +41,7 @@ public class Sequence extends AbstractIiifResource {
     private String startCanvas; // optional
     private String thumbnail; // optional
     private String viewingDirection; // optional
-    private String viewingHint = "paged"; // optional
+    private String viewingHint; // optional
 
     public Sequence() {
         type = "sc:Sequence";

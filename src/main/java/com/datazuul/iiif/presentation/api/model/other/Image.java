@@ -20,10 +20,24 @@ package com.datazuul.iiif.presentation.api.model.other;
  * @author Ralf Eichinger
  */
 public class Image {
+
+    private String id;
     private final String motivation = "sc:painting";
     private final String type = "oa:Annotation";
-    
+    private String on;
+
     private Resource resource;
+
+    public Image() {
+    }
+
+    public Image(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public Resource getResource() {
         return resource;
@@ -40,4 +54,13 @@ public class Image {
     public String getType() {
         return type;
     }
+
+    public String getOn() {
+        return on;
+    }
+
+    public void setOn(String on) {
+        this.on = on;
+    }
+
 }

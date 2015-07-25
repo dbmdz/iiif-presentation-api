@@ -55,6 +55,13 @@ public class Service {
     protected String label;
     protected String profile;
 
+    public Service() {
+    }
+
+    public Service(String id) {
+        this.id = id;
+    }
+
     public String getLabel() {
         return label;
     }
