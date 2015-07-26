@@ -107,7 +107,7 @@ public class ManifestGenerator {
 
     private static void generateManifest(final String imageDirectoryName, final List<Path> files) throws JsonProcessingException, IOException {
         // Start Manifest
-        String urlPrefix = "http://localhost:10000/de.alexandria.webapp/demo/bookreader/";
+        String urlPrefix = "http://www.alexandria.de/beta/demo/bookreader/";
         Manifest manifest = new Manifest(urlPrefix + imageDirectoryName + "/manifest.json", "Walters MS 168");
 
         List<Sequence> sequences = new ArrayList<>();
