@@ -51,4 +51,5 @@
     <version.jackson-databind>2.5.4</version.jackson-databind>
     <version.junit>4.10</version.junit>
   </properties>
+    <name>IIIF: IIIF Presentation API</name>
 </project>
