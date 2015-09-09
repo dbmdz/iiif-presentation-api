@@ -7,6 +7,28 @@
   <packaging>jar</packaging>
   <build>
     <plugins>
+      <plugin> 
+        <artifactId>maven-assembly-plugin</artifactId> 
+        <configuration> 
+          <archive> 
+            <manifest> 
+              <mainClass>com.datazuul.iiif.presentation.api.ManifestGenerator</mainClass> 
+            </manifest> 
+          </archive> 
+          <descriptorRefs> 
+            <descriptorRef>jar-with-dependencies</descriptorRef> 
+          </descriptorRefs> 
+        </configuration> 
+        <executions> 
+          <execution> 
+            <id>make-assembly</id> 
+            <phase>package</phase> 
+            <goals> 
+              <goal>single</goal> 
+            </goals> 
+          </execution> 
+        </executions> 
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -20,10 +42,10 @@
   </build>
   <dependencies>
     <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>${version.jackson-annotations}</version>
-      </dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${version.jackson-annotations}</version>
+    </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
@@ -51,5 +73,5 @@
     <version.jackson-databind>2.5.4</version.jackson-databind>
     <version.junit>4.10</version.junit>
   </properties>
-    <name>IIIF: IIIF Presentation API</name>
+  <name>IIIF: IIIF Presentation API</name>
 </project>
