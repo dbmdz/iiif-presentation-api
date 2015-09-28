@@ -57,6 +57,16 @@ public class Sequence extends AbstractIiifResource {
         this.label = label;
     }
 
+    /**
+     * Convenience constructor (as id is optional)
+     * @param id unique id of resource
+     * @param label The label should briefly convey the nature of sequence, such as “Current Page Order”.
+     */
+    public Sequence(String id, String label) {
+        this(label);
+        this.id = id;
+    }
+    
     public List<Canvas> getCanvases() {
         return canvases;
     }

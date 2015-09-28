@@ -36,6 +36,17 @@ public class Annotation extends AbstractIiifResource {
         type = "oa:Annotation";
     }
 
+    /**
+     * Convenience constructor (as id and label are optional)
+     * @param id unique id of resource
+     * @param label label of the Annotation
+     */
+    public Annotation(String id, String label) {
+        this();
+        this.label = label;
+        this.id = id;
+    }
+    
     public String getDescription() {
         return description;
     }
