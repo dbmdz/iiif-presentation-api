@@ -271,12 +271,20 @@ public class Manifest extends AbstractIiifResource {
         return description;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getLabel() {
         return label;
     }
 
     public List<Metadata> getMetadata() {
         return metadata;
+    }
+
+    public void setMetadata(List<Metadata> metadata) {
+        this.metadata = metadata;
     }
 
     public List<Sequence> getSequences() {
@@ -289,6 +297,10 @@ public class Manifest extends AbstractIiifResource {
 
     public String getThumbnail() {
         return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public String getViewingDirection() {
