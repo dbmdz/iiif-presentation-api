@@ -22,12 +22,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *
  * @author Ralf Eichinger
  */
-public abstract class ManifestMixIn {
-
-    @JsonProperty("@context")
-    abstract String getContext();
+public abstract class CanvasMixIn extends AbstractIiifResourceMixIn {
 
     @JsonCreator
-    ManifestMixIn(@JsonProperty("@id") String id, @JsonProperty("label") String label) {
+    CanvasMixIn(@JsonProperty("@id") String id, @JsonProperty("label") String label, @JsonProperty("height") int height, @JsonProperty("width") int width) {
     }
 }

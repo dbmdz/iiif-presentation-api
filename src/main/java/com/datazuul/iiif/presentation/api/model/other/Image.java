@@ -26,7 +26,7 @@ public class Image {
     private final String type = "oa:Annotation";
     private String on;
 
-    private Resource resource;
+    private ImageResource resource;
 
     public Image() {
     }
@@ -43,7 +43,7 @@ public class Image {
         return resource;
     }
 
-    public void setResource(Resource resource) {
+    public void setResource(ImageResource resource) {
         this.resource = resource;
     }
 
