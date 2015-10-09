@@ -4,7 +4,7 @@ import com.datazuul.iiif.presentation.model.NotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.regex.Pattern;
@@ -31,7 +31,7 @@ public class PatternPresentationResolver implements PresentationResolver, Initia
   }
 
   public PatternPresentationResolver() {
-    this.patterns = new HashMap<>();
+    this.patterns = new LinkedHashMap<>();
   }
 
   public void addPattern(String pattern, String replacement) {
