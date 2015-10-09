@@ -66,9 +66,43 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${version.slf4j}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${version.slf4j}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
+      <version>${version.spring-framework}</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>fluent-hc</artifactId>
+      <version>4.3.2</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>18.0</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
       <version>4.2.1.RELEASE</version>
+      <type>jar</type>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
       <type>jar</type>
     </dependency>
   </dependencies>
@@ -81,5 +115,7 @@
     <version.jackson-annotations>2.5.4</version.jackson-annotations>
     <version.jackson-databind>2.5.4</version.jackson-databind>
     <version.junit>4.10</version.junit>
+    <version.slf4j>1.7.12</version.slf4j>
+    <version.spring-framework>4.2.1.RELEASE</version.spring-framework>
   </properties>
 </project>

@@ -14,18 +14,20 @@
 package com.datazuul.iiif.presentation.business.service;
 
 import com.datazuul.iiif.presentation.api.model.Manifest;
+import com.datazuul.iiif.presentation.model.NotFoundException;
 
 /**
  * Service for IIIF Presentation API functionality.
  *
- * @author Ralf Eichinger (ralf.eichinger at bsb-muenchen.de)
+ * @author Ralf Eichinger (ralf.eichinger at gmail.com)
  */
 public interface PresentationService {
 
   /**
    * @param identifier unique id for IIIF resource
    * @return Manifest specifying presentation for IIIF resource
+   * @throws com.datazuul.iiif.presentation.model.NotFoundException
    */
-  Manifest getManifest(String identifier);
+  Manifest getManifest(String identifier) throws NotFoundException;
 
 }

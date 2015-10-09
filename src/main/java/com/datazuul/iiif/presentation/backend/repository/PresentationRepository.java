@@ -14,18 +14,21 @@
 package com.datazuul.iiif.presentation.backend.repository;
 
 import com.datazuul.iiif.presentation.api.model.Manifest;
+import com.datazuul.iiif.presentation.model.NotFoundException;
 
 /**
  * Interface to be implemented by project/user of this library. Place your implementation into
  * package "org.mdz.iiifserver.backend.repository.impl".
  *
- * @author Ralf Eichinger (ralf.eichinger at bsb-muenchen.de)
+ * @author Ralf Eichinger (ralf.eichinger at gmail.com)
  */
 public interface PresentationRepository {
 
   /**
    * @param identifier unique id for IIIF resource
    * @return Manifest specifying presentation for IIIF resource
+   * @throws com.datazuul.iiif.presentation.model.NotFoundException in case Manifest does not exist
+   * or can not be delivered
    */
-  Manifest getManifest(String identifier);
+  Manifest getManifest(String identifier) throws NotFoundException;
 }

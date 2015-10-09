@@ -16,12 +16,13 @@ package com.datazuul.iiif.presentation.business.service.impl;
 import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.backend.repository.PresentationRepository;
 import com.datazuul.iiif.presentation.business.service.PresentationService;
+import com.datazuul.iiif.presentation.model.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  *
- * @author Ralf Eichinger (ralf.eichinger at bsb-muenchen.de)
+ * @author Ralf Eichinger (ralf.eichinger at gmail.com)
  */
 @Service
 public class PresentationServiceImpl implements PresentationService {
@@ -30,7 +31,7 @@ public class PresentationServiceImpl implements PresentationService {
   private PresentationRepository presentationRepository;
 
   @Override
-  public Manifest getManifest(String identifier) {
+  public Manifest getManifest(String identifier) throws NotFoundException {
     return presentationRepository.getManifest(identifier);
   }
 
