@@ -16,6 +16,7 @@
 package com.datazuul.iiif.presentation.api;
 
 import com.datazuul.iiif.presentation.api.json.AbstractIiifResourceMixIn;
+import com.datazuul.iiif.presentation.api.json.CanvasMixIn;
 import com.datazuul.iiif.presentation.api.json.ManifestMixIn;
 import com.datazuul.iiif.presentation.api.json.MetadataLocalizedValueMixIn;
 import com.datazuul.iiif.presentation.api.json.ServiceMixIn;
@@ -32,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -58,127 +58,134 @@ import org.apache.commons.cli.ParseException;
  */
 public class ManifestGenerator {
 
-    public static void main(String[] args) throws ParseException, JsonProcessingException, IOException {
-        Options options = new Options();
-        options.addOption("d", true, "Absolute file path to the directory containing the image files.");
-        options.addOption("sortnum", false, "set option if filenames are representing the order by integer value, e.g. 1.jpg, 2.jpg ...");
+  public static void main(String[] args) throws ParseException, JsonProcessingException, IOException {
+    Options options = new Options();
+    options.addOption("d", true, "Absolute file path to the directory containing the image files.");
+    options.
+            addOption("sortnum", false, "set option if filenames are representing the order by integer value, e.g. 1.jpg, 2.jpg ...");
 
-        CommandLineParser parser = new DefaultParser();
-        CommandLine cmd = parser.parse(options, args);
+    CommandLineParser parser = new DefaultParser();
+    CommandLine cmd = parser.parse(options, args);
 
-        if (cmd.hasOption("d")) {
-            String imageDirectoryPath = cmd.getOptionValue("d");
-            Path imageDirectory = Paths.get(imageDirectoryPath);
-            final List<Path> files = new ArrayList<>();
-            try {
-                Files.walkFileTree(imageDirectory, new SimpleFileVisitor<Path>() {
-                    @Override
-                    public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-                        if (!attrs.isDirectory()) {
-                            // TODO there must be a more elegant solution for filtering jpeg files...
-                            if (file.getFileName().toString().endsWith("jpg")) {
-                                files.add(file);
-                            }
-                        }
-                        return FileVisitResult.CONTINUE;
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
+    if (cmd.hasOption("d")) {
+      String imageDirectoryPath = cmd.getOptionValue("d");
+      Path imageDirectory = Paths.get(imageDirectoryPath);
+      final List<Path> files = new ArrayList<>();
+      try {
+        Files.walkFileTree(imageDirectory, new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+            if (!attrs.isDirectory()) {
+              // TODO there must be a more elegant solution for filtering jpeg files...
+              if (file.getFileName().toString().endsWith("jpg")) {
+                files.add(file);
+              }
             }
-            Collections.sort(files, new Comparator() {
-                @Override
-                public int compare(Object fileOne, Object fileTwo) {
-                    String filename1 = ((Path) fileOne).getFileName().toString();
-                    String filename2 = ((Path) fileTwo).getFileName().toString();
+            return FileVisitResult.CONTINUE;
+          }
+        });
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      Collections.sort(files, new Comparator() {
+        @Override
+        public int compare(Object fileOne, Object fileTwo) {
+          String filename1 = ((Path) fileOne).getFileName().toString();
+          String filename2 = ((Path) fileTwo).getFileName().toString();
 
-                    if (cmd.hasOption("sortnum")) {
-                        Integer number1 = Integer.parseInt(filename1.substring(0, filename1.lastIndexOf(".")));
-                        Integer number2 = Integer.parseInt(filename2.substring(0, filename2.lastIndexOf(".")));
-                        return number1.compareTo(number2);
-                    } else {
-                        return filename1.compareToIgnoreCase(filename2);
-                    }
-                }
-            });
-
-            generateManifest(imageDirectory.getFileName().toString(), files);
-        } else {
-            // automatically generate the help statement
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("ManifestGenerator", options);
+          if (cmd.hasOption("sortnum")) {
+            Integer number1 = Integer.parseInt(filename1.substring(0, filename1.lastIndexOf(".")));
+            Integer number2 = Integer.parseInt(filename2.substring(0, filename2.lastIndexOf(".")));
+            return number1.compareTo(number2);
+          } else {
+            return filename1.compareToIgnoreCase(filename2);
+          }
         }
+      });
+
+      generateManifest(imageDirectory.getFileName().toString(), files);
+    } else {
+      // automatically generate the help statement
+      HelpFormatter formatter = new HelpFormatter();
+      formatter.printHelp("ManifestGenerator", options);
+    }
+  }
+
+  private static void generateManifest(final String imageDirectoryName, final List<Path> files)
+          throws JsonProcessingException, IOException {
+    // Start Manifest
+    String urlPrefix = "http://www.alexandria.de/beta/demo/bookreader/";
+    Manifest manifest = new Manifest(urlPrefix + imageDirectoryName + "/manifest.json", "Walters MS 168");
+
+    List<Sequence> sequences = new ArrayList<>();
+    manifest.setSequences(sequences);
+
+    Sequence seq1 = new Sequence("Current page order");
+    seq1.setId(urlPrefix + imageDirectoryName + "/sequence/normal");
+    sequences.add(seq1);
+
+    List<Canvas> canvases = new ArrayList<>();
+    seq1.setCanvases(canvases);
+
+    int i = 0;
+    for (Path file : files) {
+      i = i + 1;
+      addPage(urlPrefix, imageDirectoryName, canvases, i, file);
     }
 
-    private static void generateManifest(final String imageDirectoryName, final List<Path> files) throws JsonProcessingException, IOException {
-        // Start Manifest
-        String urlPrefix = "http://www.alexandria.de/beta/demo/bookreader/";
-        Manifest manifest = new Manifest(urlPrefix + imageDirectoryName + "/manifest.json", "Walters MS 168");
+    ManifestGenerator mg = new ManifestGenerator();
+    String json = mg.generateJson(manifest);
+    System.out.println(json);
+  }
 
-        List<Sequence> sequences = new ArrayList<>();
-        manifest.setSequences(sequences);
+  private static void addPage(String urlPrefix, String imageDirectoryName, List<Canvas> canvases, int pageCounter, Path file)
+          throws IOException {
+    Path fileName = file.getFileName();
+    System.out.println(fileName.toAbsolutePath());
 
-        Sequence seq1 = new Sequence("Current page order");
-        seq1.setId(urlPrefix + imageDirectoryName + "/sequence/normal");
-        sequences.add(seq1);
+    BufferedImage bimg = ImageIO.read(file.toFile());
+    int width = bimg.getWidth();
+    int height = bimg.getHeight();
 
-        List<Canvas> canvases = new ArrayList<>();
-        seq1.setCanvases(canvases);
+    // add a new page
+    Canvas canvas1 = new Canvas(urlPrefix + imageDirectoryName + "/canvas/canvas-" + pageCounter, "p-" + pageCounter, height, width);
+    canvases.add(canvas1);
 
-        int i = 0;
-        for (Path file : files) {
-            i = i + 1;
-            addPage(urlPrefix, imageDirectoryName, canvases, i, file);
-        }
+    List<Image> images = new ArrayList<>();
+    canvas1.setImages(images);
 
-        ManifestGenerator mg = new ManifestGenerator();
-        String json = mg.generateJson(manifest);
-        System.out.println(json);
-    }
+    Image image1 = new Image();
+    image1.setOn(canvas1.getId());
+    images.add(image1);
 
-    private static void addPage(String urlPrefix, String imageDirectoryName, List<Canvas> canvases, int pageCounter, Path file) throws IOException {
-        Path fileName = file.getFileName();
-        System.out.println(fileName.toAbsolutePath());
+    ImageResource imageResource1 = new ImageResource(urlPrefix + imageDirectoryName + "/" + fileName.
+            toString());
+    imageResource1.setHeight(height);
+    imageResource1.setWidth(width);
+    image1.setResource(imageResource1);
 
-        BufferedImage bimg = ImageIO.read(file.toFile());
-        int width = bimg.getWidth();
-        int height = bimg.getHeight();
+    Service service1 = new Service(urlPrefix + imageDirectoryName + "/" + fileName.toString() + "?");
+    service1.setContext("http://iiif.io/api/image/2/context.json");
+    service1.setProfile("http://iiif.io/api/image/2/level1.json");
+    imageResource1.setService(service1);
+  }
 
-        // add a new page
-        Canvas canvas1 = new Canvas(urlPrefix + imageDirectoryName + "/canvas/canvas-" + pageCounter, "p-" + pageCounter, height, width);
-        canvases.add(canvas1);
+  public ManifestGenerator() {
+  }
 
-        List<Image> images = new ArrayList<>();
-        canvas1.setImages(images);
+  public String generateJson(Manifest manifest) throws JsonProcessingException {
+    ObjectMapper mapper = new ObjectMapper();
 
-        Image image1 = new Image();
-        image1.setOn(canvas1.getId());
-        images.add(image1);
+    mapper.addMixIn(AbstractIiifResource.class, AbstractIiifResourceMixIn.class);
+    mapper.addMixIn(Canvas.class, CanvasMixIn.class);
+    mapper.addMixIn(Image.class, AbstractIiifResourceMixIn.class);
+    mapper.addMixIn(Manifest.class, ManifestMixIn.class);
+    mapper.addMixIn(MetadataLocalizedValue.class, MetadataLocalizedValueMixIn.class);
+    mapper.addMixIn(Resource.class, AbstractIiifResourceMixIn.class);
+    mapper.addMixIn(Service.class, ServiceMixIn.class);
 
-        ImageResource imageResource1 = new ImageResource(urlPrefix + imageDirectoryName + "/" + fileName.toString());
-        imageResource1.setHeight(height);
-        imageResource1.setWidth(width);
-        image1.setResource(imageResource1);
-
-        Service service1 = new Service(urlPrefix + imageDirectoryName + "/" + fileName.toString() + "?");
-        service1.setContext("http://iiif.io/api/image/2/context.json");
-        service1.setProfile("http://iiif.io/api/image/2/level1.json");
-        imageResource1.setService(service1);
-    }
-
-    public ManifestGenerator() {
-    }
-
-    public String generateJson(Manifest manifest) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.addMixIn(AbstractIiifResource.class, AbstractIiifResourceMixIn.class);
-        mapper.addMixIn(Image.class, AbstractIiifResourceMixIn.class);
-        mapper.addMixIn(Manifest.class, ManifestMixIn.class);
-        mapper.addMixIn(MetadataLocalizedValue.class, MetadataLocalizedValueMixIn.class);
-        mapper.addMixIn(Resource.class, AbstractIiifResourceMixIn.class);
-        mapper.addMixIn(Service.class, ServiceMixIn.class);
-        mapper.setSerializationInclusion(Include.NON_NULL);
-        String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);
-        return json;
-    }
+    mapper.setSerializationInclusion(Include.NON_NULL);
+    String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);
+    return json;
+  }
 }
