@@ -61,8 +61,6 @@ public class ManifestGenerator {
   public static void main(String[] args) throws ParseException, JsonProcessingException, IOException {
     Options options = new Options();
     options.addOption("d", true, "Absolute file path to the directory containing the image files.");
-    options.
-            addOption("sortnum", false, "set option if filenames are representing the order by integer value, e.g. 1.jpg, 2.jpg ...");
 
     CommandLineParser parser = new DefaultParser();
     CommandLine cmd = parser.parse(options, args);
@@ -93,11 +91,13 @@ public class ManifestGenerator {
           String filename1 = ((Path) fileOne).getFileName().toString();
           String filename2 = ((Path) fileTwo).getFileName().toString();
 
-          if (cmd.hasOption("sortnum")) {
+          try {
+            // numerical sorting
             Integer number1 = Integer.parseInt(filename1.substring(0, filename1.lastIndexOf(".")));
             Integer number2 = Integer.parseInt(filename2.substring(0, filename2.lastIndexOf(".")));
             return number1.compareTo(number2);
-          } else {
+          } catch (NumberFormatException nfe) {
+            // alpha-numerical sorting
             return filename1.compareToIgnoreCase(filename2);
           }
         }

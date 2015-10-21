@@ -15,6 +15,7 @@ package com.datazuul.iiif.presentation.business.service.impl;
 
 import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.backend.repository.PresentationRepository;
+import com.datazuul.iiif.presentation.business.service.PresentationSecurityService;
 import com.datazuul.iiif.presentation.business.service.PresentationService;
 import com.datazuul.iiif.presentation.model.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,15 @@ public class PresentationServiceImpl implements PresentationService {
   @Autowired
   private PresentationRepository presentationRepository;
 
+  @Autowired(required = false)
+  private PresentationSecurityService presentationSecurityService;
+
   @Override
   public Manifest getManifest(String identifier) throws NotFoundException {
+    if (presentationSecurityService != null && !presentationSecurityService.
+            isAccessAllowed(identifier)) {
+      throw new NotFoundException(); // TODO maybe throw an explicitely access disallowed exception
+    }
     return presentationRepository.getManifest(identifier);
   }
 
