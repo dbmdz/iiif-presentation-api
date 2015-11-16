@@ -20,10 +20,15 @@ package com.datazuul.iiif.presentation.api.model.other;
  * @author Ralf Eichinger
  */
 public class MetadataSimple extends Metadata {
-    private final String value;
 
-    public MetadataSimple(String label, String value) {
-        super(label);
-        this.value = value;
-    }
+  private final String value;
+
+  public MetadataSimple(String label, String value) {
+    super(label);
+    this.value = value;
+  }
+
+  public String getValue() {
+    return value;
+  }
 }

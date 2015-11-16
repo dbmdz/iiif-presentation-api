@@ -22,19 +22,25 @@ import java.util.Locale;
  * @author Ralf Eichinger
  */
 public class MetadataLocalizedValue {
-    private final String value;
-    private final String language;
 
-    public MetadataLocalizedValue(String value, Locale locale) {
-        this.value = value;
-        this.language = locale.getLanguage();
-    }
+  private final String value;
+  private final String language;
 
-    public String getValue() {
-        return value;
-    }
+  public MetadataLocalizedValue(String value, Locale locale) {
+    this.value = value;
+    this.language = locale.getLanguage();
+  }
 
-    public String getLanguage() {
-        return language;
-    }
+  public MetadataLocalizedValue(String value, String language) {
+    this.value = value;
+    this.language = language;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public String getLanguage() {
+    return language;
+  }
 }

@@ -15,21 +15,13 @@
  */
 package com.datazuul.iiif.presentation.api;
 
-import com.datazuul.iiif.presentation.api.json.AbstractIiifResourceMixIn;
-import com.datazuul.iiif.presentation.api.json.CanvasMixIn;
-import com.datazuul.iiif.presentation.api.json.ManifestMixIn;
-import com.datazuul.iiif.presentation.api.json.MetadataLocalizedValueMixIn;
-import com.datazuul.iiif.presentation.api.json.ServiceMixIn;
-import com.datazuul.iiif.presentation.api.model.AbstractIiifResource;
+import com.datazuul.iiif.presentation.api.json.IiifPresentationApiObjectMapper;
 import com.datazuul.iiif.presentation.api.model.Canvas;
 import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.api.model.Sequence;
 import com.datazuul.iiif.presentation.api.model.other.Image;
 import com.datazuul.iiif.presentation.api.model.other.ImageResource;
-import com.datazuul.iiif.presentation.api.model.other.MetadataLocalizedValue;
-import com.datazuul.iiif.presentation.api.model.other.Resource;
 import com.datazuul.iiif.presentation.api.model.other.Service;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.image.BufferedImage;
@@ -174,17 +166,7 @@ public class ManifestGenerator {
   }
 
   public String generateJson(Manifest manifest) throws JsonProcessingException {
-    ObjectMapper mapper = new ObjectMapper();
-
-    mapper.addMixIn(AbstractIiifResource.class, AbstractIiifResourceMixIn.class);
-    mapper.addMixIn(Canvas.class, CanvasMixIn.class);
-    mapper.addMixIn(Image.class, AbstractIiifResourceMixIn.class);
-    mapper.addMixIn(Manifest.class, ManifestMixIn.class);
-    mapper.addMixIn(MetadataLocalizedValue.class, MetadataLocalizedValueMixIn.class);
-    mapper.addMixIn(Resource.class, AbstractIiifResourceMixIn.class);
-    mapper.addMixIn(Service.class, ServiceMixIn.class);
-
-    mapper.setSerializationInclusion(Include.NON_NULL);
+    ObjectMapper mapper = new IiifPresentationApiObjectMapper();
     String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);
     return json;
   }

@@ -15,6 +15,7 @@
  */
 package com.datazuul.iiif.presentation.api.json;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -22,9 +23,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Ralf Eichinger
  */
 public abstract class MetadataLocalizedValueMixIn {
-    @JsonProperty("@language")
-    abstract String getLanguage();
-    
-    @JsonProperty("@value")
-    abstract String getValue();
+
+  @JsonProperty("@language")
+  abstract String getLanguage();
+
+  @JsonProperty("@value")
+  abstract String getValue();
+
+  @JsonCreator
+  public MetadataLocalizedValueMixIn(@JsonProperty("@value") String value, @JsonProperty("@language") String language) {
+  }
 }
