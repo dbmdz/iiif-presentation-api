@@ -1,0 +1,28 @@
+package com.datazuul.iiif.presentation.api.model.other;
+
+/**
+ * A small image that depicts or pictorially represents the resource that the property is attached to, such as the
+ * title page, a significant image or rendering of a canvas with multiple content resources associated with it.
+ * It is recommended that a IIIF Image API service be available for this image for manipulations such as resizing.
+ */
+public class Thumbnail {
+  private String id;
+  private Service service;
+
+  /** The ID should be a valid URL to an IIIF Image API endpoint that renders the thmbnail. */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public Service getService() {
+    return service;
+  }
+
+  public void setService(Service service) {
+    this.service = service;
+  }
+}
