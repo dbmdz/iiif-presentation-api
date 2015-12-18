@@ -1,0 +1,21 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "sc:Manifest",
+  "@id": "http://example.com/iiif/presentation/test-obj/manifest",
+  "label": "testLabel",
+  "metadata": [
+    {"label": "Author", "value": "Anne Author"},
+    {"label": "Published", "value": [
+      {"@value": "Paris, circa 1400", "@language": "en"},
+      {"@value": "Paris, environ 14eme siecle", "@language": "fr"}
+    ]}
+  ],
+  "thumbnail": {
+    "@id": "http://example.com/iiif/image/test-obj/full/200,/0/default.jpg",
+    "service": {
+      "@context": "http://iiif.io/api/image/2/context.json",
+      "@id": "http://example.com/iiif/image/test-obj",
+      "profile": "http://iiif.io/api/image/2/level1.json"
+    }
+  }
+ }
