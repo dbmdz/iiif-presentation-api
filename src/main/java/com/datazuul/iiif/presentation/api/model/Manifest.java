@@ -211,6 +211,7 @@ public class Manifest extends AbstractIiifResource {
     private final String label; // required
     private List<Metadata> metadata; // recommended
     private List<Sequence> sequences;
+    private List<Range> ranges;
     private Thumbnail thumbnail; // recommended
     private String viewingDirection; // optional
     private String viewingHint; // optional
@@ -336,5 +337,13 @@ public class Manifest extends AbstractIiifResource {
      */
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
+    }
+
+    public List<Range> getRanges() {
+        return ranges;
+    }
+
+    public void setRanges(List<Range> ranges) {
+        this.ranges = ranges;
     }
 }
