@@ -15,6 +15,9 @@
  */
 package com.datazuul.iiif.presentation.api.model.other;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  *
  * @author Ralf Eichinger
@@ -28,9 +31,13 @@ public class ImageResource extends Resource {
         type = "dctypes:Image";
     }
 
-    public ImageResource(String id) {
+    public ImageResource(URI id) {
         this();
         this.id = id;
+    }
+
+    public ImageResource(String id) throws URISyntaxException {
+        this(new URI(id));
     }
 
     public int getHeight() {

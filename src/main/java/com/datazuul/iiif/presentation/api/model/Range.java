@@ -18,6 +18,7 @@ package com.datazuul.iiif.presentation.api.model;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class Range extends AbstractIiifResource {
     private String viewingDirection; // optional
     private String viewingHint; // optional
 
-    public Range(String id, String label) {
+    public Range(URI id, String label) {
         assert id != null;
         assert label != null;
 

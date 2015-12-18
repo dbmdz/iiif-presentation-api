@@ -15,6 +15,8 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import java.net.URI;
+
 /**
  * <p>
  * Recommended URI pattern: {scheme}://{host}/{prefix}/{identifier}/list/{name}</p>
@@ -25,7 +27,7 @@ public class OtherContent extends Content {
 
     private String label; // optional
 
-    public OtherContent(String id) {
+    public OtherContent(URI id) {
         super(id);
         this.type = "oa:Annotation";
     }

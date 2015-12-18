@@ -6,6 +6,8 @@ import com.datazuul.iiif.presentation.api.model.other.MetadataMultilanguage;
 import com.datazuul.iiif.presentation.api.model.other.MetadataSimple;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -30,7 +32,7 @@ public class ManifestToJsonTest {
   }
 
   @Test
-  public void testManifestToJson() throws JsonProcessingException {
+  public void testManifestToJson() throws JsonProcessingException, URISyntaxException {
     Manifest manifest = new Manifest("testId", "testLabel");
     String json = objectMapper.writeValueAsString(manifest);
     LOGGER.debug(json);

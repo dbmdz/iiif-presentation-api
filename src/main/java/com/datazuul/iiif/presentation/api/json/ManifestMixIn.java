@@ -18,6 +18,8 @@ package com.datazuul.iiif.presentation.api.json;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.net.URI;
+
 /**
  *
  * @author Ralf Eichinger
@@ -28,6 +30,6 @@ public abstract class ManifestMixIn {
     abstract String getContext();
 
     @JsonCreator
-    ManifestMixIn(@JsonProperty("@id") String id, @JsonProperty("label") String label) {
+    ManifestMixIn(@JsonProperty("@id") URI id, @JsonProperty("label") String label) {
     }
 }

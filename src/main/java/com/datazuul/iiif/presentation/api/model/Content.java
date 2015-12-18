@@ -18,6 +18,7 @@ package com.datazuul.iiif.presentation.api.model;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class Content extends AbstractIiifResource {
      * @param id A content resource must have an id unless it is embedded in the response, and it must be the http(s)
      * URI at which the resource is published.
      */
-    public Content(String id) {
+    public Content(URI id) {
         assert id != null;
         this.id = id;
     }

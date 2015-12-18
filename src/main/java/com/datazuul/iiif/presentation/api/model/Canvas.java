@@ -19,6 +19,8 @@ import com.datazuul.iiif.presentation.api.model.other.Image;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -68,7 +70,7 @@ public class Canvas extends AbstractIiifResource {
     this.width = 0;
   }
 
-  public Canvas(String id, String label, int height, int width) {
+  public Canvas(URI id, String label, int height, int width) {
     assert id != null;
     assert label != null;
     assert height > -1;
@@ -80,6 +82,10 @@ public class Canvas extends AbstractIiifResource {
     this.width = width;
 
     type = "sc:Canvas";
+  }
+
+  public Canvas(String id, String label, int height, int width) throws URISyntaxException {
+    this(new URI(id), label, height, width);
   }
 
   /**

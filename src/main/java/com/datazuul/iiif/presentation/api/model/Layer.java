@@ -18,6 +18,7 @@ package com.datazuul.iiif.presentation.api.model;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -35,7 +36,7 @@ public class Layer extends AbstractIiifResource {
     private String viewingDirection; // optional
     private String viewingHint; // optional
 
-    public Layer(String id, String label) {
+    public Layer(URI id, String label) {
         assert id != null;
         assert label != null;
 

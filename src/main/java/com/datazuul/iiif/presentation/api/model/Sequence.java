@@ -18,6 +18,8 @@ package com.datazuul.iiif.presentation.api.model;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 import com.datazuul.iiif.presentation.api.model.other.ViewingDirection;
+
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -63,7 +65,7 @@ public class Sequence extends AbstractIiifResource {
      * @param id unique id of resource
      * @param label The label should briefly convey the nature of sequence, such as “Current Page Order”.
      */
-    public Sequence(String id, String label) {
+    public Sequence(URI id, String label) {
         this(label);
         this.id = id;
     }
@@ -91,7 +93,7 @@ public class Sequence extends AbstractIiifResource {
      * @param id A sequence may have an id.
      */
     @Override
-    public void setId(String id) {
+    public void setId(URI id) {
         this.id = id;
     }
 

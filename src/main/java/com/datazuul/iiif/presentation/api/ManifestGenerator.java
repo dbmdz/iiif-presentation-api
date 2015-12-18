@@ -26,6 +26,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -50,7 +51,7 @@ import org.apache.commons.cli.ParseException;
  */
 public class ManifestGenerator {
 
-  public static void main(String[] args) throws ParseException, JsonProcessingException, IOException {
+  public static void main(String[] args) throws ParseException, JsonProcessingException, IOException, URISyntaxException {
     Options options = new Options();
     options.addOption("d", true, "Absolute file path to the directory containing the image files.");
 
@@ -104,7 +105,7 @@ public class ManifestGenerator {
   }
 
   private static void generateManifest(final String imageDirectoryName, final List<Path> files)
-          throws JsonProcessingException, IOException {
+      throws JsonProcessingException, IOException, URISyntaxException {
     // Start Manifest
     String urlPrefix = "http://www.alexandria.de/beta/demo/bookreader/";
     Manifest manifest = new Manifest(urlPrefix + imageDirectoryName + "/manifest.json", "Walters MS 168");
@@ -131,7 +132,7 @@ public class ManifestGenerator {
   }
 
   private static void addPage(String urlPrefix, String imageDirectoryName, List<Canvas> canvases, int pageCounter, Path file)
-          throws IOException {
+      throws IOException, URISyntaxException {
     Path fileName = file.getFileName();
     System.out.println(fileName.toAbsolutePath());
 

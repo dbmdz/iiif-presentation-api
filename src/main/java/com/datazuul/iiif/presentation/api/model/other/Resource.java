@@ -15,6 +15,11 @@
  */
 package com.datazuul.iiif.presentation.api.model.other;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  *
  * @author Ralf Eichinger
@@ -23,7 +28,7 @@ public class Resource {
     protected String format;
     // the URI at which the image can be obtained: "%3A" == ":"
     // {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}
-    protected String id;
+    protected URI id;
     protected String type;
     
     private Service service;
@@ -36,12 +41,17 @@ public class Resource {
         this.format = format;
     }
 
-    public String getId() {
+    public URI getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(URI id) {
         this.id = id;
+    }
+
+    @JsonIgnore
+    public void setId(String id) throws URISyntaxException {
+        this.id = new URI(id);
     }
 
     public String getType() {

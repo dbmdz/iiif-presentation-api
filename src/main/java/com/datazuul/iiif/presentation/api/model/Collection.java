@@ -18,6 +18,7 @@ package com.datazuul.iiif.presentation.api.model;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -34,7 +35,7 @@ public class Collection extends AbstractIiifResource {
     private Thumbnail thumbnail; // recommended
     private String viewingHint; // optional
 
-    public Collection(String id, String label, List<Metadata> metadata) {
+    public Collection(URI id, String label, List<Metadata> metadata) {
         assert id != null;
         assert label != null;
 

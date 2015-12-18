@@ -18,6 +18,8 @@ package com.datazuul.iiif.presentation.api.model;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
 import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -33,11 +35,15 @@ public class AnnotationList extends AbstractIiifResource {
     private Thumbnail thumbnail; // optional
     private String viewingHint; // optional
 
-    public AnnotationList(String id) {
+    public AnnotationList(URI id) {
         assert id != null;
         this.id = id;
         
         type = "sc:AnnotationList";
+    }
+
+    public AnnotationList(String id) throws URISyntaxException {
+        this(new URI(id));
     }
 
     public String getDescription() {

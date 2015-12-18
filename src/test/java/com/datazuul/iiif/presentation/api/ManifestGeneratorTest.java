@@ -22,6 +22,9 @@ import com.datazuul.iiif.presentation.api.model.other.Image;
 import com.datazuul.iiif.presentation.api.model.other.ImageResource;
 import com.datazuul.iiif.presentation.api.model.other.Service;
 import com.fasterxml.jackson.core.JsonProcessingException;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
@@ -37,9 +40,9 @@ public class ManifestGeneratorTest {
     }
 
     @Test
-    public void testGenerateJson() throws JsonProcessingException {
+    public void testGenerateJson() throws JsonProcessingException, URISyntaxException {
         String urlPrefix = "http://localhost:10000/de.alexandria.webapp";
-        Manifest manifest = new Manifest(urlPrefix + "/demo/bookreader/manifest.json", "Walters MS 168");
+        Manifest manifest = new Manifest(new URI(urlPrefix + "/demo/bookreader/manifest.json"), "Walters MS 168");
 
         List<Sequence> sequences = new ArrayList<>();
         manifest.setSequences(sequences);
@@ -59,9 +62,9 @@ public class ManifestGeneratorTest {
         Assert.assertTrue(json.contains("{"));
     }
 
-    private void addPage(String urlPrefix, List<Canvas> canvases) {
+    private void addPage(String urlPrefix, List<Canvas> canvases) throws URISyntaxException {
         // add a new page
-        Canvas canvas1 = new Canvas(urlPrefix + "/demo/bookreader/canvas/canvas-1", "Upper board outside", 2236, 1732);
+        Canvas canvas1 = new Canvas(new URI(urlPrefix + "/demo/bookreader/canvas/canvas-1"), "Upper board outside", 2236, 1732);
         canvases.add(canvas1);
         
         List<Image> images = new ArrayList<>();
@@ -71,7 +74,7 @@ public class ManifestGeneratorTest {
         image1.setOn(canvas1.getId());
         images.add(image1);
         
-        ImageResource imageResource1 = new ImageResource("http://stacks.stanford.edu/image/qm670kv1873/W168_000001_300");
+        ImageResource imageResource1 = new ImageResource(new URI("http://stacks.stanford.edu/image/qm670kv1873/W168_000001_300"));
         imageResource1.setHeight(2236);
         imageResource1.setWidth(1732);
         image1.setResource(imageResource1);

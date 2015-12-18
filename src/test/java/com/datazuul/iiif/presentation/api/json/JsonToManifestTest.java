@@ -4,6 +4,8 @@ import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
@@ -30,7 +32,7 @@ public class JsonToManifestTest {
   public void testJsonToManifest() throws JsonProcessingException, IOException, URISyntaxException {
     String json = IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("manifest_minimal.json"));
     Manifest manifest = objectMapper.readValue(json, Manifest.class);
-    Assert.assertTrue(manifest.getId().equals("testId"));
+    Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
     Assert.assertTrue(manifest.getLabel().equals("testLabel"));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
@@ -42,7 +44,7 @@ public class JsonToManifestTest {
   public void testJsonToMetadata() throws JsonProcessingException, IOException, URISyntaxException {
     String json = IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("manifest_metadata.json"));
     Manifest manifest = objectMapper.readValue(json, Manifest.class);
-    Assert.assertTrue(manifest.getId().equals("testId"));
+    Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
     Assert.assertTrue(manifest.getLabel().equals("testLabel"));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
