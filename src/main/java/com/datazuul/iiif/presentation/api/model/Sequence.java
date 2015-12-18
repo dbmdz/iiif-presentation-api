@@ -16,6 +16,7 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
 import com.datazuul.iiif.presentation.api.model.other.ViewingDirection;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class Sequence extends AbstractIiifResource {
     private String label; // optional
     private List<Metadata> metadata; // optional
     private String startCanvas; // optional
-    private String thumbnail; // optional
+    private Thumbnail thumbnail; // optional
     private String viewingDirection; // optional
     private String viewingHint; // optional
 
@@ -129,7 +130,7 @@ public class Sequence extends AbstractIiifResource {
         this.startCanvas = startCanvas;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
@@ -137,7 +138,7 @@ public class Sequence extends AbstractIiifResource {
      * @param thumbnail A sequence may have a thumbnail and should have a thumbnail if there are multiple sequences in a
      * single manifest. Each of the thumbnails should be different.
      */
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 

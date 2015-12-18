@@ -17,6 +17,8 @@ package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Image;
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class Canvas extends AbstractIiifResource {
   private List<Image> images;
   private String label; // required
   private List<Metadata> metadata; // optional
-  private String thumbnail; // recommended
+  private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
   private int width; // required
 
@@ -95,9 +97,13 @@ public class Canvas extends AbstractIiifResource {
    * @param thumbnail A canvas may have a thumbnail and should have a thumbnail if there are multiple images or
    * resources that make up the representation.
    */
-  public Canvas(String id, String label, int height, int width, String thumbnail) {
+  public Canvas(URI id, String label, int height, int width, Thumbnail thumbnail) {
     this(id, label, height, width);
     this.thumbnail = thumbnail;
+  }
+
+  public Canvas(String id, String label, int height, int width, Thumbnail thumbnail) throws URISyntaxException {
+    this(new URI(id), label, height, width, thumbnail);
   }
 
   public String getDescription() {
@@ -138,7 +144,7 @@ public class Canvas extends AbstractIiifResource {
     this.metadata = metadata;
   }
 
-  public String getThumbnail() {
+  public Thumbnail getThumbnail() {
     return thumbnail;
   }
 
@@ -146,7 +152,7 @@ public class Canvas extends AbstractIiifResource {
    * @param thumbnail A canvas may have a thumbnail and should have a thumbnail if there are multiple images or
    * resources that make up the representation.
    */
-  public void setThumbnail(String thumbnail) {
+  public void setThumbnail(Thumbnail thumbnail) {
     this.thumbnail = thumbnail;
   }
 

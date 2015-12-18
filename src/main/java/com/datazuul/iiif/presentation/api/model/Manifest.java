@@ -16,6 +16,8 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
 import java.util.List;
 
 /**
@@ -207,7 +209,7 @@ public class Manifest extends AbstractIiifResource {
     private final String label; // required
     private List<Metadata> metadata; // recommended
     private List<Sequence> sequences;
-    private String thumbnail; // recommended
+    private Thumbnail thumbnail; // recommended
     private String viewingDirection; // optional
     private String viewingHint; // optional
 
@@ -295,11 +297,11 @@ public class Manifest extends AbstractIiifResource {
         this.sequences = sequences;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 

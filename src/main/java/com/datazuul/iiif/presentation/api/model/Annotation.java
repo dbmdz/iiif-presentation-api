@@ -16,6 +16,8 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
 import java.util.List;
 
 /**
@@ -29,7 +31,7 @@ public class Annotation extends AbstractIiifResource {
     private String description; // optional
     private String label; // optional
     private List<Metadata> metadata; // optional
-    private String thumbnail; // optional
+    private Thumbnail thumbnail; // optional
     private String viewingHint; // optional
 
     public Annotation() {
@@ -72,11 +74,11 @@ public class Annotation extends AbstractIiifResource {
         this.metadata = metadata;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 

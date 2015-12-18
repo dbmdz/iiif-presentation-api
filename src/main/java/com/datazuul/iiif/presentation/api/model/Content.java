@@ -16,6 +16,8 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
 import java.util.List;
 
 /**
@@ -32,7 +34,7 @@ public class Content extends AbstractIiifResource {
 
     protected List<Metadata> metadata; // optional
     protected String description; // optional
-    protected String thumbnail; // optional
+    protected Thumbnail thumbnail; // optional
     protected String format; // optional
     protected int height; // optional
     protected int width; // optional
@@ -69,7 +71,7 @@ public class Content extends AbstractIiifResource {
         this.description = description;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
@@ -77,7 +79,7 @@ public class Content extends AbstractIiifResource {
      * @param thumbnail A content resource may have a thumbnail and should have a thumbnail if it is an option in a
      * choice of resources.
      */
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 
