@@ -15,6 +15,7 @@
  */
 package com.datazuul.iiif.presentation.api.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -27,5 +28,7 @@ public abstract class AbstractIiifResourceMixIn {
     
     @JsonProperty("@type")
     abstract String getType();
-    
+
+    @JsonIgnore
+    abstract void setId(String id);
 }

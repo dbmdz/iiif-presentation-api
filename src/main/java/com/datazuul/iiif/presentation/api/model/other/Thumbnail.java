@@ -1,6 +1,5 @@
 package com.datazuul.iiif.presentation.api.model.other;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.net.URI;
@@ -21,7 +20,6 @@ public class Thumbnail {
     this.id = id;
   }
 
-  @JsonIgnore
   public void setId(String id) throws URISyntaxException {
     this.id = new URI(id);
   }

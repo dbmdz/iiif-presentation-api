@@ -15,8 +15,6 @@
  */
 package com.datazuul.iiif.presentation.api.model.other;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -105,7 +103,6 @@ public class Service {
         this.id = id;
     }
 
-    @JsonIgnore
     public void setId(String id) throws URISyntaxException {
         this.id = new URI(id);
     }
