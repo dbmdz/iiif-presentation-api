@@ -36,6 +36,8 @@ public class Range extends AbstractIiifResource {
     private Thumbnail thumbnail; // optional
     private String viewingDirection; // optional
     private String viewingHint; // optional
+    private List<String> canvases;
+    private List<Range> ranges;
 
     public Range(URI id, String label) {
         assert id != null;
@@ -109,5 +111,21 @@ public class Range extends AbstractIiifResource {
 
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
+    }
+
+    public List<String> getCanvases() {
+        return canvases;
+    }
+
+    public void setCanvases(List<String> canvases) {
+        this.canvases = canvases;
+    }
+
+    public List<Range> getRanges() {
+        return ranges;
+    }
+
+    public void setRanges(List<Range> ranges) {
+        this.ranges = ranges;
     }
 }
