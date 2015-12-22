@@ -1,11 +1,11 @@
 package com.datazuul.iiif.presentation.api.json;
 
 import com.datazuul.iiif.presentation.api.model.Manifest;
-import com.datazuul.iiif.presentation.api.model.other.MetadataLocalizedValue;
-import com.datazuul.iiif.presentation.api.model.other.MetadataMultilanguage;
-import com.datazuul.iiif.presentation.api.model.other.MetadataSimple;
+import com.datazuul.iiif.presentation.api.model.other.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -30,8 +30,14 @@ public class ManifestToJsonTest {
   }
 
   @Test
-  public void testManifestToJson() throws JsonProcessingException {
+  public void testManifestToJson() throws JsonProcessingException, URISyntaxException {
     Manifest manifest = new Manifest("testId", "testLabel");
+    Thumbnail thumb = new Thumbnail();
+    thumb.setId("http://example.com/iiif/test/thumb");
+    Service service = new Service();
+    service.setId("htp://example.com/iiif/test");
+    thumb.setService(service);
+    manifest.setThumbnail(thumb);
     String json = objectMapper.writeValueAsString(manifest);
     LOGGER.debug(json);
     Assert.assertTrue(json.contains("\"@id\":\"testId\""));
@@ -63,5 +69,4 @@ public class ManifestToJsonTest {
     Assert.assertTrue(json.contains("{\"@value\":\"deutsch\",\"@language\":\"de\"}"));
     Assert.assertTrue(json.contains("{\"@value\":\"english\",\"@language\":\"en\"}"));
   }
-
 }

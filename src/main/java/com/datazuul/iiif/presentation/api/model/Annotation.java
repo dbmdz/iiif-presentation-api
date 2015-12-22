@@ -16,6 +16,10 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -29,7 +33,7 @@ public class Annotation extends AbstractIiifResource {
     private String description; // optional
     private String label; // optional
     private List<Metadata> metadata; // optional
-    private String thumbnail; // optional
+    private Thumbnail thumbnail; // optional
     private String viewingHint; // optional
 
     public Annotation() {
@@ -41,10 +45,14 @@ public class Annotation extends AbstractIiifResource {
      * @param id unique id of resource
      * @param label label of the Annotation
      */
-    public Annotation(String id, String label) {
+    public Annotation(URI id, String label) {
         this();
         this.label = label;
         this.id = id;
+    }
+
+    public Annotation(String id, String label) throws URISyntaxException {
+        this(new URI(id), label);
     }
     
     public String getDescription() {
@@ -72,11 +80,11 @@ public class Annotation extends AbstractIiifResource {
         this.metadata = metadata;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 

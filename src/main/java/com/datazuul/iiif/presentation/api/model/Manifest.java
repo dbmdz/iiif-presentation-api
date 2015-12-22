@@ -16,6 +16,10 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -207,11 +211,12 @@ public class Manifest extends AbstractIiifResource {
     private final String label; // required
     private List<Metadata> metadata; // recommended
     private List<Sequence> sequences;
-    private String thumbnail; // recommended
+    private List<Range> ranges;
+    private Thumbnail thumbnail; // recommended
     private String viewingDirection; // optional
     private String viewingHint; // optional
 
-    public Manifest(String id, String label) {
+    public Manifest(URI id, String label) {
         assert id != null;
         assert label != null;
 
@@ -219,6 +224,10 @@ public class Manifest extends AbstractIiifResource {
         this.label = label;
 
         this.type = "sc:Manifest";
+    }
+
+    public Manifest(String id, String label) throws URISyntaxException {
+        this(new URI(id), label);
     }
 
     /**
@@ -255,7 +264,7 @@ public class Manifest extends AbstractIiifResource {
      * associated with it. It is recommended that a IIIF Image API service be available for this image for manipulations
      * such as resizing. A manifest should have a thumbnail image that represents the entire object or work.
      */
-    public Manifest(String id, String label, String description, List<Metadata> metadata, String thumbnail) {
+    public Manifest(URI id, String label, String description, List<Metadata> metadata, Thumbnail thumbnail) {
         this(id, label);
 
         this.description = description;
@@ -295,11 +304,11 @@ public class Manifest extends AbstractIiifResource {
         this.sequences = sequences;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -328,5 +337,13 @@ public class Manifest extends AbstractIiifResource {
      */
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
+    }
+
+    public List<Range> getRanges() {
+        return ranges;
+    }
+
+    public void setRanges(List<Range> ranges) {
+        this.ranges = ranges;
     }
 }

@@ -16,6 +16,9 @@
 package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Metadata;
+import com.datazuul.iiif.presentation.api.model.other.Thumbnail;
+
+import java.net.URI;
 import java.util.List;
 
 /**
@@ -30,11 +33,13 @@ public class Range extends AbstractIiifResource {
     private final String label; // required
     private List<Metadata> metadata; // optional
     private String startCanvas; // optional
-    private String thumbnail; // optional
+    private Thumbnail thumbnail; // optional
     private String viewingDirection; // optional
     private String viewingHint; // optional
+    private List<String> canvases;
+    private List<Range> ranges;
 
-    public Range(String id, String label) {
+    public Range(URI id, String label) {
         assert id != null;
         assert label != null;
 
@@ -79,11 +84,11 @@ public class Range extends AbstractIiifResource {
         this.startCanvas = startCanvas;
     }
 
-    public String getThumbnail() {
+    public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -106,5 +111,21 @@ public class Range extends AbstractIiifResource {
 
     public void setViewingHint(String viewingHint) {
         this.viewingHint = viewingHint;
+    }
+
+    public List<String> getCanvases() {
+        return canvases;
+    }
+
+    public void setCanvases(List<String> canvases) {
+        this.canvases = canvases;
+    }
+
+    public List<Range> getRanges() {
+        return ranges;
+    }
+
+    public void setRanges(List<Range> ranges) {
+        this.ranges = ranges;
     }
 }

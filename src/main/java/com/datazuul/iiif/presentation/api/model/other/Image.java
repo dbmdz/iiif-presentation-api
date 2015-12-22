@@ -15,27 +15,34 @@
  */
 package com.datazuul.iiif.presentation.api.model.other;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  *
  * @author Ralf Eichinger
  */
 public class Image {
 
-    private String id;
+    private URI id;
     private final String motivation = "sc:painting";
     private final String type = "oa:Annotation";
-    private String on;
+    private URI on;
 
     private ImageResource resource;
 
     public Image() {
     }
 
-    public Image(String id) {
+    public Image(URI id) {
         this.id = id;
     }
 
-    public String getId() {
+    public Image(String id) throws URISyntaxException {
+        this.id = new URI(id);
+    }
+
+    public URI getId() {
         return id;
     }
 
@@ -55,11 +62,11 @@ public class Image {
         return type;
     }
 
-    public String getOn() {
+    public URI getOn() {
         return on;
     }
 
-    public void setOn(String on) {
+    public void setOn(URI on) {
         this.on = on;
     }
 

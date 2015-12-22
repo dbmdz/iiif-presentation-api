@@ -15,6 +15,9 @@
  */
 package com.datazuul.iiif.presentation.api.model.other;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  * <p>
  * A link to a service that makes more functionality available for the resource, such as from an image to the base URI
@@ -51,15 +54,19 @@ package com.datazuul.iiif.presentation.api.model.other;
 public class Service {
 
     protected String context;
-    protected String id;
+    protected URI id;
     protected String label;
     protected String profile;
 
     public Service() {
     }
 
-    public Service(String id) {
+    public Service(URI id) {
         this.id = id;
+    }
+
+    public Service(String id) throws URISyntaxException {
+        this.id = new URI(id);
     }
 
     public String getLabel() {
@@ -82,7 +89,7 @@ public class Service {
         this.context = context;
     }
 
-    public String getId() {
+    public URI getId() {
         return id;
     }
 
@@ -92,8 +99,12 @@ public class Service {
      * other than JSON-LD, or have no JSON-LD representation at all. If a IIIF Image API service is available for the
      * image, then a link to the service’s base URI should be included.
      */
-    public void setId(String id) {
+    public void setId(URI id) {
         this.id = id;
+    }
+
+    public void setId(String id) throws URISyntaxException {
+        this.id = new URI(id);
     }
 
     public String getProfile() {

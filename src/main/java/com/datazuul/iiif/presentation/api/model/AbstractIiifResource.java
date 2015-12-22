@@ -17,6 +17,9 @@ package com.datazuul.iiif.presentation.api.model;
 
 import com.datazuul.iiif.presentation.api.model.other.Service;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 /**
  *
  * @author Ralf Eichinger
@@ -31,7 +34,7 @@ public abstract class AbstractIiifResource {
     protected Service service; // optional
     protected String seeAlso; // optional
     protected String within; // optional
-    protected String id; // optional
+    protected URI id; // optional
 
     public String getAttribution() {
         return attribution;
@@ -142,12 +145,16 @@ public abstract class AbstractIiifResource {
         this.within = within;
     }
 
-    public String getId() {
+    public URI getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(URI id) {
         this.id = id;
+    }
+
+    public void setId(String id) throws URISyntaxException {
+        this.id = new URI(id);
     }
 
 }

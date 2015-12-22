@@ -15,6 +15,8 @@
  */
 package com.datazuul.iiif.presentation.api.model;
 
+import java.net.URI;
+
 /**
  * <p>
  * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/annotation/{name}
@@ -26,7 +28,7 @@ public class ImageContent extends Content {
 
     private String label; // optional
 
-    public ImageContent(String id) {
+    public ImageContent(URI id) {
         super(id);
         this.type = "oa:Annotation"; // required
     }
