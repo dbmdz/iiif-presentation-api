@@ -4,7 +4,7 @@ Java library implementing the IIIF Presentation API and providing Manifest gener
 ## Usage
 
 ### Use embedded in your Java code
-1. Create your IIIF-Manifest by using IIF-Resources like Manifest, Sequence, Canvas, Image, ImageResource, etc.
+1. Create your IIIF-Manifest by using IIIF-Resources like Manifest, Sequence, Canvas, Image, ImageResource, etc.
 (see classes in package com.datazuul.iiif.presentation.api.model).
 
         Manifest myManifest = new Manifest(myId, myLabel);
