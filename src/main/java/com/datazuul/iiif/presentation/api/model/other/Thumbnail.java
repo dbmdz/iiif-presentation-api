@@ -20,9 +20,9 @@ public class Thumbnail {
     this.id = id;
   }
 
-  public void setId(String id) throws URISyntaxException {
-    this.id = new URI(id);
-  }
+//  public void setId(String id) throws URISyntaxException {
+//    this.id = new URI(id);
+//  }
 
   public URI getId() {
     return id;

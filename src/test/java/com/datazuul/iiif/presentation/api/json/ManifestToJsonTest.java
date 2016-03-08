@@ -4,6 +4,7 @@ import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.api.model.other.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.net.URI;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ManifestToJsonTest {
   public void testManifestToJson() throws JsonProcessingException, URISyntaxException {
     Manifest manifest = new Manifest("testId", "testLabel");
     Thumbnail thumb = new Thumbnail();
-    thumb.setId("http://example.com/iiif/test/thumb");
+    thumb.setId(new URI("http://example.com/iiif/test/thumb"));
     Service service = new Service();
     service.setId("htp://example.com/iiif/test");
     thumb.setService(service);
