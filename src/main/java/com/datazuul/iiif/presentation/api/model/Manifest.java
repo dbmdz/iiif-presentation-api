@@ -210,7 +210,7 @@ public class Manifest extends AbstractIiifResource {
   private String label; // required
   private List<Metadata> metadata; // recommended
   private List<Sequence> sequences;
-  private List<Range> ranges;
+  private List<Range> structures;
   private Thumbnail thumbnail; // recommended
   private String viewingDirection; // optional
   private String viewingHint; // optional
@@ -342,11 +342,11 @@ public class Manifest extends AbstractIiifResource {
     this.viewingHint = viewingHint;
   }
 
-  public List<Range> getRanges() {
-    return ranges;
+  public List<Range> getStructures() {
+    return structures;
   }
 
-  public void setRanges(List<Range> ranges) {
-    this.ranges = ranges;
+  public void setStructures(List<Range> structures) {
+    this.structures = structures;
   }
 }

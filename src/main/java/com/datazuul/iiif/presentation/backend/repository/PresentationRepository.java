@@ -15,10 +15,12 @@ package com.datazuul.iiif.presentation.backend.repository;
 
 import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.model.NotFoundException;
+import java.net.URI;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
 /**
- * Interface to be implemented by project/user of this library. Place your implementation into
- * package "org.mdz.iiifserver.backend.repository.impl".
+ * Interface to be implemented by project/user of this library. Place your implementation into package "org.mdz.iiifserver.backend.repository.impl".
  *
  * @author Ralf Eichinger (ralf.eichinger at gmail.com)
  */
@@ -27,8 +29,13 @@ public interface PresentationRepository {
   /**
    * @param identifier unique id for IIIF resource
    * @return Manifest specifying presentation for IIIF resource
-   * @throws com.datazuul.iiif.presentation.model.NotFoundException in case Manifest does not exist
-   * or can not be delivered
+   * @throws com.datazuul.iiif.presentation.model.NotFoundException in case Manifest does not exist or can not be delivered
    */
   Manifest getManifest(String identifier) throws NotFoundException;
+
+  public Manifest getManifest(URI manifestUri) throws NotFoundException;
+
+  public String getManifestJson(URI manifestUri) throws NotFoundException;
+
+  public JSONObject getManifestAsJsonObject(URI manifestUri) throws NotFoundException, ParseException;
 }

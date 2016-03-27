@@ -30,7 +30,7 @@ import java.util.List;
 public class Range extends AbstractIiifResource {
 
     private String description; // optional
-    private final String label; // required
+    private String label; // required
     private List<Metadata> metadata; // optional
     private String startCanvas; // optional
     private Thumbnail thumbnail; // optional
@@ -49,6 +49,10 @@ public class Range extends AbstractIiifResource {
         type = "sc:Range";
     }
 
+    public Range() {
+      this.label = null;
+    }
+    
     public String getDescription() {
         return description;
     }
@@ -61,6 +65,10 @@ public class Range extends AbstractIiifResource {
         return label;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+    
     public List<Metadata> getMetadata() {
         return metadata;
     }

@@ -19,6 +19,7 @@ import com.datazuul.iiif.presentation.api.model.other.Service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  *
@@ -32,7 +33,7 @@ public abstract class AbstractIiifResource {
     protected String type; // required
     protected String related; // optional
     protected Service service; // optional
-    protected String seeAlso; // optional
+    protected List<String> seeAlso; // optional
     protected String within; // optional
     protected URI id; // optional
 
@@ -117,7 +118,7 @@ public abstract class AbstractIiifResource {
         this.service = service;
     }
 
-    public String getSeeAlso() {
+    public List<String> getSeeAlso() {
         return seeAlso;
     }
 
@@ -128,7 +129,7 @@ public abstract class AbstractIiifResource {
      * document should be given to help the client to make appropriate use of the document. Any resource may have an
      * external description related to it.
      */
-    public void setSeeAlso(String seeAlso) {
+    public void setSeeAlso(List<String> seeAlso) {
         this.seeAlso = seeAlso;
     }
 

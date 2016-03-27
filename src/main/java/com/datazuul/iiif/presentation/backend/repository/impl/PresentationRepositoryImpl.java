@@ -27,6 +27,9 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +38,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 /**
- * Default implementation trying to get manifest.json from an resolved URI as String and returning
- * Manifest instance.
+ * Default implementation trying to get manifest.json from an resolved URI as String and returning Manifest instance.
  *
  * @author Ralf Eichinger (ralf.eichinger at gmail.com)
  */
@@ -65,30 +67,34 @@ public class PresentationRepositoryImpl implements PresentationRepository {
 
   @Override
   public Manifest getManifest(String identifier) throws NotFoundException {
-    Manifest manifest = null;
-
     LOGGER.debug("Try to get manifest for: " + identifier);
 
     LOGGER.debug("START getManifest() for " + identifier);
     PresentationResolver resolver = getManifestResolver(identifier);
     URI manifestUri = resolver.getURI(identifier);
 
+    return getManifest(manifestUri);
+  }
+
+  @Override
+  public Manifest getManifest(URI manifestUri) throws NotFoundException {
+    String location = manifestUri.toString();
+
+    Manifest manifest = null;
     String json;
     try {
       if (manifestUri.getScheme().equals("file")) {
-        json = IOUtils.toString(manifestUri);
+        json = getManifestJson(manifestUri);
         manifest = objectMapper.readValue(json, Manifest.class);
       } else if (manifestUri.getScheme().equals("classpath")) {
-        Resource resource = applicationContext.getResource(manifestUri.toString());
-        InputStream is = resource.getInputStream();
-        json = IOUtils.toString(is);
+        json = getManifestJson(manifestUri);
         manifest = objectMapper.readValue(json, Manifest.class);
       } else if (manifestUri.getScheme().startsWith("http")) {
-        String cacheKey = getCacheKey(identifier);
+        String cacheKey = getCacheKey(location);
         manifest = httpCache.getIfPresent(cacheKey);
         if (manifest == null) {
           LOGGER.debug("HTTP Cache miss!");
-          json = httpExecutor.execute(Request.Get(manifestUri)).returnContent().asString();
+          json = getManifestJson(manifestUri);
           manifest = objectMapper.readValue(json, Manifest.class);
           httpCache.put(cacheKey, manifest);
         } else {
@@ -98,13 +104,41 @@ public class PresentationRepositoryImpl implements PresentationRepository {
     } catch (IOException e) {
       throw new NotFoundException(e);
     }
-    LOGGER.debug("DONE getManifest() for " + identifier);
-
+    LOGGER.debug("DONE getManifest() for " + location);
     if (manifest == null) {
-      throw new NotFoundException("No manifest for identifier: " + identifier);
+      throw new NotFoundException("No manifest for identifier: " + location);
     }
-
     return manifest;
+  }
+
+  @Override
+  public String getManifestJson(URI manifestUri) throws NotFoundException {
+    String location = manifestUri.toString();
+    String json = null;
+    try {
+      if (manifestUri.getScheme().equals("file")) {
+        json = IOUtils.toString(manifestUri);
+      } else if (manifestUri.getScheme().equals("classpath")) {
+        Resource resource = applicationContext.getResource(manifestUri.toString());
+        InputStream is = resource.getInputStream();
+        json = IOUtils.toString(is);
+      } else if (manifestUri.getScheme().startsWith("http")) {
+        json = httpExecutor.execute(Request.Get(manifestUri)).returnContent().asString();
+      }
+    } catch (IOException e) {
+      throw new NotFoundException(e);
+    }
+    LOGGER.debug("DONE getManifestJson() for " + location);
+    return json;
+  }
+
+  @Override
+  public JSONObject getManifestAsJsonObject(URI manifestUri) throws NotFoundException, ParseException {
+    String json = getManifestJson(manifestUri);
+    JSONParser parser = new JSONParser();
+    Object obj = parser.parse(json);
+    JSONObject jsonObject = (JSONObject) obj;
+    return jsonObject;
   }
 
   private PresentationResolver getManifestResolver(String identifier) throws NotFoundException {
