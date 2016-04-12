@@ -16,6 +16,7 @@ package com.datazuul.iiif.presentation.backend.repository;
 import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.model.NotFoundException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -38,4 +39,6 @@ public interface PresentationRepository {
   public String getManifestJson(URI manifestUri) throws NotFoundException;
 
   public JSONObject getManifestAsJsonObject(URI manifestUri) throws NotFoundException, ParseException;
+  
+  public JSONObject getManifestAsJsonObject(String manifestUri) throws URISyntaxException, NotFoundException, ParseException;
 }

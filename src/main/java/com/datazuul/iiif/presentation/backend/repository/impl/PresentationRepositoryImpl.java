@@ -23,6 +23,7 @@ import com.google.common.cache.CacheBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.client.fluent.Executor;
@@ -157,4 +158,9 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   private String getCacheKey(String identifier) {
     return String.format("iiif.manifest.%s", identifier);
   }
+
+    @Override
+    public JSONObject getManifestAsJsonObject(String manifestUri) throws URISyntaxException, NotFoundException, ParseException {
+        return getManifestAsJsonObject(new URI(manifestUri));
+    }
 }
