@@ -1,7 +1,12 @@
-# iiif-presentation-api
-Java library implementing the IIIF Presentation API and providing Manifest generation.
+IIIF Presentation API Library
+=============================
 
-## Usage
+Java library implementing the IIIF Presentation API 2.0 and providing Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
+
+"The IIIF Presentation API specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object or other collection of images and related content. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic user experience, consuming content from across collections and hosting institutions."
+
+Usage
+-----
 
 ### Use embedded in your Java code
 1. Create your IIIF-Manifest by using IIIF-Resources like Manifest, Sequence, Canvas, Image, ImageResource, etc.
