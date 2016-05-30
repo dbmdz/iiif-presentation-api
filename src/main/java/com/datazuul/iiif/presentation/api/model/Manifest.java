@@ -346,7 +346,10 @@ public class Manifest extends AbstractIiifResource {
     return structures;
   }
 
-  public void setStructures(List<Range> structures) {
+  public void setRanges(List<Range> structures) {
+    this.structures = structures;
+  }
+ public void setStructures(List<Range> structures) {
     this.structures = structures;
   }
 }

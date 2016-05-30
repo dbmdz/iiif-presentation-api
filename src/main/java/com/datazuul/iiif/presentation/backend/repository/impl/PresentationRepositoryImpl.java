@@ -159,8 +159,8 @@ public class PresentationRepositoryImpl implements PresentationRepository {
     return String.format("iiif.manifest.%s", identifier);
   }
 
-    @Override
-    public JSONObject getManifestAsJsonObject(String manifestUri) throws URISyntaxException, NotFoundException, ParseException {
-        return getManifestAsJsonObject(new URI(manifestUri));
-    }
+  @Override
+  public JSONObject getManifestAsJsonObject(String manifestUri) throws URISyntaxException, NotFoundException, ParseException {
+    return getManifestAsJsonObject(new URI(manifestUri));
+  }
 }

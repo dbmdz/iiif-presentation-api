@@ -5,6 +5,7 @@ import com.datazuul.iiif.presentation.api.model.Canvas;
 import com.datazuul.iiif.presentation.api.model.Manifest;
 import com.datazuul.iiif.presentation.api.model.other.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -28,6 +29,7 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     addMixIn(Thumbnail.class, AbstractIiifResourceMixIn.class);
 
     setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 
     MetadataDeserializer metadataDeserializer = new MetadataDeserializer();
     SimpleModule module = new SimpleModule("PolymorphicMetadataDeserializerModule");
