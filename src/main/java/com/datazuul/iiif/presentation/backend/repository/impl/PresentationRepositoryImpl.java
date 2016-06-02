@@ -80,7 +80,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   @Override
   public Manifest getManifest(URI manifestUri) throws NotFoundException {
     String location = manifestUri.toString();
-
+    LOGGER.info("Trying to get manifest from " + location);
     Manifest manifest = null;
     String json;
     try {
