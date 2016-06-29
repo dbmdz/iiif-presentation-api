@@ -33,4 +33,4 @@ or
 Deploy to your local Maven repository server
 
     $ cd target
-    $ mvn deploy:deploy-file -DgroupId=com.datazuul -DartifactId=iiif-presentation-api -Dversion=2.0.0-SNAPSHOT -Dpackaging=jar -Dfile=./iiif-presentation-api-2.0.0-SNAPSHOT.jar -DrepositoryId=mdzrepo-snapshot -Durl=[url to your local snapshot repository]
+    $ mvn deploy:deploy-file -DgroupId=de.digitalcollections -DartifactId=iiif-presentation-model-api -Dversion=2.0.0-SNAPSHOT -Dpackaging=jar -Dfile=./iiif-presentation-model-api-2.0.0-SNAPSHOT.jar -DrepositoryId=mdzrepo-snapshot -Durl=[url to your local snapshot repository]
