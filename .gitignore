@@ -1,3 +1,10 @@
 /nbactions.xml
 /nb-configuration.xml
 /target/
+/iiif-presentation-model-api/target/
+/iiif-presentation-model-impl/target/
+/iiif-presentation-business-api/target/
+/iiif-presentation-backend-api/target/
+/iiif-presentation-backend-impl/target/
+/iiif-presentation-business-impl/target/
+/iiif-presentation-frontend-impl-commandline/target/

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.datazuul</groupId>
+
+  <groupId>de.digitalcollections</groupId>
   <artifactId>iiif-presentation-api</artifactId>
-  <version>2.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <version>2.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
   
   <name>IIIF: IIIF Presentation API Library</name>
   
@@ -14,41 +16,19 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
     <version.commons-cli>1.3.1</version.commons-cli>
-    <version.commons-io>2.4</version.commons-io>
-    <version.fluent-hc>4.3.2</version.fluent-hc>
+    <version.commons-io>2.5</version.commons-io>
+    <version.fluent-hc>4.3.4</version.fluent-hc>
     <version.guava>18.0</version.guava>
     <version.jackson-annotations>2.5.4</version.jackson-annotations>
     <version.jackson-databind>2.5.4</version.jackson-databind>
     <version.json-simple>1.1.1</version.json-simple>
     <version.junit>4.10</version.junit>
-    <version.slf4j>1.7.12</version.slf4j>
+    <version.slf4j>1.7.13</version.slf4j>
     <version.spring-framework>4.2.5.RELEASE</version.spring-framework>
   </properties>
     
   <build>
     <plugins>
-      <plugin> 
-        <artifactId>maven-assembly-plugin</artifactId> 
-        <configuration> 
-          <archive> 
-            <manifest> 
-              <mainClass>com.datazuul.iiif.presentation.api.ManifestGenerator</mainClass> 
-            </manifest> 
-          </archive> 
-          <descriptorRefs> 
-            <descriptorRef>jar-with-dependencies</descriptorRef> 
-          </descriptorRefs> 
-        </configuration> 
-        <executions> 
-          <execution> 
-            <id>make-assembly</id> 
-            <phase>package</phase> 
-            <goals> 
-              <goal>single</goal> 
-            </goals> 
-          </execution> 
-        </executions> 
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -60,67 +40,101 @@
       </plugin>
     </plugins>
   </build>
-  <dependencies>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
-      <version>${version.jackson-annotations}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-      <version>${version.jackson-databind}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>${version.guava}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.googlecode.json-simple</groupId>
-      <artifactId>json-simple</artifactId>
-      <version>${version.json-simple}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-cli</groupId>
-      <artifactId>commons-cli</artifactId>
-      <version>${version.commons-cli}</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>${version.commons-io}</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>fluent-hc</artifactId>
-      <version>${version.fluent-hc}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>${version.slf4j}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${version.slf4j}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${version.spring-framework}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${version.spring-framework}</version>
-    </dependency>
-  </dependencies>
+  
+  <modules>
+    <module>iiif-presentation-model-impl</module>
+    <module>iiif-presentation-model-api</module>
+    <module>iiif-presentation-business-api</module>
+    <module>iiif-presentation-business-impl</module>
+    <module>iiif-presentation-backend-api</module>
+    <module>iiif-presentation-backend-impl</module>
+    <module>iiif-presentation-frontend-impl-commandline</module>
+  </modules>
+    
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${version.jackson-annotations}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${version.jackson-databind}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${version.guava}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.googlecode.json-simple</groupId>
+        <artifactId>json-simple</artifactId>
+        <version>${version.json-simple}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>${version.commons-cli}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${version.commons-io}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>iiif-presentation-backend-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>iiif-presentation-business-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>iiif-presentation-model-api</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>iiif-presentation-model-impl</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${version.junit}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.httpcomponents</groupId>
+        <artifactId>fluent-hc</artifactId>
+        <version>${version.fluent-hc}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${version.slf4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+        <version>${version.slf4j}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${version.spring-framework}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${version.spring-framework}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  
 </project>
