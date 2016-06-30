@@ -49,6 +49,7 @@
     <module>iiif-presentation-backend-api</module>
     <module>iiif-presentation-backend-impl</module>
     <module>iiif-presentation-frontend-impl-commandline</module>
+    <module>iiif-presentation-frontend-impl-springmvc</module>
   </modules>
     
   <dependencyManagement>
@@ -132,6 +133,11 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-web</artifactId>
+        <version>${version.spring-framework}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
         <version>${version.spring-framework}</version>
       </dependency>
     </dependencies>
