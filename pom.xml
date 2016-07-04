@@ -9,6 +9,7 @@
   <packaging>pom</packaging>
   
   <name>IIIF: IIIF Presentation API Library</name>
+  <description>Java library implementing the IIIF Presentation API 2.0 and providing Manifest generation (see http://iiif.io/api/presentation/2.0/)</description>
   
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>

@@ -1,7 +1,7 @@
 package de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller;
 
 import de.digitalcollections.iiif.presentation.business.api.PresentationService;
-import de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException;
 import de.digitalcollections.iiif.presentation.model.api.Manifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class IIIFPresentationApiController {
    *
    * @param identifier unique id of object to be shown
    * @return the JSON-Manifest
-   * @throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exceptions.NotFoundException
+   * @throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
    */
   @CrossOrigin(origins = "*")
   @RequestMapping(value = "{identifier}/manifest", method = RequestMethod.GET,
