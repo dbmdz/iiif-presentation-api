@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * </ul>
  */
 @Controller
-@CrossOrigin
 @RequestMapping("/iiif/presentation")
 public class IIIFPresentationApiController {
 
@@ -40,7 +39,7 @@ public class IIIFPresentationApiController {
    * @return the JSON-Manifest
    * @throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
    */
-  @CrossOrigin(origins = "*")
+  @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
   @RequestMapping(value = "{identifier}/manifest", method = RequestMethod.GET,
           produces = "application/json")
   @ResponseBody

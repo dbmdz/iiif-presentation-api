@@ -19,9 +19,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @PropertySource(value = {
   "classpath:de/digitalcollections/iiif/presentation/config/SpringConfigBackend-${spring.profiles.active:PROD}.properties"
 })
-public class SpringConfigBackend {
+public class SpringConfigBackendPresentation {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackend.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigBackendPresentation.class);
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

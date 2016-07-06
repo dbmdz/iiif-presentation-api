@@ -10,5 +10,5 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {
   "de.digitalcollections.iiif.presentation.business.impl.service"
 })
-public class SpringConfigBusiness {
+public class SpringConfigBusinessPresentation {
 }
