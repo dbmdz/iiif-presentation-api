@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>1.2.3-TODO</version>
   </parent>
   
   <artifactId>iiif-presentation-business-api</artifactId>
@@ -16,7 +16,7 @@
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-model-api</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
+      <version>1.2.3-TODO</version>
       <type>jar</type>
     </dependency>
   </dependencies>
