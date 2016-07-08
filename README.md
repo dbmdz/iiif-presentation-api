@@ -1,5 +1,9 @@
 IIIF Presentation API Library
 =============================
+[![Build Status](https://travis-ci.org/dbmdz/iiif-presentation-api.svg?branch=next)](https://travis-ci.org/dbmdz/iiif-presentation-api)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-presentation-api.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-presentation-api/releases)
+
 
 Java library implementing the IIIF Presentation API 2.0 and providing Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
 
@@ -15,7 +19,7 @@ Usage
         Manifest myManifest = new Manifest(myId, myLabel);
         ...
 
-2. Generate JSON-representation of your Manifest by calling 
+2. Generate JSON-representation of your Manifest by calling
 
         ManifestGenerator mg = new ManifestGenerator();
         String json = mg.generateJson(myManifest);
