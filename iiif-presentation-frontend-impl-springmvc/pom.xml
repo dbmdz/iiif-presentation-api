@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>1.2.3-TODO</version>
+    <version>0-SNAPSHOT</version>
   </parent>
 
   <artifactId>iiif-presentation-frontend-impl-springmvc</artifactId>
@@ -18,6 +18,10 @@
       <artifactId>iiif-presentation-business-api</artifactId>
     </dependency>
     <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>iiif-presentation-model-impl</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
     </dependency>
@@ -28,12 +32,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>de.digitalcollections</groupId>
-      <artifactId>iiif-presentation-model-impl</artifactId>
-      <version>1.2.3-TODO</version>
-      <type>jar</type>
     </dependency>
   </dependencies>
 </project>

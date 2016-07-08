@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>1.2.3-TODO</version>
+    <version>0-SNAPSHOT</version>
   </parent>
   
   <artifactId>iiif-presentation-business-impl</artifactId>
@@ -13,6 +13,10 @@
   <name>IIIF: IIIF Presentation API Library (Business IMPL)</name>
   
   <dependencies>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>iiif-presentation-backend-api</artifactId>
+    </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-business-api</artifactId>
@@ -24,12 +28,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>de.digitalcollections</groupId>
-      <artifactId>iiif-presentation-backend-api</artifactId>
-      <version>1.2.3-TODO</version>
-      <type>jar</type>
     </dependency>
   </dependencies>
 </project>
