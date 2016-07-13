@@ -25,7 +25,7 @@ public class PatternPresentationResolver implements PresentationResolver, Initia
   @Value("${presentation.resolvingPatternFile}")
   private String PATTERNFILE;
 
-  private Map<Pattern, String> patterns;
+  private final Map<Pattern, String> patterns;
 
   public PatternPresentationResolver(Map<Pattern, String> patterns) {
     this.patterns = patterns;

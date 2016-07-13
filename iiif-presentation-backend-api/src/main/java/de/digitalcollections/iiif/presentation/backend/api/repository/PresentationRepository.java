@@ -1,7 +1,7 @@
 package de.digitalcollections.iiif.presentation.backend.api.repository;
 
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
-import de.digitalcollections.iiif.presentation.model.api.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import java.net.URI;
 import java.net.URISyntaxException;
 import org.json.simple.JSONObject;

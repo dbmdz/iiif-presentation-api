@@ -1,16 +1,17 @@
 package de.digitalcollections.iiif.presentation.model.impl.jackson;
 
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.iiif.presentation.model.api.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.Service;
-import de.digitalcollections.iiif.presentation.model.api.Thumbnail;
-import de.digitalcollections.iiif.presentation.model.impl.ManifestImpl;
-import de.digitalcollections.iiif.presentation.model.impl.MetadataLocalizedValueImpl;
-import de.digitalcollections.iiif.presentation.model.impl.MetadataMultilanguageImpl;
-import de.digitalcollections.iiif.presentation.model.impl.MetadataSimpleImpl;
-import de.digitalcollections.iiif.presentation.model.impl.ServiceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.ThumbnailImpl;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataLocalizedValueImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataMultilanguageImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataSimpleImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ThumbnailImpl;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
