@@ -1,4 +1,4 @@
-package de.digitalcollections.iiif.presentation.backend.api.repository;
+package de.digitalcollections.iiif.presentation.backend.api.repository.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;

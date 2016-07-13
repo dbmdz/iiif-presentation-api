@@ -1,6 +1,6 @@
 package de.digitalcollections.iiif.presentation.business.impl.service.v2_0_0;
 
-import de.digitalcollections.iiif.presentation.backend.api.repository.PresentationRepository;
+import de.digitalcollections.iiif.presentation.backend.api.repository.v2_0_0.PresentationRepository;
 import de.digitalcollections.iiif.presentation.business.api.PresentationSecurityService;
 import de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.business.api.v2_0_0.PresentationService;

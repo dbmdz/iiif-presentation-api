@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
-import de.digitalcollections.iiif.presentation.backend.api.repository.PresentationRepository;
+import de.digitalcollections.iiif.presentation.backend.api.repository.v2_0_0.PresentationRepository;
 import de.digitalcollections.iiif.presentation.backend.api.resolver.PresentationResolver;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import java.io.IOException;
