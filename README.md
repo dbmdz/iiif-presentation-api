@@ -5,7 +5,7 @@
 [![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-presentation-api.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-presentation-api/releases)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/864f6c728d6f4e6fbddd24e5a517687c)](https://www.codacy.com/app/ralf-eichinger/iiif-presentation-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dbmdz/iiif-presentation-api&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/dbmdz/iiif-presentation-api/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-presentation-api)
-
+[![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-presentation-api.svg?maxAge=2592000)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22iiif-presentation-api%22)
 
 These Java libraries implement the IIIF Presentation API 2.0.0 and provide Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
 
