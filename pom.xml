@@ -57,6 +57,7 @@
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
     <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+    <version.maven-surefire-plugin>2.19.1</version.maven-surefire-plugin>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.slf4j>1.7.13</version.slf4j>
     <version.spring-framework>4.2.5.RELEASE</version.spring-framework>
@@ -99,6 +100,11 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.maven-surefire-plugin}</version>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
