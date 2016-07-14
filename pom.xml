@@ -9,7 +9,35 @@
   <packaging>pom</packaging>
   
   <name>IIIF: IIIF Presentation API Library</name>
-  <description>Java library implementing the IIIF Presentation API 2.0 and providing Manifest generation (see http://iiif.io/api/presentation/2.0/)</description>
+  <description>Java libraries implementing the IIIF Presentation API 2.0 and providing Manifest generation (see http://iiif.io/api/presentation/2.0/)</description>
+  <url>https://github.com/dbmdz/iiif-presentation-api</url>
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://github.com/dbmdz/iiif-presentation-api/blob/master/LICENSE</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Ralf Eichinger</name>
+      <email>ralf.eichinger@gmail.com</email>
+      <id>datazuul</id>
+    </developer>
+  </developers>
+  <ciManagement>
+    <url>https://travis-ci.org/dbmdz/iiif-presentation-api</url>
+    <system>Travis CI</system>
+  </ciManagement>
+  <issueManagement>
+    <url>https://github.com/dbmdz/iiif-presentation-api/issues</url>
+    <system>GitHub Issues</system>
+  </issueManagement>
+  <scm>
+    <connection>https://github.com/dbmdz/iiif-presentation-api.git</connection>
+    <developerConnection>git@github.com:dbmdz/iiif-presentation-api.git</developerConnection>
+    <url>https://github.com/dbmdz/iiif-presentation-api</url>
+  </scm>
   
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -25,8 +53,14 @@
     <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
     <version.json-simple>1.1.1</version.json-simple>
     <version.junit>4.10</version.junit>
+    <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
+    <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
+    <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
+    <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
+    <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
     <version.slf4j>1.7.13</version.slf4j>
     <version.spring-framework>4.2.5.RELEASE</version.spring-framework>
+    <version.versions-maven-plugin>2.2</version.versions-maven-plugin>
   </properties>
     
   <build>
@@ -34,11 +68,42 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.3</version>
+        <version>${version.maven-compiler-plugin}</version>
         <configuration>
           <showDeprecation>true</showDeprecation>
           <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>${version.maven-source-plugin}</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${version.maven-javadoc-plugin}</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>${version.versions-maven-plugin}</version>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -62,6 +127,17 @@
           <excludes>
             <exclude>**/SpringConfig*</exclude>
           </excludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>${version.nexus-staging-maven-plugin}</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
     </plugins>
@@ -178,4 +254,28 @@
       </plugin>
     </plugins>
   </reporting>
+  
+  <profiles>
+    <profile>
+      <id>deploy</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${version.maven-gpg-plugin}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

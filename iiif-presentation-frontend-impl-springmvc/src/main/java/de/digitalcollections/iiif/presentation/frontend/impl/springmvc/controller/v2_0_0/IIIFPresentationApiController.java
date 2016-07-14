@@ -30,7 +30,6 @@ public class IIIFPresentationApiController {
   private PresentationService presentationService;
 
   /**
-   * see <a href="http://iiif.io/api/presentation/2.0/#manifest">IIIF 2.0</a><br/>
    * The manifest response contains sufficient information for the client to initialize itself and begin to display
    * something quickly to the user. The manifest resource represents a single object and any intellectual work or works
    * embodied within that object. In particular it includes the descriptive, rights and linking information for the
@@ -38,7 +37,8 @@ public class IIIFPresentationApiController {
    *
    * @param identifier unique id of object to be shown
    * @return the JSON-Manifest
-   * @throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
+   * @throws NotFoundException if manifest can not be delivered
+   * @see <a href="http://iiif.io/api/presentation/2.0/#manifest">IIIF 2.0</a>
    */
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
   @RequestMapping(value = "{identifier}/manifest", method = RequestMethod.GET,

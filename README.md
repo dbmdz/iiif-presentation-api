@@ -3,61 +3,162 @@
 [![Build Status](https://travis-ci.org/dbmdz/iiif-presentation-api.svg?branch=next)](https://travis-ci.org/dbmdz/iiif-presentation-api)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-presentation-api.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-presentation-api/releases)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/864f6c728d6f4e6fbddd24e5a517687c)](https://www.codacy.com/app/ralf-eichinger/iiif-presentation-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dbmdz/iiif-presentation-api&amp;utm_campaign=Badge_Grade)
+[![codecov](https://codecov.io/gh/dbmdz/iiif-presentation-api/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-presentation-api)
 
 
 These Java libraries implement the IIIF Presentation API 2.0.0 and provide Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
 
 "The IIIF Presentation API specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object or other collection of images and related content. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic user experience, consuming content from across collections and hosting institutions."
 
+## Features
+
+- IIIF Presentation API 2.0.0 conform
+- Embeddable Spring components: Spring MVC Controller, Spring Services, Spring Repository
+- Model classes for building typesafe manifest instance
+- Access to manifests over project specific Resolver-plugin mechanism.
+- Command-line Manifest-Generator example
+
 ## Usage
+
+### Maven dependencies
+
+Depending on what library you want use, these are the dependency definitions for all modules:
+
+```xml
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-backend-api</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-backend-impl</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-business-api</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-business-impl</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-model-api</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-model-impl</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-frontend-impl-springmvc</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-frontend-impl-commandline</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+```
 
 ### Use embedded in your Java code
 
-1. Create your IIIF-Manifest by using IIIF-Resources like Manifest, Sequence, Canvas, Image, ImageResource, etc.
-(see classes in package com.datazuul.iiif.presentation.api.model).
+#### Create a manifest
 
-        Manifest myManifest = new Manifest(myId, myLabel);
-        ...
+Create your IIIF-Manifest by using IIIF-Resources like Manifest, Sequence, Canvas, Image, ImageResource, etc.
+(see classes in package de.digitalcollections.iiif.presentation.model.impl.v2_0_0).
 
-2. Generate JSON-representation of your Manifest by calling
+```java
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
 
-        ManifestGenerator mg = new ManifestGenerator();
-        String json = mg.generateJson(myManifest);
+  Manifest myManifest = new ManifestImpl(myId, myLabel);
+  ...
+```
+
+#### Generate JSON
+
+Generate JSON-representation of your Manifest by calling
+
+```java
+import de.digitalcollections.iiif.presentation.frontend.impl.commandline.v2_0_0.ManifestGenerator;
+
+  ManifestGenerator mg = new ManifestGenerator();
+  String json = mg.generateJson(myManifest);
+  ...
+```
+
+#### Automatic manifest generation
 
 Additionally a command line tool (ManifestGenerator) is provided, which generates
-a manifest by reading all images (of a book) in a directory.
+a manifest by reading all images (e.g. of a book) in a directory.
 
-Contributions are welcome!
+#### Embed IIIF-Controller into your Spring MVC application
 
-### Use as Maven dependency
+- For IIIF Presentation API support add Spring MVC-library as dependency to your pom.xml:
 
-Checkout and build it (mvn clean install)
+```xml
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-frontend-impl-springmvc</artifactId>
+  <version>2.0.0</version>
+</dependency>
+```
 
-or
+- Import library's root configuration class into the Spring configuration of your webapp. Example:
 
-Deploy to your local Maven repository server
+```java
+@Configuration
+@ComponentScan(basePackages = {
+  "de.digitalcollections.iiif.presentation.config"
+}) // scans all frontend, business and backend configs of Presentation API
+...
+public class SpringConfig implements EnvironmentAware {
+  ...
+}
+```
 
-    $ cd target
-    $ mvn deploy:deploy-file -DgroupId=de.digitalcollections -DartifactId=iiif-presentation-model-api -Dversion=2.0.0-SNAPSHOT -Dpackaging=jar -Dfile=./iiif-presentation-model-api-2.0.0-SNAPSHOT.jar -DrepositoryId=mdzrepo-snapshot -Durl=[url to your local snapshot repository]
+- Start your Spring MVC webapp. You should see mappings for IIIF-Presentation-API-URLs in your log:
+
+```
+...
+[2016-07-14 10:15:23,662 INFO ] [...] RequestMappingHandlerMapping (main    ) > Mapped "{[/iiif/presentation/2.0.0/{identifier}/manifest],methods=[GET],produces=[application/json]}" onto public de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller.v2_0_0.IIIFPresentationApiController.getManifest(java.lang.String) throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
+...
+```
+
+### Local build
+
+Clone project and build it:
+
+```shell
+$ mvn clean install
+```
 
 # FAQ
 <b>Q</b>: The JSON output for IIIF Presentation API is not correct.<br/>
-<b>A</b>: Be sure that Jackson object mapping is configured correctly. The SpringConfigIIIF overrides the method "configureMessageConverters(...)" and configures the MappingJackson2HttpMessageConverter's ObjectMapper properly. But if you override the method in your Spring MVC configuration class, the SpringConfigIIIF message converters configuration is ignored (the root beans rules...).<br/>
+<b>A</b>: Be sure that Jackson object mapping is configured correctly. The SpringConfigFrontendPresentation overrides the method "configureMessageConverters(...)" and configures the MappingJackson2HttpMessageConverter's ObjectMapper properly. But if you override the method in your Spring MVC configuration class, the SpringConfigFrontendPresentation message converters configuration is ignored (the root configuration rules...).<br/>
 Solution: Add proper ObjectMapper configuration to your config. For IIIF this is needed:
 
-        @Bean
-        public ObjectMapper objectMapper() {
-          ObjectMapper objectMapper = new ObjectMapper();
-          // do not serialize null values/objects
-          objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+```java
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 
-          // IIIF Presentation API objects:
-          objectMapper.addMixIn(AbstractIiifResource.class, AbstractIiifResourceMixIn.class);
-          objectMapper.addMixIn(Image.class, AbstractIiifResourceMixIn.class);
-          objectMapper.addMixIn(Manifest.class, ManifestMixIn.class);
-          objectMapper.addMixIn(MetadataLocalizedValue.class, MetadataLocalizedValueMixIn.class);
-          objectMapper.addMixIn(Resource.class, AbstractIiifResourceMixIn.class);
-          objectMapper.addMixIn(Service.class, ServiceMixIn.class);
-
-          return objectMapper;
-        }
+@Bean
+public ObjectMapper objectMapper() {
+  ObjectMapper objectMapper = new IiifPresentationApiObjectMapper();
+  return objectMapper;
+}
+```

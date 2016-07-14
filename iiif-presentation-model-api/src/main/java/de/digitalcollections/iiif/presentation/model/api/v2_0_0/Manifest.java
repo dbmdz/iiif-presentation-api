@@ -1,11 +1,13 @@
 package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
 
+import de.digitalcollections.iiif.presentation.model.api.enums.ViewingDirection;
+import de.digitalcollections.iiif.presentation.model.api.enums.ViewingHint;
 import java.util.List;
 
 /**
  * IIIF Presentation API Manifest.
  * <p>
- * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/manifest</p>
+ * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/manifest
  *
  * <ul>
  * <li>Each manifest must, and is very likely to, have one sequence, but may have more than one.</li>
@@ -19,7 +21,7 @@ import java.util.List;
  * Other properties are possible, either via custom extensions or endorsed by the IIIF. If a client discovers properties
  * that it does not understand, then it must ignore them. Other properties should consist of a prefix and a name in the
  * form “prefix:name” to ensure it does not collide with a property defined by IIIF specifications. Services should be
- * used for extensions if at all possible.</p>
+ * used for extensions if at all possible.
  *
  * <p>
  * A complete example response, e.g. at URL http://www.example.org/iiif/book1/manifest:
@@ -177,9 +179,8 @@ import java.util.List;
  *   ]
  * }
  * </pre>
- * </p>
  *
- * @see http://iiif.io/api/presentation/2.0/#manifest
+ * @see <a href="http://iiif.io/api/presentation/2.0/#manifest">http://iiif.io/api/presentation/2.0/#manifest</a>
  */
 public interface Manifest extends IiifResource {
 
@@ -214,19 +215,19 @@ public interface Manifest extends IiifResource {
   String getViewingDirection();
 
   /**
-   * @see ViewingDirections
    * @param viewingDirection The direction that canvases of the resource should be presented when rendered for the user
    * to navigate and/or read. A manifest may have a viewing direction, and if so, it applies to all of its sequences
    * unless the sequence specifies its own viewing direction.
+   * @see ViewingDirection
    */
   void setViewingDirection(String viewingDirection);
 
   String getViewingHint();
 
   /**
-   * @see ViewingHint
    * @param viewingHint A hint to the client as to the most appropriate method of displaying the resource. A manifest,
    * sequence or range may have a viewing hint, with scope as per viewingDirection.
+   * @see ViewingHint
    */
   void setViewingHint(String viewingHint);
 

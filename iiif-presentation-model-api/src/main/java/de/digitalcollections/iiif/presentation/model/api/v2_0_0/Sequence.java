@@ -1,11 +1,13 @@
 package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
 
+import de.digitalcollections.iiif.presentation.model.api.enums.ViewingDirection;
+import de.digitalcollections.iiif.presentation.model.api.enums.ViewingHint;
 import java.net.URI;
 import java.util.List;
 
 /**
  * <p>
- * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/sequence/{name}</p>
+ * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/sequence/{name}
  *
  * <ul>
  * <li>Each sequence must have at least one canvas and is likely to have more than one.</li>
@@ -67,9 +69,9 @@ public interface Sequence extends IiifResource {
   String getViewingDirection();
 
   /**
-   * @see ViewingDirection
    * @param viewingDirection The direction that canvases of the resource should be presented when rendered for the user
    * to navigate and/or read. A sequence may have a viewing direction, and it MAY be different to that of the manifest.
+   * @see ViewingDirection
    */
   void setViewingDirection(String viewingDirection);
 
@@ -77,6 +79,7 @@ public interface Sequence extends IiifResource {
 
   /**
    * @param viewingHint A manifest, sequence or range may have a viewing hint, with scope as per viewingDirection.
+   * @see ViewingHint
    */
   void setViewingHint(String viewingHint);
 
