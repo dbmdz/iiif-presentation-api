@@ -8,13 +8,13 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.ImageResource;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.CanvasImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageResourceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.SequenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -94,8 +94,8 @@ public class ManifestGenerator {
   private static void generateManifest(final String imageDirectoryName, final List<Path> files)
           throws JsonProcessingException, IOException, URISyntaxException {
     // Start Manifest
-    String urlPrefix = "http://www.alexandria.de/beta/demo/bookreader/";
-    Manifest manifest = new ManifestImpl(urlPrefix + imageDirectoryName + "/manifest.json", "Walters MS 168");
+    String urlPrefix = "http://www.yourdomain.com/iiif/presentation/2.0.0/";
+    Manifest manifest = new ManifestImpl(urlPrefix + imageDirectoryName + "/manifest.json", "Manifest for " + imageDirectoryName);
 
     List<Sequence> sequences = new ArrayList<>();
     manifest.setSequences(sequences);

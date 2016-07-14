@@ -35,7 +35,7 @@
         <configuration> 
           <archive> 
             <manifest> 
-              <mainClass>de.digitalcollections.iiif.presentation.frontend.impl.commandline.ManifestGenerator</mainClass> 
+              <mainClass>de.digitalcollections.iiif.presentation.frontend.impl.commandline.v2_0_0.ManifestGenerator</mainClass> 
             </manifest> 
           </archive> 
           <descriptorRefs> 
