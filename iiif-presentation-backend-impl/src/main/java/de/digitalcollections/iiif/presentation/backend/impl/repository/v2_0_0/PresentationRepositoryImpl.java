@@ -139,6 +139,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
       }
     }
     String msg = "No resolver found for identifier '" + identifier + "'";
+    LOGGER.info(msg);
     throw new NotFoundException(msg);
   }
 
