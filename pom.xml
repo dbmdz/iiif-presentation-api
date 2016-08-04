@@ -62,6 +62,7 @@
     <version.slf4j>1.7.13</version.slf4j>
     <version.spring-framework>4.2.5.RELEASE</version.spring-framework>
     <version.versions-maven-plugin>2.2</version.versions-maven-plugin>
+    <version.feign>9.0.0</version.feign>
   </properties>
     
   <build>
@@ -211,6 +212,16 @@
         <groupId>de.digitalcollections</groupId>
         <artifactId>iiif-presentation-model-impl</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-core</artifactId>
+        <version>${version.feign}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-jackson</artifactId>
+        <version>${version.feign}</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
