@@ -7,7 +7,7 @@
   <artifactId>iiif-presentation-api</artifactId>
   <version>0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  
+
   <name>IIIF: IIIF Presentation API Library</name>
   <description>Java libraries implementing the IIIF Presentation API 2.0 and providing Manifest generation (see http://iiif.io/api/presentation/2.0/)</description>
   <url>https://github.com/dbmdz/iiif-presentation-api</url>
@@ -38,12 +38,12 @@
     <developerConnection>git@github.com:dbmdz/iiif-presentation-api.git</developerConnection>
     <url>https://github.com/dbmdz/iiif-presentation-api</url>
   </scm>
-  
+
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
+
     <version.commons-cli>1.3.1</version.commons-cli>
     <version.commons-io>2.5</version.commons-io>
     <version.fluent-hc>4.3.4</version.fluent-hc>
@@ -64,7 +64,7 @@
     <version.versions-maven-plugin>2.2</version.versions-maven-plugin>
     <version.feign>9.0.0</version.feign>
   </properties>
-    
+
   <build>
     <plugins>
       <plugin>
@@ -149,7 +149,7 @@
       </plugin>
     </plugins>
   </build>
-  
+
   <modules>
     <module>iiif-presentation-model-impl</module>
     <module>iiif-presentation-model-api</module>
@@ -157,10 +157,11 @@
     <module>iiif-presentation-business-impl</module>
     <module>iiif-presentation-backend-api</module>
     <module>iiif-presentation-backend-impl</module>
+    <module>iiif-presentation-frontend-impl-client-rest</module>
     <module>iiif-presentation-frontend-impl-commandline</module>
     <module>iiif-presentation-frontend-impl-springmvc</module>
   </modules>
-    
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -261,7 +262,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <reporting>
     <plugins>
       <plugin>
@@ -271,7 +272,7 @@
       </plugin>
     </plugins>
   </reporting>
-  
+
   <profiles>
     <profile>
       <id>deploy</id>

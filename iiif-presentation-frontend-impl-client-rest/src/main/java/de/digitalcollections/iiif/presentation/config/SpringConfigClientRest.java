@@ -1,7 +1,7 @@
 package de.digitalcollections.iiif.presentation.config;
 
 import de.digitalcollections.iiif.presentation.frontend.impl.client.rest.IIIFRepository;
-import de.digitalcollections.iiif.presentation.model.impl.jackson.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import org.springframework.beans.factory.annotation.Value;

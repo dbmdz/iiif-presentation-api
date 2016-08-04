@@ -1,6 +1,6 @@
 package de.digitalcollections.iiif.presentation.frontend.impl.client.rest;
 
-import de.digitalcollections.iiif.presentation.model.api.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.stereotype.Repository;
