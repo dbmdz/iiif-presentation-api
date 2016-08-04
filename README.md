@@ -148,7 +148,7 @@ public class SpringConfig implements EnvironmentAware {
 
 #### IIIF REST client in your Spring MVC application
 
-In `SpringConfigFrontend-local` (resp. `-dev` or `-production`) set your IIIF server URL:
+In `SpringConfigFrontend-local` (resp. `-DEV` or `-PROD`) set your IIIF server URL:
 
 ```
 presentation.iiifRepositoryURL=https://localhost/iiif/presentation
@@ -163,7 +163,7 @@ public class Test {
   private IIIFRepository iiif;
 
   public void fetch(String id) {
-    Manifest manifest = iiif.getManifest(id);
+    Manifest manifest = iiif.manifest(id);
     // ... do something with manifest
   }
 
