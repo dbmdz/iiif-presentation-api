@@ -1,10 +1,10 @@
 # IIIF Presentation API Java Libraries
 
 [![Build Status](https://travis-ci.org/dbmdz/iiif-presentation-api.svg?branch=next)](https://travis-ci.org/dbmdz/iiif-presentation-api)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-presentation-api.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-presentation-api/releases)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/864f6c728d6f4e6fbddd24e5a517687c)](https://www.codacy.com/app/ralf-eichinger/iiif-presentation-api?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dbmdz/iiif-presentation-api&amp;utm_campaign=Badge_Grade)
 [![codecov](https://codecov.io/gh/dbmdz/iiif-presentation-api/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/iiif-presentation-api)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-presentation-api.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-presentation-api/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-presentation-api.svg?maxAge=2592000)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22iiif-presentation-api%22)
 
 These Java libraries implement the IIIF Presentation API 2.0.0 and provide Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
@@ -59,6 +59,12 @@ Depending on what library you want use, these are the dependency definitions for
 <dependency>
   <groupId>de.digitalcollections</groupId>
   <artifactId>iiif-presentation-model-impl</artifactId>
+  <version>${version.iiif-presentation}</version>
+</dependency>
+
+<dependency>
+  <groupId>de.digitalcollections</groupId>
+  <artifactId>iiif-presentation-frontend-impl-client-rest</artifactId>
   <version>${version.iiif-presentation}</version>
 </dependency>
 
@@ -139,6 +145,33 @@ public class SpringConfig implements EnvironmentAware {
 [2016-07-14 10:15:23,662 INFO ] [...] RequestMappingHandlerMapping (main    ) > Mapped "{[/iiif/presentation/2.0.0/{identifier}/manifest],methods=[GET],produces=[application/json]}" onto public de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller.v2_0_0.IIIFPresentationApiController.getManifest(java.lang.String) throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
 ...
 ```
+
+#### IIIF REST client in your Spring MVC application
+
+In `SpringConfigFrontend-local` (resp. `-dev` or `-production`) set your IIIF server URL:
+
+```
+presentation.iiifRepositoryURL=https://localhost/iiif/presentation
+```
+
+After including `SpringConfigClientRest` in your component scan you can autowire the REST client:
+
+```java
+public class Test {
+
+  @Autowired
+  private IIIFRepository iiif;
+
+  public void fetch(String id) {
+    Manifest manifest = iiif.getManifest(id);
+    // ... do something with manifest
+  }
+
+}
+
+```
+
+
 
 ### Local build
 
