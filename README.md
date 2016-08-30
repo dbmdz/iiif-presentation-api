@@ -148,13 +148,13 @@ public class SpringConfig implements EnvironmentAware {
 
 #### IIIF REST client in your Spring MVC application
 
-In `SpringConfigFrontend-local` (resp. `-DEV` or `-PROD`) set your IIIF server URL:
+In the configuration file `de.digitalcollections.iiif.presentation.config.SpringConfigClientRest-local.properties` (resp. `-DEV` or `-PROD`) set your IIIF server URL:
 
 ```
 presentation.iiifRepositoryURL=https://localhost/iiif/presentation
 ```
 
-After including `SpringConfigClientRest` in your component scan you can autowire the REST client:
+After including the configuration bean `SpringConfigClientRest` in your java config component scan you can autowire the REST client:
 
 ```java
 public class Test {
@@ -170,8 +170,6 @@ public class Test {
 }
 
 ```
-
-
 
 ### Local build
 

@@ -12,18 +12,18 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @PropertySource(value = {
-    "classpath:de/digitalcollections/iiif/presentation/config/SpringConfigFrontend-${spring.profiles.active:PROD}.properties"
+  "classpath:de/digitalcollections/iiif/presentation/config/SpringConfigClientRest-${spring.profiles.active:PROD}.properties"
 })
 public class SpringConfigClientRest {
 
   @Value("${presentation.iiifRepositoryURL}")
-  private String iifRepositoryURL;
+  private String iiifRepositoryURL;
 
   @Bean
   public IIIFRepository iiifRepository() {
     IIIFRepository iiif = Feign.builder()
-        .decoder(new JacksonDecoder(new IiifPresentationApiObjectMapper()))
-        .target(IIIFRepository.class, iifRepositoryURL);
+            .decoder(new JacksonDecoder(new IiifPresentationApiObjectMapper()))
+            .target(IIIFRepository.class, iiifRepositoryURL);
     return iiif;
   }
 
