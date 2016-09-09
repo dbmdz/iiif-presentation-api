@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import java.net.URI;
 import java.util.List;
@@ -9,12 +10,12 @@ import java.util.List;
 public class CollectionImpl extends AbstractIiifResourceImpl implements Collection {
 
   private String description; // recommended
-  private final String label; // required
+  private final PropertyValue label; // required
   private final List<Metadata> metadata; // recommended
   private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
 
-  public CollectionImpl(URI id, String label, List<Metadata> metadata) {
+  public CollectionImpl(URI id, PropertyValue label, List<Metadata> metadata) {
     assert id != null;
     assert label != null;
 
@@ -37,7 +38,7 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 

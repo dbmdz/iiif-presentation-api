@@ -1,9 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
+
 import java.net.URI;
 import java.util.List;
 
@@ -11,7 +9,7 @@ public class SequenceImpl extends AbstractIiifResourceImpl implements Sequence {
 
   private List<Canvas> canvases;
   private String description; // optional
-  private String label; // optional
+  private PropertyValue label; // optional
   private List<Metadata> metadata; // optional
   private String startCanvas; // optional
   private Thumbnail thumbnail; // optional
@@ -26,7 +24,7 @@ public class SequenceImpl extends AbstractIiifResourceImpl implements Sequence {
    * @param label A sequence may have a label, and if there are multiple sequences in a single manifest then they must
    * have labels. The label should briefly convey the nature of sequence, such as “Current Page Order”.
    */
-  public SequenceImpl(String label) {
+  public SequenceImpl(PropertyValue label) {
     this();
     assert label != null;
     this.label = label;
@@ -38,7 +36,7 @@ public class SequenceImpl extends AbstractIiifResourceImpl implements Sequence {
    * @param id unique id of resource
    * @param label The label should briefly convey the nature of sequence, such as “Current Page Order”.
    */
-  public SequenceImpl(URI id, String label) {
+  public SequenceImpl(URI id, PropertyValue label) {
     this(label);
     this.id = id;
   }
@@ -69,12 +67,12 @@ public class SequenceImpl extends AbstractIiifResourceImpl implements Sequence {
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

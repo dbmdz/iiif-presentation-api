@@ -13,7 +13,7 @@ public interface Layer extends IiifResource {
 
   void setDescription(String description);
 
-  String getLabel();
+  PropertyValue getLabel();
 
   List<Metadata> getMetadata();
 

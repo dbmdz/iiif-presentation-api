@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.AnnotationList;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,7 +11,7 @@ import java.util.List;
 public class AnnotationListImpl extends AbstractIiifResourceImpl implements AnnotationList {
 
   private String description; // optional
-  private String label; // optional
+  private PropertyValue label; // optional
   private List<Metadata> metadata; // optional
   private Thumbnail thumbnail; // optional
   private String viewingHint; // optional
@@ -37,12 +38,12 @@ public class AnnotationListImpl extends AbstractIiifResourceImpl implements Anno
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

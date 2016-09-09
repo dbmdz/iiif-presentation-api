@@ -7,13 +7,13 @@ package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
  */
 public interface ImageContent extends Content {
 
-  String getLabel();
+  PropertyValue getLabel();
 
   /**
    * @param label A content resource may have a label, and if there is a choice of content resource for the same canvas,
    * then they must have labels. The label should be a brief description of the resource, such as "black and white"
    * versus "color photograph".
    */
-  void setLabel(String label);
+  void setLabel(PropertyValue label);
 
 }

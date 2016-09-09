@@ -35,9 +35,9 @@ public interface Canvas extends IiifResource {
 
   void setImages(List<Image> images);
 
-  String getLabel();
+  PropertyValue getLabel();
 
-  void setLabel(String label);
+  void setLabel(PropertyValue label);
 
   List<Metadata> getMetadata();
 

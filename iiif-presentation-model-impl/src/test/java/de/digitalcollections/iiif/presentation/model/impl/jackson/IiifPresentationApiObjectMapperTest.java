@@ -1,17 +1,13 @@
 package de.digitalcollections.iiif.presentation.model.impl.jackson;
 
+import com.jayway.jsonpath.JsonPath;
+import com.jayway.jsonpath.ReadContext;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataLocalizedValueImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataMultilanguageImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataSimpleImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ThumbnailImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.*;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -26,6 +22,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.junit.Assert.assertEquals;
+
+
 public class IiifPresentationApiObjectMapperTest {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(IiifPresentationApiObjectMapperTest.class);
@@ -33,22 +32,32 @@ public class IiifPresentationApiObjectMapperTest {
   static ObjectMapper objectMapper;
   private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
+  private static final String expectedMultiLanguageMetadataJson = "";
+
   @BeforeClass
   public static void setupClass() {
     objectMapper = new IiifPresentationApiObjectMapper();
   }
 
   @Test
-  public void testJsonToManifest() throws JsonProcessingException, IOException, URISyntaxException {
+  public void testJsonToMinimalManifest() throws JsonProcessingException, IOException, URISyntaxException {
     String json = IOUtils.
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_minimal.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
-    Assert.assertTrue(manifest.getLabel().equals("testLabel"));
+    Assert.assertTrue(manifest.getLabel().getValue().equals("testLabel"));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
-    Assert.assertEquals(manifest.getThumbnail().getId(),
+    assertEquals(manifest.getThumbnail().getId(),
             new URI("http://example.com/iiif/image/test-obj/full/200,/0/default.jpg"));
+  }
+
+  @Test
+  public void testJsonToManifest() throws Exception {
+    String json = IOUtils.
+        toString(this.getClass().getClassLoader().getResourceAsStream("manifest.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
+    Assert.assertNotNull(manifest.getMetadata());
   }
 
   @Test
@@ -57,16 +66,15 @@ public class IiifPresentationApiObjectMapperTest {
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_metadata.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
-    Assert.assertTrue(manifest.getLabel().equals("testLabel"));
+    Assert.assertEquals("testLabel", manifest.getLabel().getValue());
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
-
     Assert.assertNotNull(manifest.getMetadata());
   }
 
   @Test
   public void testManifestToJson() throws JsonProcessingException, URISyntaxException {
-    Manifest manifest = new ManifestImpl("testId", "testLabel");
+    Manifest manifest = new ManifestImpl("testId", new PropertyValueSimpleImpl("testLabel"));
     Thumbnail thumb = new ThumbnailImpl();
     thumb.setId(new URI("http://example.com/iiif/test/thumb"));
     Service service = new ServiceImpl();
@@ -83,7 +91,8 @@ public class IiifPresentationApiObjectMapperTest {
 
   @Test
   public void testMetadataSimpleToJson() throws JsonProcessingException {
-    MetadataSimpleImpl metadata = new MetadataSimpleImpl("testLabel", "testValue");
+    MetadataImpl metadata = new MetadataImpl(new PropertyValueSimpleImpl("testLabel"),
+                                             new PropertyValueSimpleImpl("testValue"));
     String json = objectMapper.writeValueAsString(metadata);
     LOGGER.debug(json);
     Assert.assertTrue(json.contains("\"label\":\"testLabel\""));
@@ -92,16 +101,20 @@ public class IiifPresentationApiObjectMapperTest {
 
   @Test
   public void testMetadataMultilanguageToJson() throws JsonProcessingException {
-    List<MetadataLocalizedValueImpl> values = new ArrayList<>();
-    MetadataLocalizedValueImpl valueGerman = new MetadataLocalizedValueImpl("deutsch", Locale.GERMAN);
-    MetadataLocalizedValueImpl valueEnglish = new MetadataLocalizedValueImpl("english", Locale.ENGLISH);
-    values.add(valueGerman);
-    values.add(valueEnglish);
-    MetadataMultilanguageImpl metadata = new MetadataMultilanguageImpl("testLabel", values);
-    String json = objectMapper.writeValueAsString(metadata);
-    LOGGER.debug(json);
-    Assert.assertTrue(json.contains("\"label\":\"testLabel\""));
-    Assert.assertTrue(json.contains("{\"@value\":\"deutsch\",\"@language\":\"de\"}"));
-    Assert.assertTrue(json.contains("{\"@value\":\"english\",\"@language\":\"en\"}"));
+    PropertyValueLocalizedImpl labelProp = new PropertyValueLocalizedImpl();
+    PropertyValueLocalizedImpl valueProp = new PropertyValueLocalizedImpl();
+
+    labelProp.setValue(Locale.GERMAN, "Deutscher Schlüssel");
+    valueProp.setValue(Locale.GERMAN, "Deutscher Wert");
+
+    labelProp.setValue(Locale.ENGLISH, "English Key");
+    valueProp.setValue(Locale.ENGLISH, "English Value");
+
+    Metadata metadata = new MetadataImpl(labelProp, valueProp);
+    String jsonString = objectMapper.writeValueAsString(metadata);
+    ReadContext ctx = JsonPath.parse(jsonString);
+    assertEquals(ctx.read("$.label.size()", Integer.class), new Integer(2));
+    assertEquals(ctx.read("$.value.size()", Integer.class), new Integer(2));
+    // TODO: More asserts
   }
 }

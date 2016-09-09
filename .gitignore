@@ -2,3 +2,5 @@
 /nb-configuration.xml
 **/target/
 **/nbproject/
+*.iml
+**/.idea

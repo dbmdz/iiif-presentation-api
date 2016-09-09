@@ -1,10 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Range;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -13,7 +10,7 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
 
   private final String context = "http://iiif.io/api/presentation/2/context.json";
   private String description; // recommended
-  private String label; // required
+  private PropertyValue label; // required
   private List<Metadata> metadata; // recommended
   private List<Sequence> sequences;
   private List<Range> structures;
@@ -24,7 +21,7 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
   public ManifestImpl() {
   }
 
-  public ManifestImpl(URI id, String label) {
+  public ManifestImpl(URI id, PropertyValue label) {
     assert id != null;
     assert label != null;
 
@@ -34,7 +31,7 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
     this.type = "sc:Manifest";
   }
 
-  public ManifestImpl(String id, String label) throws URISyntaxException {
+  public ManifestImpl(String id, PropertyValue label) throws URISyntaxException {
     this(new URI(id), label);
   }
 
@@ -72,7 +69,7 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
    * with it. It is recommended that a IIIF Image API service be available for this image for manipulations such as
    * resizing. A manifest should have a thumbnail image that represents the entire object or work.
    */
-  public ManifestImpl(URI id, String label, String description, List<Metadata> metadata, Thumbnail thumbnail) {
+  public ManifestImpl(URI id, PropertyValue label, String description, List<Metadata> metadata, Thumbnail thumbnail) {
     this(id, label);
 
     this.description = description;
@@ -96,12 +93,12 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

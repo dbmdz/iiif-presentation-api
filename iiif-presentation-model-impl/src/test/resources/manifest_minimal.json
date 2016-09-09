@@ -2,7 +2,9 @@
   "@context": "http://iiif.io/api/presentation/2/context.json",
   "@type": "sc:Manifest",
   "@id": "http://example.com/iiif/presentation/test-obj/manifest",
-  "label": "testLabel",
+  "label": [
+    {"@language": "de", "@value": "täschtLäibel"},
+    {"@language": "en", "@value": "testLabel"}],
   "thumbnail": {
     "@id": "http://example.com/iiif/image/test-obj/full/200,/0/default.jpg",
     "service": {

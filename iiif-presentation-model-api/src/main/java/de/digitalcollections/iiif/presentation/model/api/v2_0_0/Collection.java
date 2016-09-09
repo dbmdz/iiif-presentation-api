@@ -12,7 +12,7 @@ public interface Collection extends IiifResource {
 
   void setDescription(String description);
 
-  String getLabel();
+  PropertyValue getLabel();
 
   List<Metadata> getMetadata();
 

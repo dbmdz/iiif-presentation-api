@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Annotation;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,7 +11,7 @@ import java.util.List;
 public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotation {
 
   private String description; // optional
-  private String label; // optional
+  private PropertyValue label; // optional
   private List<Metadata> metadata; // optional
   private Thumbnail thumbnail; // optional
   private String viewingHint; // optional
@@ -25,13 +26,13 @@ public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotati
    * @param id unique id of resource
    * @param label label of the Annotation
    */
-  public AnnotationImpl(URI id, String label) {
+  public AnnotationImpl(URI id, PropertyValue label) {
     this();
     this.label = label;
     this.id = id;
   }
 
-  public AnnotationImpl(String id, String label) throws URISyntaxException {
+  public AnnotationImpl(String id, PropertyValue label) throws URISyntaxException {
     this(new URI(id), label);
   }
 
@@ -46,12 +47,12 @@ public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotati
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

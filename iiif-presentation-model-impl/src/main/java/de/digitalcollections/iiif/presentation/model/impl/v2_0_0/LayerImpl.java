@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Layer;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import java.net.URI;
 import java.util.List;
@@ -9,13 +10,13 @@ import java.util.List;
 public class LayerImpl extends AbstractIiifResourceImpl implements Layer {
 
   private String description; // optional
-  private final String label; // required
+  private final PropertyValue label; // required
   private List<Metadata> metadata; // optional
   private Thumbnail thumbnail; // optional
   private String viewingDirection; // optional
   private String viewingHint; // optional
 
-  public LayerImpl(URI id, String label) {
+  public LayerImpl(URI id, PropertyValue label) {
     assert id != null;
     assert label != null;
 
@@ -36,7 +37,7 @@ public class LayerImpl extends AbstractIiifResourceImpl implements Layer {
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 

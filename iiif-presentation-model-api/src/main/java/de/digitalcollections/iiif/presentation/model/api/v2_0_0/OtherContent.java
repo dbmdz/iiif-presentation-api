@@ -6,8 +6,8 @@ package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
  */
 public interface OtherContent extends Content {
 
-  String getLabel();
+  PropertyValue getLabel();
 
-  void setLabel(String label);
+  void setLabel(PropertyValue label);
 
 }

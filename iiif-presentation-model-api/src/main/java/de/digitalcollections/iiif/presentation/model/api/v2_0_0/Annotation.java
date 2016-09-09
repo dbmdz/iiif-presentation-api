@@ -12,9 +12,9 @@ public interface Annotation extends IiifResource {
 
   void setDescription(String description);
 
-  String getLabel();
+  PropertyValue getLabel();
 
-  void setLabel(String label);
+  void setLabel(PropertyValue label);
 
   List<Metadata> getMetadata();
 

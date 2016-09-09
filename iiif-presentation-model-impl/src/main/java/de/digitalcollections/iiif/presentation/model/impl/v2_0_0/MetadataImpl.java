@@ -1,17 +1,35 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 
-public abstract class MetadataImpl implements Metadata {
+public class MetadataImpl implements Metadata {
+  private PropertyValue label;
+  private PropertyValue value;
 
-  private final String label;
+  public MetadataImpl() {
+  }
 
-  public MetadataImpl(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 
+  public void setValue(PropertyValue value) {
+    this.value = value;
+  }
+
+  public MetadataImpl(PropertyValue label, PropertyValue value) {
+    this.label = label;
+    this.value = value;
+  }
+
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
+  }
+
+  @Override
+  public PropertyValue getValue() {
+    return value;
   }
 }

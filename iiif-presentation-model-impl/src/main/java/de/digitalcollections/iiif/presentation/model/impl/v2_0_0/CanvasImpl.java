@@ -1,9 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Image;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -13,7 +11,7 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
   private String description; // optional
   private int height; // required
   private List<Image> images;
-  private String label; // required
+  private PropertyValue label; // required
   private List<Metadata> metadata; // optional
   private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
@@ -25,7 +23,7 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
     this.width = 0;
   }
 
-  public CanvasImpl(URI id, String label, int height, int width) {
+  public CanvasImpl(URI id, PropertyValue label, int height, int width) {
     assert id != null;
     assert label != null;
     assert height > -1;
@@ -39,7 +37,7 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
     type = "sc:Canvas";
   }
 
-  public CanvasImpl(String id, String label, int height, int width) throws URISyntaxException {
+  public CanvasImpl(String id, PropertyValue label, int height, int width) throws URISyntaxException {
     this(new URI(id), label, height, width);
   }
 
@@ -58,12 +56,12 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
    * @param thumbnail A canvas may have a thumbnail and should have a thumbnail if there are multiple images or
    * resources that make up the representation.
    */
-  public CanvasImpl(URI id, String label, int height, int width, Thumbnail thumbnail) {
+  public CanvasImpl(URI id, PropertyValue label, int height, int width, Thumbnail thumbnail) {
     this(id, label, height, width);
     this.thumbnail = thumbnail;
   }
 
-  public CanvasImpl(String id, String label, int height, int width, Thumbnail thumbnail) throws URISyntaxException {
+  public CanvasImpl(String id, PropertyValue label, int height, int width, Thumbnail thumbnail) throws URISyntaxException {
     this(new URI(id), label, height, width, thumbnail);
   }
 
@@ -98,12 +96,12 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

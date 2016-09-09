@@ -1,5 +1,6 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Range;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
@@ -9,7 +10,7 @@ import java.util.List;
 public class RangeImpl extends AbstractIiifResourceImpl implements Range {
 
   private String description; // optional
-  private String label; // required
+  private PropertyValue label; // required
   private List<Metadata> metadata; // optional
   private String startCanvas; // optional
   private Thumbnail thumbnail; // optional
@@ -18,7 +19,7 @@ public class RangeImpl extends AbstractIiifResourceImpl implements Range {
   private List<String> canvases;
   private List<Range> ranges;
 
-  public RangeImpl(URI id, String label) {
+  public RangeImpl(URI id, PropertyValue label) {
     assert id != null;
     assert label != null;
 
@@ -43,12 +44,12 @@ public class RangeImpl extends AbstractIiifResourceImpl implements Range {
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

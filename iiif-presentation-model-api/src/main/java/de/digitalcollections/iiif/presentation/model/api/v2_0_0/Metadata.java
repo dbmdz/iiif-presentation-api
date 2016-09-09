@@ -14,7 +14,6 @@ package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
  * Froissart".</p>
  */
 public interface Metadata {
-
-  String getLabel();
-
+  PropertyValue getLabel();
+  PropertyValue getValue();
 }
