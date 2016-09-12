@@ -9,7 +9,7 @@
     {"label":"Published", "value":"Leipzig, 1910"},
     {"label":"Publisher", "value":"B. G. Teubner"}
   ],
-  "description":"303. Bändchen der Sammlung wissenschaftlich-gemeinverständlicher Darstellungen 'Aus Natur und Geisteswelt'",
+  "description": {"@value": "303. Bändchen der Sammlung wissenschaftlich-gemeinverständlicher Darstellungen 'Aus Natur und Geisteswelt'", "@language": "de"},
   "thumbnail": {
     "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1/full/80,100/0/default.jpg",
     "service": {
@@ -30,13 +30,16 @@
       {
         "@id":"http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/sequence/normal",
         "@type":"sc:Sequence",
-        "label":"Current Page Order",
-
+        "label": {"@value": "Current Page Order",
+                  "@language": "en"},
         "canvases": [
           {
             "@id":"http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/canvas/p00001",
             "@type":"sc:Canvas",
-            "label":"Umschlag vorne",
+            "label": [{"@value": "Umschlag vorne",
+                       "@language": "de"},
+                      {"@value": "Front Cover",
+                       "@language": "en"}],
             "height":2236,
             "width":1498,
             "images": [

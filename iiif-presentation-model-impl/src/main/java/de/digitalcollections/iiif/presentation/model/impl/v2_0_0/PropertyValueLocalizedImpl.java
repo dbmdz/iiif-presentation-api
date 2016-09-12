@@ -12,7 +12,7 @@ public class PropertyValueLocalizedImpl implements PropertyValue {
   }
 
   public PropertyValueLocalizedImpl(Locale language, String value) {
-    super();
+    this();
     setValue(language, value);
   }
 
