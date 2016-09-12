@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LayerImpl extends AbstractIiifResourceImpl implements Layer {
 
-  private String description; // optional
+  private PropertyValue description; // optional
   private final PropertyValue label; // required
   private List<Metadata> metadata; // optional
   private Thumbnail thumbnail; // optional
@@ -27,12 +27,12 @@ public class LayerImpl extends AbstractIiifResourceImpl implements Layer {
   }
 
   @Override
-  public String getDescription() {
+  public PropertyValue getDescription() {
     return description;
   }
 
   @Override
-  public void setDescription(String description) {
+  public void setDescription(PropertyValue description) {
     this.description = description;
   }
 

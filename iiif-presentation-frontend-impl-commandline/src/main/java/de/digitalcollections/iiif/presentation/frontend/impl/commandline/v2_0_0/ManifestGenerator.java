@@ -2,19 +2,7 @@ package de.digitalcollections.iiif.presentation.frontend.impl.commandline.v2_0_0
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Image;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.ImageResource;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
-import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.CanvasImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageResourceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.SequenceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
+
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -28,13 +16,31 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Image;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.ImageResource;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.CanvasImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageResourceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueSimpleImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.SequenceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
 
 public class ManifestGenerator {
 
@@ -92,15 +98,16 @@ public class ManifestGenerator {
   }
 
   private static void generateManifest(final String imageDirectoryName, final List<Path> files)
-          throws JsonProcessingException, IOException, URISyntaxException {
+      throws JsonProcessingException, IOException, URISyntaxException {
     // Start Manifest
     String urlPrefix = "http://www.yourdomain.com/iiif/presentation/2.0.0/";
-    Manifest manifest = new ManifestImpl(urlPrefix + imageDirectoryName + "/manifest.json", "Manifest for " + imageDirectoryName);
+    PropertyValue manifestLabel = new PropertyValueSimpleImpl("Manifest for " + imageDirectoryName);
+    Manifest manifest = new ManifestImpl(urlPrefix + imageDirectoryName + "/manifest.json", manifestLabel);
 
     List<Sequence> sequences = new ArrayList<>();
     manifest.setSequences(sequences);
 
-    Sequence seq1 = new SequenceImpl("Current page order");
+    Sequence seq1 = new SequenceImpl(new PropertyValueSimpleImpl("Current page order"));
     seq1.setId(urlPrefix + imageDirectoryName + "/sequence/normal");
     sequences.add(seq1);
 
@@ -119,7 +126,7 @@ public class ManifestGenerator {
   }
 
   private static void addPage(String urlPrefix, String imageDirectoryName, List<Canvas> canvases, int pageCounter, Path file)
-          throws IOException, URISyntaxException {
+      throws IOException, URISyntaxException {
     Path fileName = file.getFileName();
     System.out.println(fileName.toAbsolutePath());
 
@@ -128,7 +135,7 @@ public class ManifestGenerator {
     int height = bimg.getHeight();
 
     // add a new page
-    Canvas canvas1 = new CanvasImpl(urlPrefix + imageDirectoryName + "/canvas/canvas-" + pageCounter, "p-" + pageCounter, height, width);
+    Canvas canvas1 = new CanvasImpl(urlPrefix + imageDirectoryName + "/canvas/canvas-" + pageCounter, new PropertyValueSimpleImpl("p-" + pageCounter), height, width);
     canvases.add(canvas1);
 
     List<Image> images = new ArrayList<>();
@@ -139,7 +146,7 @@ public class ManifestGenerator {
     images.add(image1);
 
     ImageResource imageResource1 = new ImageResourceImpl(urlPrefix + imageDirectoryName + "/" + fileName.
-            toString());
+        toString());
     imageResource1.setHeight(height);
     imageResource1.setWidth(width);
     image1.setResource(imageResource1);

@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface IiifResource {
 
-  String getAttribution();
+  PropertyValue getAttribution();
 
   /**
    * @param attribution A human readable label that must be displayed when the resource it is associated with is
    * displayed or used. For example, this could be used to present copyright or ownership statements, or simply an
    * acknowledgment of owning and/or publishing institutions. Any resource may have an attribution label.
    */
-  void setAttribution(String attribution);
+  void setAttribution(PropertyValue attribution);
 
   URI getId();
 

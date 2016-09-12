@@ -2,11 +2,21 @@ package de.digitalcollections.iiif.presentation.model.impl.jackson;
 
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
+
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueLocalizedImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueSimpleImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ThumbnailImpl;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.*;
 
 import java.io.IOException;
 import java.net.URI;
@@ -45,7 +55,9 @@ public class IiifPresentationApiObjectMapperTest {
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_minimal.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
-    Assert.assertTrue(manifest.getLabel().getValue().equals("testLabel"));
+    PropertyValueLocalizedImpl manifestLabel = (PropertyValueLocalizedImpl) manifest.getLabel();
+    Assert.assertTrue(manifestLabel.getValue("en").equals("testLabel"));
+    Assert.assertTrue(manifestLabel.getValue("de").equals("täschtLäibel"));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
     assertEquals(manifest.getThumbnail().getId(),

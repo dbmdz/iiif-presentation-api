@@ -22,12 +22,12 @@ public interface Sequence extends IiifResource {
 
   void setCanvases(List<Canvas> canvases);
 
-  String getDescription();
+  PropertyValue getDescription();
 
   /**
    * @param description A sequence may have a description to further explain how it differs from other sequences.
    */
-  void setDescription(String description);
+  void setDescription(PropertyValue description);
 
   /**
    * @param id A sequence may have an id.

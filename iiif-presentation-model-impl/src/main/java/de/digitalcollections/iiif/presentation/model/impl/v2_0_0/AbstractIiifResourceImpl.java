@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.IiifResource;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractIiifResourceImpl implements IiifResource {
 
-  protected String attribution; // optional
+  protected PropertyValue attribution; // optional
   protected String license; // optional
   protected String logo; // optional
   protected String type; // required
@@ -19,7 +20,7 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   protected URI id; // optional
 
   @Override
-  public String getAttribution() {
+  public PropertyValue getAttribution() {
     return attribution;
   }
 
@@ -34,7 +35,7 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   }
 
   @Override
-  public void setAttribution(String attribution) {
+  public void setAttribution(PropertyValue attribution) {
     this.attribution = attribution;
   }
 

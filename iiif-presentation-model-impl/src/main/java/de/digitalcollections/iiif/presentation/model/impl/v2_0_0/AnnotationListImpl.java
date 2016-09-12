@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AnnotationListImpl extends AbstractIiifResourceImpl implements AnnotationList {
 
-  private String description; // optional
+  private PropertyValue description; // optional
   private PropertyValue label; // optional
   private List<Metadata> metadata; // optional
   private Thumbnail thumbnail; // optional
@@ -28,12 +28,12 @@ public class AnnotationListImpl extends AbstractIiifResourceImpl implements Anno
   }
 
   @Override
-  public String getDescription() {
+  public PropertyValue getDescription() {
     return description;
   }
 
   @Override
-  public void setDescription(String description) {
+  public void setDescription(PropertyValue description) {
     this.description = description;
   }
 

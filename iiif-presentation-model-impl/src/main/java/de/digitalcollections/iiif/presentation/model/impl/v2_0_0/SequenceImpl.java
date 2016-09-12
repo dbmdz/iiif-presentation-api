@@ -1,14 +1,19 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
 
 import java.net.URI;
 import java.util.List;
 
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+
 public class SequenceImpl extends AbstractIiifResourceImpl implements Sequence {
 
   private List<Canvas> canvases;
-  private String description; // optional
+  private PropertyValue description; // optional
   private PropertyValue label; // optional
   private List<Metadata> metadata; // optional
   private String startCanvas; // optional
@@ -52,12 +57,12 @@ public class SequenceImpl extends AbstractIiifResourceImpl implements Sequence {
   }
 
   @Override
-  public String getDescription() {
+  public PropertyValue getDescription() {
     return description;
   }
 
   @Override
-  public void setDescription(String description) {
+  public void setDescription(PropertyValue description) {
     this.description = description;
   }
 

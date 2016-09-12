@@ -20,12 +20,12 @@ import java.util.List;
  */
 public interface Canvas extends IiifResource {
 
-  String getDescription();
+  PropertyValue getDescription();
 
   /**
    * @param description A canvas may have a description to describe particular features of the view.
    */
-  void setDescription(String description);
+  void setDescription(PropertyValue description);
 
   int getHeight();
 

@@ -13,9 +13,9 @@ public interface Range extends IiifResource {
 
   void setCanvases(List<String> canvases);
 
-  String getDescription();
+  PropertyValue getDescription();
 
-  void setDescription(String description);
+  void setDescription(PropertyValue description);
 
   PropertyValue getLabel();
 

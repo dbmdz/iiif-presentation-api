@@ -1,5 +1,6 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -8,7 +9,7 @@ public class ServiceImpl implements Service {
 
   protected String context;
   protected URI id;
-  protected String label;
+  protected PropertyValue label;
   protected String profile;
 
   public ServiceImpl() {
@@ -48,12 +49,12 @@ public class ServiceImpl implements Service {
   }
 
   @Override
-  public String getLabel() {
+  public PropertyValue getLabel() {
     return label;
   }
 
   @Override
-  public void setLabel(String label) {
+  public void setLabel(PropertyValue label) {
     this.label = label;
   }
 

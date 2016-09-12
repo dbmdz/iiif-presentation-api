@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Content;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import java.net.URI;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public class ContentImpl extends AbstractIiifResourceImpl implements Content {
 
   protected List<Metadata> metadata; // optional
-  protected String description; // optional
+  protected PropertyValue description; // optional
   protected Thumbnail thumbnail; // optional
   protected String format; // optional
   protected int height; // optional
@@ -36,12 +37,12 @@ public class ContentImpl extends AbstractIiifResourceImpl implements Content {
   }
 
   @Override
-  public String getDescription() {
+  public PropertyValue getDescription() {
     return description;
   }
 
   @Override
-  public void setDescription(String description) {
+  public void setDescription(PropertyValue description) {
     this.description = description;
   }
 

@@ -8,9 +8,9 @@ import java.util.List;
  */
 public interface Annotation extends IiifResource {
 
-  String getDescription();
+  PropertyValue getDescription();
 
-  void setDescription(String description);
+  void setDescription(PropertyValue description);
 
   PropertyValue getLabel();
 

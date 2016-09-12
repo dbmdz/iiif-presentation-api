@@ -53,13 +53,13 @@ public interface Service {
 
   void setId(String id) throws URISyntaxException;
 
-  String getLabel();
+  PropertyValue getLabel();
 
   /**
    * @param label Services may have a label property to provide a human readable string to display to the user in the
    * situation that the service has to be selected or manually linked to rather than automatically processed.
    */
-  void setLabel(String label);
+  void setLabel(PropertyValue label);
 
   String getProfile();
 

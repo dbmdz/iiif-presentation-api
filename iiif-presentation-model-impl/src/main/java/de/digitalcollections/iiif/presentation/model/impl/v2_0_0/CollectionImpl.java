@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CollectionImpl extends AbstractIiifResourceImpl implements Collection {
 
-  private String description; // recommended
+  private PropertyValue description; // recommended
   private final PropertyValue label; // required
   private final List<Metadata> metadata; // recommended
   private Thumbnail thumbnail; // recommended
@@ -28,12 +28,12 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
   }
 
   @Override
-  public String getDescription() {
+  public PropertyValue getDescription() {
     return description;
   }
 
   @Override
-  public void setDescription(String description) {
+  public void setDescription(PropertyValue description) {
     this.description = description;
   }
 

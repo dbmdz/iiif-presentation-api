@@ -11,8 +11,10 @@ import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.CanvasImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ImageResourceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueSimpleImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.SequenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -28,12 +30,12 @@ public class ManifestGeneratorTest {
   @Test
   public void testGenerateJson() throws JsonProcessingException, URISyntaxException {
     String urlPrefix = "http://localhost:10000/test";
-    Manifest manifest = new ManifestImpl(new URI(urlPrefix + "/demo/bookreader/manifest.json"), "Walters MS 168");
+    Manifest manifest = new ManifestImpl(new URI(urlPrefix + "/demo/bookreader/manifest.json"), new PropertyValueSimpleImpl("Walters MS 168"));
 
     List<Sequence> sequences = new ArrayList<>();
     manifest.setSequences(sequences);
 
-    Sequence seq1 = new SequenceImpl("Current page order");
+    Sequence seq1 = new SequenceImpl(new PropertyValueSimpleImpl("Current page order"));
     seq1.setId(urlPrefix + "/demo/bookreader/normal");
     sequences.add(seq1);
 
@@ -50,7 +52,7 @@ public class ManifestGeneratorTest {
 
   private void addPage(String urlPrefix, List<Canvas> canvases) throws URISyntaxException {
     // add a new page
-    Canvas canvas1 = new CanvasImpl(new URI(urlPrefix + "/demo/bookreader/canvas/canvas-1"), "Upper board outside", 2236, 1732);
+    Canvas canvas1 = new CanvasImpl(new URI(urlPrefix + "/demo/bookreader/canvas/canvas-1"), new PropertyValueSimpleImpl("Upper board outside"), 2236, 1732);
     canvases.add(canvas1);
 
     List<Image> images = new ArrayList<>();

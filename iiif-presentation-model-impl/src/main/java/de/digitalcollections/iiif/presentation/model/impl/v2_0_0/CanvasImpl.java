@@ -1,14 +1,19 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Image;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+
 public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
 
-  private String description; // optional
+  private PropertyValue description; // optional
   private int height; // required
   private List<Image> images;
   private PropertyValue label; // required
@@ -66,12 +71,12 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
   }
 
   @Override
-  public String getDescription() {
+  public PropertyValue getDescription() {
     return description;
   }
 
   @Override
-  public void setDescription(String description) {
+  public void setDescription(PropertyValue description) {
     this.description = description;
   }
 

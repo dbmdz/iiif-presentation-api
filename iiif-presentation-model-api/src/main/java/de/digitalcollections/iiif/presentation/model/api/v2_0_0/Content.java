@@ -12,12 +12,12 @@ import java.util.List;
  */
 public interface Content extends IiifResource {
 
-  String getDescription();
+  PropertyValue getDescription();
 
   /**
    * @param description A content resource may have a description.
    */
-  void setDescription(String description);
+  void setDescription(PropertyValue description);
 
   String getFormat();
 
