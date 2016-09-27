@@ -24,6 +24,9 @@ public class SpringConfigClientRest {
     IIIFRepository iiif = Feign.builder()
             .decoder(new JacksonDecoder(new IiifPresentationApiObjectMapper()))
             .target(IIIFRepository.class, iiifRepositoryURL);
+    // TODO maybe add custom error handling?
+    // see https://github.com/OpenFeign/feign/wiki/Custom-error-handling
+    // .errorDecoder(new IiifPresentationErrorDecoder())
     return iiif;
   }
 
