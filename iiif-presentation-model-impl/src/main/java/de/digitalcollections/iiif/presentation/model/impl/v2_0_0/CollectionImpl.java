@@ -4,6 +4,9 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.CollectionReference;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.ManifestReference;
+
 import java.net.URI;
 import java.util.List;
 
@@ -12,6 +15,8 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
   private PropertyValue description; // recommended
   private final PropertyValue label; // required
   private final List<Metadata> metadata; // recommended
+  private List<CollectionReference> subCollections;
+  private List<ManifestReference> manifests;
   private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
 
@@ -65,5 +70,25 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
   @Override
   public void setViewingHint(String viewingHint) {
     this.viewingHint = viewingHint;
+  }
+
+  @Override
+  public List<ManifestReference> getManifests() {
+    return this.manifests;
+  }
+
+  @Override
+  public void setManifests(List<ManifestReference> manifests) {
+    this.manifests = manifests;
+  }
+
+  @Override
+  public List<CollectionReference> getSubCollections() {
+    return subCollections;
+  }
+
+  @Override
+  public void setSubCollections(List<CollectionReference> collections) {
+    this.subCollections = collections;
   }
 }

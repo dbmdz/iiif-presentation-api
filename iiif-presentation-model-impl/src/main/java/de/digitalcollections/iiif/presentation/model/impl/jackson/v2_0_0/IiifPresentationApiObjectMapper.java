@@ -45,11 +45,17 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.R
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.SequenceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.ServiceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.ThumbnailMixIn;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.references.CollectionReferenceMixin;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.references.IiifReferenceMixin;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.references.ManifestReferenceMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.serializer.v2_0_0.PropertyValueSerializer;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.AbstractIiifResourceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.PropertyValueDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueLocalizedImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.CollectionReferenceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.IiifReferenceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.ManifestReferenceImpl;
 
 /**
  * A Jackson object mapper preconfigured for IIIF Presentation API objects.
@@ -59,6 +65,9 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
   public IiifPresentationApiObjectMapper() {
     addMixIn(IiifResource.class, AbstractIiifResourceMixIn.class);
     addMixIn(AbstractIiifResourceImpl.class, AbstractIiifResourceMixIn.class);
+    addMixIn(IiifReferenceImpl.class, IiifReferenceMixin.class);
+    addMixIn(CollectionReferenceImpl.class, CollectionReferenceMixin.class);
+    addMixIn(ManifestReferenceImpl.class, ManifestReferenceMixin.class);
 
     addMixIn(Annotation.class, AnnotationMixIn.class);
     addMixIn(AnnotationList.class, AnnotationListMixIn.class);

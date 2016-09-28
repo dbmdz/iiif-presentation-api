@@ -1,24 +1,32 @@
 package de.digitalcollections.iiif.presentation.model.impl.jackson;
 
+import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.CollectionReference;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.ManifestReference;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.CollectionImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueLocalizedImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueSimpleImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ThumbnailImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.CollectionReferenceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.ManifestReferenceImpl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revinate.assertj.json.JsonPathAssert;
 
 import java.io.IOException;
 import java.net.URI;
@@ -28,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.commons.io.IOUtils;
+import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -142,5 +151,33 @@ public class IiifPresentationApiObjectMapperTest {
     Assert.assertEquals("Deutscher Schlüssel", germanKey[0]);
     String[] englishKey = ctx.read("$.label[?(@['@language']=='en')]['@value']", String[].class);
     Assert.assertEquals("English Key", englishKey[0]);
+  }
+
+  @Test
+  public void testCollectionToJson() throws URISyntaxException, JsonProcessingException {
+    PropertyValue labelProp = new PropertyValueSimpleImpl("some label");
+    List<Metadata> metadata = new ArrayList<>();
+    metadata.add(new MetadataImpl(new PropertyValueSimpleImpl("some key"), new PropertyValueSimpleImpl("some value")));
+    Collection coll = new CollectionImpl(new URI("http://example.com/collection/some-collection"), labelProp, metadata);
+
+    List<ManifestReference> manifests = new ArrayList<>();
+    manifests.add(new ManifestReferenceImpl(new URI("http://example.com/manifest/some-manifest"),
+                                            new PropertyValueSimpleImpl("some label")));
+    manifests.add(new ManifestReferenceImpl(new URI("http://example.com/manifest/some-other-manifest")));
+    coll.setManifests(manifests);
+
+    List<CollectionReference> subColls = new ArrayList<>();
+    subColls.add(new CollectionReferenceImpl(new URI("http://example.com/collection/some-other-collection"),
+                                             new PropertyValueSimpleImpl("some label")));
+    subColls.add(new CollectionReferenceImpl(new URI("http://example.com/collection/yet-another-collection")));
+    coll.setSubCollections(subColls);
+    String jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(coll);
+    DocumentContext ctx = JsonPath.parse(jsonString);
+    JsonPathAssert.assertThat(ctx).jsonPathAsInteger("$.collections.length()").isEqualTo(2);
+    JsonPathAssert.assertThat(ctx).jsonPathAsInteger("$.manifests.length()").isEqualTo(2);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.label").isEqualTo("some label");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.metadata[0].label").isEqualTo("some key");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.manifests[0]['@type']").isEqualTo("sc:Manifest");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.collections[0]['@type']").isEqualTo("sc:Collection");
   }
 }
