@@ -32,17 +32,27 @@ public class PropertyValueSerializer extends StdSerializer<PropertyValue> {
   @Override
   public void serialize(PropertyValue value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonGenerationException {
     if (value instanceof PropertyValueSimpleImpl) {
-      jgen.writeString(value.getValue());
+      if (value.getValues().size() == 1) {
+        jgen.writeString(value.getValues().get(0));
+      } else {
+        jgen.writeStartArray();
+        for (String val : value.getValues()) {
+          jgen.writeString(val);
+        }
+        jgen.writeEndArray();
+      }
     } else {
       PropertyValueLocalizedImpl localized = (PropertyValueLocalizedImpl) value;
       Set<Locale> localizations = localized.getLocalizations();
-      if (localizations.size() == 1) {
+      if (localizations.size() == 1 && localized.getValues().size() == 1) {
         writeSingleLocalization(jgen, localizations.iterator().next(),
-                                localized.getValue());
+                                localized.getValues().get(0));
       } else {
         jgen.writeStartArray();
         for (Locale language : localizations) {
-          writeSingleLocalization(jgen, language, localized.getValue(language));
+          for (String val : localized.getValues(language)) {
+            writeSingleLocalization(jgen, language, val);
+          }
         }
         jgen.writeEndArray();
       }

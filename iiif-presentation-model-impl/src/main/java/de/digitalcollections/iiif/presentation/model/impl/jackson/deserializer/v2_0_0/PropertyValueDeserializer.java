@@ -35,24 +35,24 @@ public class PropertyValueDeserializer extends JsonDeserializer<PropertyValue> i
     TreeNode node = mapper.readTree(jp);
 
     if (TextNode.class.isAssignableFrom(node.getClass())) {
-      return mapper.convertValue(node, PropertyValueSimpleImpl.class);
-    } else if (ObjectNode.class.isAssignableFrom(node.getClass())){
+      return new PropertyValueSimpleImpl(((TextNode) node).textValue());
+    } else if (ObjectNode.class.isAssignableFrom(node.getClass())) {
       ObjectNode obj = (ObjectNode) node;
       String language = ((TextNode) node.get("@language")).textValue();
       String value = ((TextNode) node.get("@value")).textValue();
       return new PropertyValueLocalizedImpl(Locale.forLanguageTag(language), value);
     } else if (ArrayNode.class.isAssignableFrom(node.getClass())) {
-      // FIXME: We currently assume that the values are homogenous (i.e. no mix between strings and objects),
-      //        but it seems like the 2.1 specification allows for this:
-      //        http://iiif.io/api/presentation/2.1/#language-of-property-values
-      //        Prepare for a few horrible days, this might get hairy...
       ArrayNode arr = (ArrayNode) node;
       ObjectNode curObj;
       PropertyValueLocalizedImpl propVal = new PropertyValueLocalizedImpl();
       for (int i=0; i < arr.size(); i++) {
-        curObj = (ObjectNode) arr.get(i);
-        propVal.setValue(((TextNode) curObj.get("@language")).textValue(),
-                         ((TextNode) curObj.get("@value")).textValue());
+        if (ObjectNode.class.isAssignableFrom(arr.get(i).getClass())) {
+          curObj = (ObjectNode) arr.get(i);
+          propVal.addValue(((TextNode) curObj.get("@language")).textValue(),
+              ((TextNode) curObj.get("@value")).textValue());
+        } else if (TextNode.class.isAssignableFrom(arr.get(i).getClass())) {
+          propVal.addValue("", ((TextNode)arr.get(i)).asText());
+        }
       }
       return propVal;
     }

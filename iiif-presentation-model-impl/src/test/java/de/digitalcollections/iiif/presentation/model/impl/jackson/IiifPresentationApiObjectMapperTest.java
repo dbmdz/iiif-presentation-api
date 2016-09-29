@@ -67,8 +67,8 @@ public class IiifPresentationApiObjectMapperTest {
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
     PropertyValueLocalizedImpl manifestLabel = (PropertyValueLocalizedImpl) manifest.getLabel();
-    Assert.assertTrue(manifestLabel.getValue("en").equals("testLabel"));
-    Assert.assertTrue(manifestLabel.getValue("de").equals("täschtLäibel"));
+    Assert.assertTrue(manifestLabel.getValues("en").get(0).equals("testLabel"));
+    Assert.assertTrue(manifestLabel.getValues("de").get(0).equals("täschtLäibel"));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
     assertEquals(manifest.getThumbnail().getId(),
@@ -81,7 +81,7 @@ public class IiifPresentationApiObjectMapperTest {
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_metadata.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
-    Assert.assertEquals("testLabel", manifest.getLabel().getValue());
+    Assert.assertEquals("testLabel", manifest.getLabel().getValues().get(0));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
     Assert.assertNotNull(manifest.getMetadata());
@@ -93,14 +93,15 @@ public class IiifPresentationApiObjectMapperTest {
         toString(this.getClass().getClassLoader().getResourceAsStream("manifest.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     PropertyValueLocalizedImpl description = (PropertyValueLocalizedImpl) manifest.getDescription();
-    Assert.assertTrue(description.getValue(Locale.GERMAN).startsWith("303. Bändchen"));
-    Assert.assertEquals("Die Mechanik der festen, flüssigen und gasförmigen Körper; 1. Teil; Die Mechanik der festen Körper", manifest.getLabel().getValue());
+    Assert.assertTrue(description.getValues(Locale.GERMAN).get(0).startsWith("303. Bändchen"));
+    Assert.assertEquals("Die Mechanik der festen, flüssigen und gasförmigen Körper; 1. Teil; Die Mechanik der festen Körper",
+                        manifest.getLabel().getValues().get(0));
     Sequence sequence = manifest.getSequences().get(0);
-    Assert.assertEquals("Current Page Order", sequence.getLabel().getValue());
+    Assert.assertEquals("Current Page Order", sequence.getLabel().getValues().get(0));
     PropertyValueLocalizedImpl firstCanvasLabel = (PropertyValueLocalizedImpl) sequence.getCanvases().get(0).getLabel();
-    Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValue(Locale.GERMAN));
-    Assert.assertEquals("Front Cover", firstCanvasLabel.getValue(Locale.ENGLISH));
-    Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValue());
+    Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValues(Locale.GERMAN).get(0));
+    Assert.assertEquals("Front Cover", firstCanvasLabel.getValues(Locale.ENGLISH).get(0));
+    Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValues().get(0));
   }
 
   @Test
@@ -135,11 +136,11 @@ public class IiifPresentationApiObjectMapperTest {
     PropertyValueLocalizedImpl labelProp = new PropertyValueLocalizedImpl();
     PropertyValueLocalizedImpl valueProp = new PropertyValueLocalizedImpl();
 
-    labelProp.setValue(Locale.GERMAN, "Deutscher Schlüssel");
-    valueProp.setValue(Locale.GERMAN, "Deutscher Wert");
+    labelProp.addValue(Locale.GERMAN, "Deutscher Schlüssel");
+    valueProp.addValue(Locale.GERMAN, "Deutscher Wert");
 
-    labelProp.setValue(Locale.ENGLISH, "English Key");
-    valueProp.setValue(Locale.ENGLISH, "English Value");
+    labelProp.addValue(Locale.ENGLISH, "English Key");
+    valueProp.addValue(Locale.ENGLISH, "English Value");
 
     Metadata metadata = new MetadataImpl(labelProp, valueProp);
     String jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(metadata);

@@ -5,7 +5,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import java.util.*;
 
 public class PropertyValueLocalizedImpl implements PropertyValue {
-  private Map<Locale, String> localizations;
+  private Map<Locale, List<String>> localizations;
 
   public PropertyValueLocalizedImpl() {
     this.localizations = new HashMap<>();
@@ -13,40 +13,39 @@ public class PropertyValueLocalizedImpl implements PropertyValue {
 
   public PropertyValueLocalizedImpl(Locale language, String value) {
     this();
-    setValue(language, value);
+    addValue(language, value);
+  }
+
+  public void addValue(String language, String value) {
+    addValue(Locale.forLanguageTag(language), value);
+  }
+
+  public void addValue(Locale language, String value) {
+    if (!this.localizations.containsKey(language)) {
+      this.localizations.put(language, new ArrayList<>());
+    }
+    this.localizations.get(language).add(value);
   }
 
   public Set<Locale> getLocalizations() {
     return this.localizations.keySet();
   }
 
-  public void setValue(String value) {
-    this.setValue(Locale.getDefault(), value);
-  }
-
-  public void setValue(String languageTag, String value) {
-    setValue(Locale.forLanguageTag(languageTag), value);
-  }
-
-  public void setValue(Locale language, String value) {
-    this.localizations.put(language, value);
-  }
-
   @Override
-  public String getValue() {
+  public List<String> getValues() {
     // TODO: Use hardcoded (english?) default locale instead?
-    String value = getValue(Locale.getDefault());
-    if (value == null) {
-      value = localizations.entrySet().iterator().next().getValue();
+    List<String> values = getValues(Locale.getDefault());
+    if (values == null) {
+      values = localizations.entrySet().iterator().next().getValue();
     }
-    return value;
+    return values;
   }
 
-  public String getValue(String language) {
+  public List<String> getValues(String language) {
     return localizations.get(Locale.forLanguageTag(language));
   }
 
-  public String getValue(Locale locale) {
+  public List<String> getValues(Locale locale) {
     return localizations.get(locale);
   }
 }
