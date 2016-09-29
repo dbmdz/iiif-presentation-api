@@ -17,7 +17,7 @@ public class RangeImpl extends AbstractIiifResourceImpl implements Range {
   private String viewingDirection; // optional
   private String viewingHint; // optional
   private List<String> canvases;
-  private List<Range> ranges;
+  private List<String> ranges;
 
   public RangeImpl(URI id, PropertyValue label) {
     assert id != null;
@@ -114,12 +114,12 @@ public class RangeImpl extends AbstractIiifResourceImpl implements Range {
   }
 
   @Override
-  public List<Range> getRanges() {
+  public List<String> getRanges() {
     return ranges;
   }
 
   @Override
-  public void setRanges(List<Range> ranges) {
+  public void setRanges(List<String> ranges) {
     this.ranges = ranges;
   }
 }

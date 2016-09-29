@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.enums.ViewingDirection;
+
 import java.util.List;
 
 /**
@@ -25,9 +26,9 @@ public interface Range extends IiifResource {
 
   void setMetadata(List<Metadata> metadata);
 
-  List<Range> getRanges();
+  List<String> getRanges();
 
-  void setRanges(List<Range> ranges);
+  void setRanges(List<String> ranges);
 
   String getStartCanvas();
 
