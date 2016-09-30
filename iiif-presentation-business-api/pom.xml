@@ -10,7 +10,7 @@
   
   <artifactId>iiif-presentation-business-api</artifactId>
   <packaging>jar</packaging>
-  <name>IIIF: IIIF Presentation API Library (Business API)</name>
+  <name>DigitalCollections: IIIF Presentation API Library (Business API)</name>
   
   <dependencies>
     <dependency>

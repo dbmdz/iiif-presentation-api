@@ -8,7 +8,7 @@
   <version>0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>IIIF: IIIF Presentation API Library</name>
+  <name>DigitalCollections: IIIF Presentation API Library</name>
   <description>Java libraries implementing the IIIF Presentation API 2.0 and providing Manifest generation (see http://iiif.io/api/presentation/2.0/)</description>
   <url>https://github.com/dbmdz/iiif-presentation-api</url>
   <licenses>

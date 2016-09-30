@@ -8,7 +8,7 @@
     </parent>
     <artifactId>iiif-presentation-frontend-impl-client-rest</artifactId>
     <packaging>jar</packaging>
-    <name>IIIF: IIIF Presentation API Library (Frontend IMPL Client REST)</name>
+    <name>DigitalCollections: IIIF Presentation API Library (Frontend IMPL Client REST)</name>
 
     <dependencies>
       <dependency>

@@ -10,7 +10,7 @@
 
   <artifactId>iiif-presentation-frontend-impl-springmvc</artifactId>
   <packaging>jar</packaging>
-  <name>IIIF: IIIF Presentation API Library (Frontend IMPL Spring MVC)</name>
+  <name>DigitalCollections: IIIF Presentation API Library (Frontend IMPL Spring MVC)</name>
 
   <dependencies>
     <dependency>

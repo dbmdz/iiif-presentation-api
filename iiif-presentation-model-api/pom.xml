@@ -10,5 +10,5 @@
   
   <artifactId>iiif-presentation-model-api</artifactId>
   <packaging>jar</packaging>
-  <name>IIIF: IIIF Presentation API Library (Model API)</name>
+  <name>DigitalCollections: IIIF Presentation API Library (Model API)</name>
 </project>

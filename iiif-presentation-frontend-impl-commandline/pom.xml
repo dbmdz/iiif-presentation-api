@@ -10,7 +10,7 @@
   
   <artifactId>iiif-presentation-frontend-impl-commandline</artifactId>
   <packaging>jar</packaging>
-  <name>IIIF: IIIF Presentation API Library (Frontend IMPL CommandLine)</name>
+  <name>DigitalCollections: IIIF Presentation API Library (Frontend IMPL CommandLine)</name>
   
   <dependencies>
     <dependency>

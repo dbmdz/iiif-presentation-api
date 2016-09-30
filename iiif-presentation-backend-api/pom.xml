@@ -10,7 +10,7 @@
   
   <artifactId>iiif-presentation-backend-api</artifactId>
   <packaging>jar</packaging>
-  <name>IIIF: IIIF Presentation API Library (Backend API)</name>
+  <name>DigitalCollections: IIIF Presentation API Library (Backend API)</name>
   
   <dependencies>
     <dependency>

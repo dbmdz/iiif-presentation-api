@@ -10,7 +10,7 @@
   
   <artifactId>iiif-presentation-model-impl</artifactId>
   <packaging>jar</packaging>
-  <name>IIIF: IIIF Presentation API Library (Model IMPL)</name>
+  <name>DigitalCollections: IIIF Presentation API Library (Model IMPL)</name>
   
   <dependencies>
     <dependency>
