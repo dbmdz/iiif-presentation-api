@@ -4,6 +4,8 @@ import de.digitalcollections.iiif.presentation.frontend.impl.client.rest.IIIFRep
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,11 +18,14 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 })
 public class SpringConfigClientRest {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfigClientRest.class);
+
   @Value("${presentation.iiifRepositoryURL}")
   private String iiifRepositoryURL;
 
   @Bean
   public IIIFRepository iiifRepository() {
+    LOGGER.info("IIIF Rest Client using Endpoint {}" + iiifRepositoryURL);
     IIIFRepository iiif = Feign.builder()
             .decoder(new JacksonDecoder(new IiifPresentationApiObjectMapper()))
             .target(IIIFRepository.class, iiifRepositoryURL);
