@@ -7,6 +7,8 @@ import java.util.List;
  * Recommended URI Pattern: {scheme}://{host}/{prefix}/{identifier}/list/{name}</p>
  */
 public interface AnnotationList extends IiifResource {
+  
+  String getContext();
 
   PropertyValue getDescription();
 
@@ -20,6 +22,10 @@ public interface AnnotationList extends IiifResource {
 
   void setMetadata(List<Metadata> metadata);
 
+  List<Annotation> getResources();
+  
+  void setResources(List<Annotation> resources);
+  
   Thumbnail getThumbnail();
 
   void setThumbnail(Thumbnail thumbnail);

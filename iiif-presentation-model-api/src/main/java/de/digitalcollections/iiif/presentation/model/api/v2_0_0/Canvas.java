@@ -1,5 +1,6 @@
 package de.digitalcollections.iiif.presentation.model.api.v2_0_0;
 
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.IiifReference;
 import java.util.List;
 
 /**
@@ -45,6 +46,10 @@ public interface Canvas extends IiifResource {
    * @param metadata A canvas may have metadata pairs associated with it to describe its particular features.
    */
   void setMetadata(List<Metadata> metadata);
+  
+  List<IiifReference> getOtherContent();
+  
+  void setOtherContent(List<IiifReference> iiifReferences);
 
   Thumbnail getThumbnail();
 
