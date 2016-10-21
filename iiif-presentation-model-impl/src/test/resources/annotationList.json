@@ -1,0 +1,27 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://dev.llgc.org.uk/iiif/examples/newspapers/3100187-anno.json",
+  "@type": "sc:AnnotationList",
+  "resources": [
+    {
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "resource": {
+        "@type": "cnt:ContentAsText",
+        "format": "text/plain",
+        "chars": "MR. JAMES RIBBON,"
+      },
+      "on": "http://dams.llgc.org.uk/iiif/3100186/canvas/3100187#xywh=546,993,491,42"
+    },
+    {
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "resource": {
+        "@type": "cnt:ContentAsText",
+        "format": "text/plain",
+        "chars": ">14NO.F0RTE) VIOLIN, AND VIOLONCELLO TEACHER"
+      },
+      "on": "http://dams.llgc.org.uk/iiif/3100186/canvas/3100187#xywh=299,1036,1010,90"
+    }
+  ]
+}

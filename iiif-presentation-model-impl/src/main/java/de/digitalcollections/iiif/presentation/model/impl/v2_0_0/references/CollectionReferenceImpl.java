@@ -4,9 +4,9 @@ import java.net.URI;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.CollectionReference;
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.IiifReference;
 
 public class CollectionReferenceImpl extends IiifReferenceImpl implements CollectionReference {
+
   public CollectionReferenceImpl(URI id) {
     super(id);
   }

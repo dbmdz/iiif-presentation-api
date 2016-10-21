@@ -1,0 +1,107 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@id": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/manifest",
+  "@type": "sc:Manifest",
+  "label": "Die Mechanik der festen, flüssigen und gasförmigen Körper; 1. Teil; Die Mechanik der festen Körper",
+  "metadata": [
+    {
+      "label": "Author",
+      "value": "Albrecht von Ihering"
+    },
+    {
+      "label": "Published",
+      "value": "Leipzig, 1910"
+    },
+    {
+      "label": "Publisher",
+      "value": "B. G. Teubner"
+    }
+  ],
+  "description": {
+    "@value": "303. Bändchen der Sammlung wissenschaftlich-gemeinverständlicher Darstellungen 'Aus Natur und Geisteswelt'",
+    "@language": "de"
+  },
+  "thumbnail": {
+    "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1/full/80,100/0/default.jpg",
+    "service": {
+      "@context": "http://iiif.io/api/image/2/context.json",
+      "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1",
+      "profile": "http://iiif.io/api/image/2/level1.json"
+    }
+  },
+  "viewingDirection": "left-to-right",
+  "viewingHint": "paged",
+  "license": "http://creativecommons.org/licenses/by-sa/4.0/",
+  "attribution": "Provided by www.alexandria-verlag.de",
+  "logo": "http://www.alexandria-verlag.de/images/logo_text_alexandria_verlag.png",
+  "sequences": [
+    {
+      "@id": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/sequence/normal",
+      "@type": "sc:Sequence",
+      "label": {
+        "@value": "Current Page Order",
+        "@language": "en"
+      },
+      "canvases": [
+        {
+          "@id": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/canvas/p00001",
+          "@type": "sc:Canvas",
+          "label": [{
+              "@value": "Umschlag vorne",
+              "@language": "de"
+            },
+            {
+              "@value": "Front Cover",
+              "@language": "en"
+            }],
+          "height": 2236,
+          "width": 1498,
+          "otherContent": [
+            {
+              "@id": "http://example.org/iiif/book1/list/p2",
+              "@type": "sc:AnnotationList"
+            }
+          ],
+          "images": [
+            {
+              "@id": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/annotation/p00001-image",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1/full/1498,2236/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "2236",
+                "width": "1498",
+                "service": {
+                  "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/canvas/p00001"
+            }
+          ]
+        },
+        {
+          "@id": "http://www.example.org/iiif/book1/canvas/p2",
+          "@type": "sc:Canvas",
+          "label": "p. 2",
+          "otherContent": [
+            "http://example.org/iiif/book1/list/l1",
+            "http://example.org/iiif/book1/list/l2",
+            "http://example.org/iiif/book1/list/l3",
+            "http://example.org/iiif/book1/list/l4"
+          ]
+        },
+        {
+          "@id": "http://www.example.org/iiif/book1/canvas/p3",
+          "@type": "sc:Canvas",
+          "label": "p. 3"
+        }
+      ]
+    }
+  ]
+}
+
+

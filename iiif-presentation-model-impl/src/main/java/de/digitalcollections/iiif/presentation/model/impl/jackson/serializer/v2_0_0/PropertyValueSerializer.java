@@ -2,7 +2,6 @@ package de.digitalcollections.iiif.presentation.model.impl.jackson.serializer.v2
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;

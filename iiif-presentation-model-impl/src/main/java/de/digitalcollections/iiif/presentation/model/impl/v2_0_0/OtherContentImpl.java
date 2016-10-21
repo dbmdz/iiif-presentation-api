@@ -9,9 +9,10 @@ public class OtherContentImpl extends ContentImpl implements OtherContent {
 
   private PropertyValue label; // optional
 
-  public OtherContentImpl(URI id) {
+  public OtherContentImpl(URI id, String type) {
     super(id);
-    this.type = "oa:Annotation";
+//    this.type = "oa:Annotation";
+    this.type = type;
   }
 
   @Override

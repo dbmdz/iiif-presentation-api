@@ -1,12 +1,12 @@
 package de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Annotation;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.AnnotationList;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.AnnotationResource;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Content;
@@ -25,6 +25,9 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Resource;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.IiifReference;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.AnnotationResourceDeserializer;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.IiifReferenceDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.AbstractIiifResourceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.AnnotationListMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.AnnotationMixIn;
@@ -51,7 +54,6 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.r
 import de.digitalcollections.iiif.presentation.model.impl.jackson.serializer.v2_0_0.PropertyValueSerializer;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.AbstractIiifResourceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.PropertyValueDeserializer;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueLocalizedImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.CollectionReferenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.IiifReferenceImpl;
@@ -98,6 +100,16 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     module.addSerializer(PropertyValue.class, propertyValueSerializer);
     module.addDeserializer(PropertyValue.class, propertyValueDeserializer);
     registerModule(module);
+
+    SimpleModule arModule = new SimpleModule("PolymorphicAnnotationResourceModule");
+    AnnotationResourceDeserializer annotationResourceDeserializer = new AnnotationResourceDeserializer();
+    arModule.addDeserializer(AnnotationResource.class, annotationResourceDeserializer);
+    registerModule(arModule);
+    
+    SimpleModule iiifReferenceModule = new SimpleModule("PolymorphicIiifReferenceModule");
+    IiifReferenceDeserializer iiifReferenceDeserializer = new IiifReferenceDeserializer();
+    iiifReferenceModule.addDeserializer(IiifReference.class, iiifReferenceDeserializer);
+    registerModule(iiifReferenceModule);
   }
 
 }

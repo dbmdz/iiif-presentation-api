@@ -10,6 +10,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Image;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.IiifReference;
 
 public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
 
@@ -18,6 +19,7 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
   private List<Image> images;
   private PropertyValue label; // required
   private List<Metadata> metadata; // optional
+  private List<IiifReference> otherContent; // optional
   private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
   private int width; // required
@@ -148,5 +150,15 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
   @Override
   public void setWidth(int width) {
     this.width = width;
+  }
+
+  @Override
+  public List<IiifReference> getOtherContent() {
+    return this.otherContent;
+  }
+
+  @Override
+  public void setOtherContent(List<IiifReference> iiifReferences) {
+    this.otherContent = iiifReferences;
   }
 }

@@ -4,6 +4,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Layer;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.IiifReference;
 import java.net.URI;
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class LayerImpl extends AbstractIiifResourceImpl implements Layer {
   private PropertyValue description; // optional
   private final PropertyValue label; // required
   private List<Metadata> metadata; // optional
+  private List<IiifReference> otherContent; // optional
   private Thumbnail thumbnail; // optional
   private String viewingDirection; // optional
   private String viewingHint; // optional
@@ -49,6 +51,16 @@ public class LayerImpl extends AbstractIiifResourceImpl implements Layer {
   @Override
   public void setMetadata(List<Metadata> metadata) {
     this.metadata = metadata;
+  }
+
+  @Override
+  public List<IiifReference> getOtherContent() {
+    return this.otherContent;
+  }
+
+  @Override
+  public void setOtherContent(List<IiifReference> iiifReferences) {
+    this.otherContent = iiifReferences;
   }
 
   @Override

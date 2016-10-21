@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Annotation;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.AnnotationResource;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
@@ -13,27 +14,38 @@ public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotati
   private PropertyValue description; // optional
   private PropertyValue label; // optional
   private List<Metadata> metadata; // optional
+  private String motivation; // required
+  private URI on;
+
+  private AnnotationResource resource;
+
   private Thumbnail thumbnail; // optional
   private String viewingHint; // optional
 
   public AnnotationImpl() {
+
+  }
+
+  public AnnotationImpl(String motivation) {
     type = "oa:Annotation";
+    this.motivation = motivation;
   }
 
   /**
    * Convenience constructor (as id and label are optional)
    *
+   * @param motivation motivation of this annotation
    * @param id unique id of resource
    * @param label label of the Annotation
    */
-  public AnnotationImpl(URI id, PropertyValue label) {
-    this();
+  public AnnotationImpl(String motivation, URI id, PropertyValue label) {
+    this(motivation);
     this.label = label;
     this.id = id;
   }
 
-  public AnnotationImpl(String id, PropertyValue label) throws URISyntaxException {
-    this(new URI(id), label);
+  public AnnotationImpl(String motivation, String id, PropertyValue label) throws URISyntaxException {
+    this(motivation, new URI(id), label);
   }
 
   @Override
@@ -67,6 +79,16 @@ public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotati
   }
 
   @Override
+  public URI getOn() {
+    return on;
+  }
+
+  @Override
+  public void setOn(URI on) {
+    this.on = on;
+  }
+
+  @Override
   public Thumbnail getThumbnail() {
     return thumbnail;
   }
@@ -84,5 +106,20 @@ public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotati
   @Override
   public void setViewingHint(String viewingHint) {
     this.viewingHint = viewingHint;
+  }
+
+  @Override
+  public String getMotivation() {
+    return motivation;
+  }
+
+  @Override
+  public AnnotationResource getResource() {
+    return resource;
+  }
+
+  @Override
+  public void setResource(AnnotationResource annotationResource) {
+    this.resource = annotationResource;
   }
 }
