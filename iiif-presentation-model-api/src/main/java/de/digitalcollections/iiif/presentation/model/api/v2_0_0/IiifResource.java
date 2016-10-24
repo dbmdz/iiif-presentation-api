@@ -54,7 +54,7 @@ public interface IiifResource {
    */
   void setRelated(String related);
 
-  List<String> getSeeAlso();
+  List<SeeAlso> getSeeAlso();
 
   /**
    * @param seeAlso A link to a machine readable document that semantically describes the resource with the seeAlso
@@ -63,7 +63,7 @@ public interface IiifResource {
    * document should be given to help the client to make appropriate use of the document. Any resource type may have one
    * or more external descriptions related to it.
    */
-  void setSeeAlso(List<String> seeAlso);
+  void setSeeAlso(List<SeeAlso> seeAlso);
 
   Service getService();
 

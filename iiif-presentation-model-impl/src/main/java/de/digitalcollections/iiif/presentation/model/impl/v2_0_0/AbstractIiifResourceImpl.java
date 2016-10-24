@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2_0_0;
 
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.IiifResource;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -15,7 +16,7 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   protected String type; // required
   protected String related; // optional
   protected Service service; // optional
-  protected List<String> seeAlso; // optional
+  protected List<SeeAlso> seeAlso; // optional
   protected String within; // optional
   protected URI id; // optional
 
@@ -75,12 +76,12 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   }
 
   @Override
-  public List<String> getSeeAlso() {
+  public List<SeeAlso> getSeeAlso() {
     return seeAlso;
   }
 
   @Override
-  public void setSeeAlso(List<String> seeAlso) {
+  public void setSeeAlso(List<SeeAlso> seeAlso) {
     this.seeAlso = seeAlso;
   }
 

@@ -43,6 +43,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 
@@ -180,5 +181,16 @@ public class IiifPresentationApiObjectMapperTest {
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.metadata[0].label").isEqualTo("some key");
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.manifests[0]['@type']").isEqualTo("sc:Manifest");
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.collections[0]['@type']").isEqualTo("sc:Collection");
+  }
+
+  @Test
+  public void testSeeAlsoFromJson() throws IOException {
+    String json = IOUtils.
+        toString(this.getClass().getClassLoader().getResourceAsStream("manifest_seealso.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
+    assertThat(manifest.getSeeAlso()).hasSize(2);
+    assertThat(manifest.getSeeAlso().get(0).getFormat()).isEqualTo("application/json");
+    assertThat(manifest.getSeeAlso().get(0).getProfile().toASCIIString()).isEqualTo("http://iiif.io/some-new-api/profile");
+    assertThat(manifest.getSeeAlso().get(1).getFormat()).isNull();
   }
 }

@@ -12,5 +12,11 @@
       "@id": "http://example.com/iiif/image/test-obj",
       "profile": "http://iiif.io/api/image/2/level1.json"
     }
-  }
+  },
+  "seeAlso": [
+    {
+      "@id": "http://example.com/test",
+      "format": "application/json",
+      "profile": "http://iiif.io/some-new-api/profile"},
+    "http://example.com/just/a/plain/string"]
 }

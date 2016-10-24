@@ -22,12 +22,14 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.OtherContent;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Range;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Resource;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.references.IiifReference;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.AnnotationResourceDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.IiifReferenceDeserializer;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2_0_0.SeeAlsoDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.AbstractIiifResourceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.AnnotationListMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.AnnotationMixIn;
@@ -112,6 +114,9 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     IiifReferenceDeserializer iiifReferenceDeserializer = new IiifReferenceDeserializer();
     module.addDeserializer(IiifReference.class, iiifReferenceDeserializer);
 
+
+    SeeAlsoDeserializer seeAlsoDeserializer = new SeeAlsoDeserializer();
+    module.addDeserializer(SeeAlso.class, seeAlsoDeserializer);
     registerModule(module);
   }
 }
