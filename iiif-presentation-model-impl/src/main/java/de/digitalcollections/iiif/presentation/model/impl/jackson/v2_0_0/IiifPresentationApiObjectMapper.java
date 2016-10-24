@@ -65,6 +65,13 @@ import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.Mani
 public class IiifPresentationApiObjectMapper extends ObjectMapper {
 
   public IiifPresentationApiObjectMapper() {
+    registerMixins();
+    registerDeserializers();
+    setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    //enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+  }
+
+  private void registerMixins() {
     addMixIn(IiifResource.class, AbstractIiifResourceMixIn.class);
     addMixIn(AbstractIiifResourceImpl.class, AbstractIiifResourceMixIn.class);
     addMixIn(IiifReferenceImpl.class, IiifReferenceMixin.class);
@@ -90,26 +97,21 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     addMixIn(Sequence.class, SequenceMixIn.class);
     addMixIn(Service.class, ServiceMixIn.class);
     addMixIn(Thumbnail.class, ThumbnailMixIn.class);
+  }
 
-    setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    //enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-
-    SimpleModule module = new SimpleModule("PolymorphicPropertyValueModule");
+  private void registerDeserializers() {
+    SimpleModule module = new SimpleModule("PolymorphicTypes");
     PropertyValueSerializer propertyValueSerializer = new PropertyValueSerializer();
     PropertyValueDeserializer propertyValueDeserializer = new PropertyValueDeserializer();
     module.addSerializer(PropertyValue.class, propertyValueSerializer);
     module.addDeserializer(PropertyValue.class, propertyValueDeserializer);
-    registerModule(module);
 
-    SimpleModule arModule = new SimpleModule("PolymorphicAnnotationResourceModule");
     AnnotationResourceDeserializer annotationResourceDeserializer = new AnnotationResourceDeserializer();
-    arModule.addDeserializer(AnnotationResource.class, annotationResourceDeserializer);
-    registerModule(arModule);
-    
-    SimpleModule iiifReferenceModule = new SimpleModule("PolymorphicIiifReferenceModule");
-    IiifReferenceDeserializer iiifReferenceDeserializer = new IiifReferenceDeserializer();
-    iiifReferenceModule.addDeserializer(IiifReference.class, iiifReferenceDeserializer);
-    registerModule(iiifReferenceModule);
-  }
+    module.addDeserializer(AnnotationResource.class, annotationResourceDeserializer);
 
+    IiifReferenceDeserializer iiifReferenceDeserializer = new IiifReferenceDeserializer();
+    module.addDeserializer(IiifReference.class, iiifReferenceDeserializer);
+
+    registerModule(module);
+  }
 }

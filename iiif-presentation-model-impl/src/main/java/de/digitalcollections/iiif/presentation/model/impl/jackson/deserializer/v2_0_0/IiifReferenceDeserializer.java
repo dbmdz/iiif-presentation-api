@@ -22,29 +22,22 @@ public class IiifReferenceDeserializer extends JsonDeserializer<IiifReference> {
     IiifReference result = null;
     ObjectMapper mapper = (ObjectMapper) jp.getCodec();
     TreeNode node = mapper.readTree(jp);
+    String id;
     if (ObjectNode.class.isAssignableFrom(node.getClass())) {
-      String id = ((TextNode) node.get("@id")).textValue();
+      id = ((TextNode) node.get("@id")).textValue();
       String type = ((TextNode) node.get("@type")).textValue();
-      if ("sc:AnnotationList".equals(type)) {
-        try {
-          AnnotationListReference alr = new AnnotationListReferenceImpl(new URI(id));
-//          alr.setWithin(within);
-          result = alr;
-        } catch (URISyntaxException ex) {
-        }
+      if (!"sc:AnnotationList".equals(type)) {
+        throw new IllegalArgumentException(String.format("Do not know how to handle reference type '%s'", type));
       }
     } else if (TextNode.class.isAssignableFrom(node.getClass())) {
-      String id = ((TextNode) node).textValue();
-      try {
-        AnnotationListReference alr = new AnnotationListReferenceImpl(new URI(id));
-//          alr.setWithin(within);
-        result = alr;
-      } catch (URISyntaxException ex) {
-      }
+      id = ((TextNode) node).textValue();
     } else {
-      throw new IllegalArgumentException("can not deserialize given json.");
+      throw new IllegalArgumentException("Reference must be a string or object!");
     }
-    return result;
+    try {
+      return new AnnotationListReferenceImpl(new URI(id));
+    } catch (URISyntaxException e) {
+      throw new IllegalArgumentException(String.format("ID is not a valid URI: %s", id));
+    }
   }
-
 }
