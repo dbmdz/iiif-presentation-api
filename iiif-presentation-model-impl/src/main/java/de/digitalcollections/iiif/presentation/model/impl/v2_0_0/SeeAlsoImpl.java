@@ -9,6 +9,13 @@ public class SeeAlsoImpl implements SeeAlso {
   private String format;
   private URI profile;
 
+  public SeeAlsoImpl() {
+  }
+
+  public SeeAlsoImpl(URI id) {
+    this.id = id;
+  }
+
   @Override
   public URI getId() {
     return id;
