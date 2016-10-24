@@ -17,7 +17,7 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   protected String related; // optional
   protected Service service; // optional
   protected List<SeeAlso> seeAlso; // optional
-  protected String within; // optional
+  protected URI within; // optional
   protected URI id; // optional
 
   @Override
@@ -86,12 +86,12 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   }
 
   @Override
-  public String getWithin() {
+  public URI getWithin() {
     return within;
   }
 
   @Override
-  public void setWithin(String within) {
+  public void setWithin(URI within) {
     this.within = within;
   }
 

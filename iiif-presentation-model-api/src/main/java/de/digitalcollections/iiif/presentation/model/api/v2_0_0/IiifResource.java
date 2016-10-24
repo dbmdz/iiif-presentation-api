@@ -90,7 +90,7 @@ public interface IiifResource {
    */
   String getType();
 
-  String getWithin();
+  URI getWithin();
 
   /**
    * @param within A link to a resource that contains the current resource, such as annotation lists within a layer.
@@ -100,6 +100,6 @@ public interface IiifResource {
    * types, including collections or annotation lists not serving as pages, may be within one or more containing
    * resources.
    */
-  void setWithin(String within);
+  void setWithin(URI within);
 
 }
