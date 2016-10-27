@@ -8,6 +8,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2_0_0.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Service;
 import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Thumbnail;
@@ -19,6 +20,7 @@ import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.MetadataImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueLocalizedImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.PropertyValueSimpleImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.SeeAlsoImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ThumbnailImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.references.CollectionReferenceImpl;
@@ -181,6 +183,19 @@ public class IiifPresentationApiObjectMapperTest {
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.metadata[0].label").isEqualTo("some key");
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.manifests[0]['@type']").isEqualTo("sc:Manifest");
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.collections[0]['@type']").isEqualTo("sc:Collection");
+  }
+
+  @Test
+  public void testSeeAlsoToJson() throws URISyntaxException, JsonProcessingException {
+    SeeAlso seeAlso = new SeeAlsoImpl();
+    seeAlso.setId(new URI("http://example.com/test"));
+    seeAlso.setFormat("application/json");
+    seeAlso.setProfile(new URI("http://example.com/profile"));
+    String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(seeAlso);
+    DocumentContext ctx = JsonPath.parse(json);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$['@id']").isEqualTo("http://example.com/test");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.format").isEqualTo("application/json");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.profile").isEqualTo("http://example.com/profile");
   }
 
   @Test
