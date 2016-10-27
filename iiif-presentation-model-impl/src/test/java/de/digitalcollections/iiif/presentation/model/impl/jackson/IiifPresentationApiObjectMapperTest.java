@@ -195,7 +195,7 @@ public class IiifPresentationApiObjectMapperTest {
     DocumentContext ctx = JsonPath.parse(json);
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$['@id']").isEqualTo("http://example.com/test");
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.format").isEqualTo("application/json");
-    JsonPathAssert.assertThat(ctx).jsonPathAsString("$['@profile']").isEqualTo("http://example.com/profile");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.profile").isEqualTo("http://example.com/profile");
   }
 
   @Test
