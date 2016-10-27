@@ -27,6 +27,20 @@
     </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
+      <artifactId>digitalcollections-core-backend-impl-file</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>digitalcollections-core-business-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
+      <artifactId>digitalcollections-core-business-impl</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-backend-api</artifactId>
     </dependency>
     <dependency>

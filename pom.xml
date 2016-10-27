@@ -46,6 +46,7 @@
 
     <version.commons-cli>1.3.1</version.commons-cli>
     <version.commons-io>2.5</version.commons-io>
+    <version.digitalcollections-core>1.1.0</version.digitalcollections-core>
     <version.feign>9.0.0</version.feign>
     <version.fluent-hc>4.3.4</version.fluent-hc>
     <version.guava>18.0</version.guava>
@@ -193,6 +194,23 @@
         <groupId>commons-io</groupId>
         <artifactId>commons-io</artifactId>
         <version>${version.commons-io}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>digitalcollections-core-backend-impl-file</artifactId>
+        <version>${version.digitalcollections-core}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>digitalcollections-core-business-api</artifactId>
+        <version>${version.digitalcollections-core}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections</groupId>
+        <artifactId>digitalcollections-core-business-impl</artifactId>
+        <version>${version.digitalcollections-core}</version>
+        <scope>runtime</scope>
       </dependency>
       <dependency>
         <groupId>de.digitalcollections</groupId>
