@@ -23,7 +23,7 @@ public class SeeAlsoImpl implements SeeAlso {
 
   @Override
   public void setId(URI uri) {
-    this.id = id;
+    this.id = uri;
   }
 
   @Override

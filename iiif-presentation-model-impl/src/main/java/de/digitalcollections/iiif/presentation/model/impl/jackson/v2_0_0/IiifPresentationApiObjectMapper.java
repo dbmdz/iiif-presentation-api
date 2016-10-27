@@ -47,6 +47,7 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.O
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.PropertyValueLocalizedMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.RangeMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.ResourceMixIn;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.SeeAlsoMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.SequenceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.ServiceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2_0_0.ThumbnailMixIn;
@@ -99,6 +100,7 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     addMixIn(Sequence.class, SequenceMixIn.class);
     addMixIn(Service.class, ServiceMixIn.class);
     addMixIn(Thumbnail.class, ThumbnailMixIn.class);
+    addMixIn(SeeAlso.class, SeeAlsoMixin.class);
   }
 
   private void registerDeserializers() {
