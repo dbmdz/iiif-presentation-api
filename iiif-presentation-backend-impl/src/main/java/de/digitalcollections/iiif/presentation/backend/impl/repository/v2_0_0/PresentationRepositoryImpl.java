@@ -89,7 +89,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
 
       return manifest;
     } catch (IOException ex) {
-      LOGGER.warn("Error getting manifest from location " + location);
+      LOGGER.warn("Error getting manifest from location " + location, ex);
       throw new NotFoundException("No manifest for location: " + location);
     }
   }
