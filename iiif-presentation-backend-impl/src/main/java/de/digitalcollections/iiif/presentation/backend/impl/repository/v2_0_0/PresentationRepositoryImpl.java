@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import de.digitalcollections.core.business.api.ResourceService;
+import de.digitalcollections.core.model.api.MimeType;
 import de.digitalcollections.core.model.api.resource.Resource;
 import de.digitalcollections.core.model.api.resource.enums.ResourcePersistenceType;
 import de.digitalcollections.core.model.api.resource.exceptions.ResourceIOException;
@@ -48,8 +49,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   public Manifest getManifest(String identifier) throws NotFoundException {
     Resource resource;
     try {
-      String key = identifier + "_manifest.json";
-      resource = resourceService.get(key, ResourcePersistenceType.REFERENCED, "json");
+      resource = resourceService.get(identifier, ResourcePersistenceType.REFERENCED, MimeType.MIME_APPLICATION_JSON);
     } catch (ResourceIOException ex) {
       LOGGER.warn("Error getting manifest for identifier " + identifier);
       throw new NotFoundException("No manifest for identifier " + identifier);

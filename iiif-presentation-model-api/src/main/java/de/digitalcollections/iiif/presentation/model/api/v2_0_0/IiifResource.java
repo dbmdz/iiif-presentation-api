@@ -5,7 +5,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 public interface IiifResource {
-
   PropertyValue getAttribution();
 
   /**

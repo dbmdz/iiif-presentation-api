@@ -208,4 +208,13 @@ public class IiifPresentationApiObjectMapperTest {
     assertThat(manifest.getSeeAlso().get(0).getProfile().toASCIIString()).isEqualTo("http://iiif.io/some-new-api/profile");
     assertThat(manifest.getSeeAlso().get(1).getFormat()).isNull();
   }
+
+  @Test
+  public void testBroken() throws IOException {
+    String json = IOUtils.
+        toString(this.getClass().getClassLoader().getResourceAsStream("broken.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, Manifest.class);
+    assertThat(manifest.getLabel()).isNotNull();
+
+  }
 }
