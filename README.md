@@ -7,7 +7,7 @@
 [![GitHub release](https://img.shields.io/github/release/dbmdz/iiif-presentation-api.svg?maxAge=2592000)](https://github.com/dbmdz/iiif-presentation-api/releases)
 [![Maven Central](https://img.shields.io/maven-central/v/de.digitalcollections/iiif-presentation-api.svg?maxAge=2592000)](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22iiif-presentation-api%22)
 
-These Java libraries implement the IIIF Presentation API 2.0.0 and provide Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
+These Java libraries implement the IIIF Presentation API and provide Manifest generation (see <a href="http://iiif.io/api/presentation/2.0/">http://iiif.io/api/presentation/2.0/</a>):
 
 "The IIIF Presentation API specifies a web service that returns JSON-LD structured documents that together describe the structure and layout of a digitized object or other collection of images and related content. Many different styles of viewer can be implemented that consume the information to enable a rich and dynamic user experience, consuming content from across collections and hosting institutions."
 
@@ -86,11 +86,11 @@ Depending on what library you want use, these are the dependency definitions for
 #### Create a manifest
 
 Create your IIIF-Manifest by using IIIF-Resources like Manifest, Sequence, Canvas, Image, ImageResource, etc.
-(see classes in package de.digitalcollections.iiif.presentation.model.impl.v2_0_0).
+(see classes in package de.digitalcollections.iiif.presentation.model.impl.v2).
 
 ```java
-import de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest;
-import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
+import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ManifestImpl;
 
   Manifest myManifest = new ManifestImpl(myId, myLabel);
   ...
@@ -101,7 +101,7 @@ import de.digitalcollections.iiif.presentation.model.impl.v2_0_0.ManifestImpl;
 Generate JSON-representation of your Manifest by calling
 
 ```java
-import de.digitalcollections.iiif.presentation.frontend.impl.commandline.v2_0_0.ManifestGenerator;
+import de.digitalcollections.iiif.presentation.frontend.impl.commandline.v2.ManifestGenerator;
 
   ManifestGenerator mg = new ManifestGenerator();
   String json = mg.generateJson(myManifest);
@@ -142,7 +142,7 @@ public class SpringConfig implements EnvironmentAware {
 
 ```
 ...
-[2016-07-14 10:15:23,662 INFO ] [...] RequestMappingHandlerMapping (main    ) > Mapped "{[/iiif/presentation/2.0.0/{identifier}/manifest],methods=[GET],produces=[application/json]}" onto public de.digitalcollections.iiif.presentation.model.api.v2_0_0.Manifest de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller.v2_0_0.IIIFPresentationApiController.getManifest(java.lang.String) throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
+[2016-07-14 10:15:23,662 INFO ] [...] RequestMappingHandlerMapping (main    ) > Mapped "{[/presentation/v2/{identifier}/manifest],methods=[GET],produces=[application/json]}" onto public de.digitalcollections.iiif.presentation.model.api.v2.Manifest de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller.v2.IIIFPresentationApiController.getManifest(java.lang.String) throws de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException
 ...
 ```
 
@@ -151,7 +151,7 @@ public class SpringConfig implements EnvironmentAware {
 In the configuration file `de.digitalcollections.iiif.presentation.config.SpringConfigClientRest-local.properties` (resp. `-DEV` or `-PROD`) set your IIIF server URL:
 
 ```
-presentation.iiifRepositoryURL=https://localhost/iiif/presentation
+presentation.iiifRepositoryURL=https://localhost/presentation
 ```
 
 After including the configuration bean `SpringConfigClientRest` in your java config component scan you can autowire the REST client:
@@ -185,7 +185,7 @@ $ mvn clean install
 Solution: Add proper ObjectMapper configuration to your config. For IIIF this is needed:
 
 ```java
-import de.digitalcollections.iiif.presentation.model.impl.jackson.v2_0_0.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
 
 @Bean
 public ObjectMapper objectMapper() {
