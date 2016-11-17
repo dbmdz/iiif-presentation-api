@@ -51,12 +51,12 @@
     <version.fluent-hc>4.3.4</version.fluent-hc>
     <version.guava>18.0</version.guava>
     <version.hamcrest-core>1.3</version.hamcrest-core>
-    <version.jackson-annotations>2.5.4</version.jackson-annotations>
-    <version.jackson-databind>2.5.4</version.jackson-databind>
+    <version.jackson-annotations>2.8.1</version.jackson-annotations>
+    <version.jackson-databind>2.8.1</version.jackson-databind>
     <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
     <version.javax.servlet-api>3.1.0</version.javax.servlet-api>
     <version.json-simple>1.1.1</version.json-simple>
-    <version.junit>4.10</version.junit>
+    <version.junit>4.12</version.junit>
     <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
@@ -64,7 +64,7 @@
     <version.maven-surefire-plugin>2.19.1</version.maven-surefire-plugin>
     <version.mockito-all>2.0.2-beta</version.mockito-all>
     <version.nexus-staging-maven-plugin>1.6.7</version.nexus-staging-maven-plugin>
-    <version.slf4j>1.7.13</version.slf4j>
+    <version.slf4j>1.7.21</version.slf4j>
     <version.spring-framework>4.2.5.RELEASE</version.spring-framework>
     <version.versions-maven-plugin>2.2</version.versions-maven-plugin>
   </properties>
