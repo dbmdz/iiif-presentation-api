@@ -51,7 +51,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
     try {
       resource = resourceService.get(identifier, ResourcePersistenceType.REFERENCED, MimeType.MIME_APPLICATION_JSON);
     } catch (ResourceIOException ex) {
-      LOGGER.warn("Error getting manifest for identifier " + identifier);
+      LOGGER.warn("Error getting manifest for identifier " + identifier, ex);
       throw new NotFoundException("No manifest for identifier " + identifier);
     }
     URI uri = resource.getUri();
