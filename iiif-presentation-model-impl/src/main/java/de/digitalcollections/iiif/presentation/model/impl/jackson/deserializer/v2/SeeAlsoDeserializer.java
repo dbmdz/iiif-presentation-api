@@ -2,7 +2,6 @@ package de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 import de.digitalcollections.iiif.presentation.model.api.v2.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.impl.v2.SeeAlsoImpl;
@@ -17,12 +16,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
 
 public class SeeAlsoDeserializer extends JsonDeserializer<SeeAlso> {
+
   private URI uriFromString(String strUri) {
-    try {
-      return new URI(strUri);
-    } catch (URISyntaxException e) {
-      throw new IllegalArgumentException(String.format("'%s' ist not a valid URI!", strUri));
-    }
+    return URI.create(strUri);
   }
 
   @Override

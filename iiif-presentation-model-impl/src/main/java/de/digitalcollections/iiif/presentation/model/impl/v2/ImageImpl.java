@@ -3,7 +3,6 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.Image;
 import de.digitalcollections.iiif.presentation.model.api.v2.ImageResource;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class ImageImpl implements Image {
 
@@ -21,8 +20,8 @@ public class ImageImpl implements Image {
     this.id = id;
   }
 
-  public ImageImpl(String id) throws URISyntaxException {
-    this.id = new URI(id);
+  public ImageImpl(String id) {
+    this.id = URI.create(id);
   }
 
   @Override

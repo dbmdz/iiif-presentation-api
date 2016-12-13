@@ -14,7 +14,6 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 import org.json.simple.JSONObject;
@@ -116,7 +115,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public JSONObject getManifestAsJsonObject(String manifestUri) throws URISyntaxException, NotFoundException, ParseException {
-    return getManifestAsJsonObject(new URI(manifestUri));
+  public JSONObject getManifestAsJsonObject(String manifestUri) throws NotFoundException, ParseException {
+    return getManifestAsJsonObject(URI.create(manifestUri));
   }
 }

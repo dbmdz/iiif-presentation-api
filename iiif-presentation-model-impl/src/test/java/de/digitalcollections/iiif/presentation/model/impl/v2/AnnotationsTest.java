@@ -14,8 +14,8 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -29,7 +29,7 @@ import org.junit.Test;
 public class AnnotationsTest {
 
   static ObjectMapper objectMapper;
-  private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+  private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
   public AnnotationsTest() {
   }
@@ -81,7 +81,7 @@ public class AnnotationsTest {
   }
 
   @Test
-  public void testWritingAnnotationList() throws URISyntaxException, JsonProcessingException {
+  public void testWritingAnnotationList() throws JsonProcessingException {
     AnnotationList al = createAnnotationList();
 
     // annotationlist resources
@@ -103,14 +103,14 @@ public class AnnotationsTest {
     Assert.assertEquals("MR. JAMES RIBBON,", chars);
   }
 
-  public AnnotationList createAnnotationList() throws URISyntaxException {
+  public AnnotationList createAnnotationList() {
     AnnotationList al = new AnnotationListImpl("http://dev.llgc.org.uk/iiif/examples/newspapers/3100187-anno.json");
     return al;
   }
 
-  public Annotation createAnnotation() throws URISyntaxException {
+  public Annotation createAnnotation() {
     Annotation annotation1 = new AnnotationImpl(AnnotationMotivation.PAINTING.getValue());
-    annotation1.setOn(new URI("http://dams.llgc.org.uk/iiif/3100186/canvas/3100187#xywh=546,993,491,42"));
+    annotation1.setOn(URI.create("http://dams.llgc.org.uk/iiif/3100186/canvas/3100187#xywh=546,993,491,42"));
     AnnotationResourceChars resource1 = new AnnotationResourceCharsImpl("cnt:ContentAsText", "text/plain");
     resource1.setChars("MR. JAMES RIBBON,");
     annotation1.setResource(resource1);
@@ -137,7 +137,7 @@ public class AnnotationsTest {
   }
 
   @Test
-  public void testWritingManifestWithAnnotationLists() throws URISyntaxException, JsonProcessingException {
+  public void testWritingManifestWithAnnotationLists() throws JsonProcessingException {
     Manifest manifest = new ManifestImpl("http://www.example.org/1/manifest", new PropertyValueSimpleImpl("manifestlabel"));
 
     // FIXME add tests for canvas annotation list

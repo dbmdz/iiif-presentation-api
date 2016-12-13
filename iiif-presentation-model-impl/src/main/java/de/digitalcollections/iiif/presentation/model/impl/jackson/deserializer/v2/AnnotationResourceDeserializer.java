@@ -12,7 +12,6 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.AnnotationResourceC
 import de.digitalcollections.iiif.presentation.model.impl.v2.AnnotationResourceImpl;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class AnnotationResourceDeserializer extends JsonDeserializer<AnnotationResource> {
 
@@ -38,10 +37,7 @@ public class AnnotationResourceDeserializer extends JsonDeserializer<AnnotationR
       result = new AnnotationResourceImpl(type, format);
     }
     if (id != null) {
-      try {
-        result.setId(new URI(id));
-      } catch (URISyntaxException ex) {
-      }
+      result.setId(URI.create(id));
     }
     return result;
   }

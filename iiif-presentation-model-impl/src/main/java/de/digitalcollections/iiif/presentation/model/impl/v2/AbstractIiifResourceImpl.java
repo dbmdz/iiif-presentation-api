@@ -5,7 +5,6 @@ import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public abstract class AbstractIiifResourceImpl implements IiifResource {
@@ -106,8 +105,8 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   }
 
   @Override
-  public void setId(String id) throws URISyntaxException {
-    this.id = new URI(id);
+  public void setId(String id) {
+    this.id = URI.create(id);
   }
 
 }

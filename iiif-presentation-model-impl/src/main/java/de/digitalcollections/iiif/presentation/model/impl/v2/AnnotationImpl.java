@@ -6,7 +6,6 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotation {
@@ -44,8 +43,8 @@ public class AnnotationImpl extends AbstractIiifResourceImpl implements Annotati
     this.id = id;
   }
 
-  public AnnotationImpl(String motivation, String id, PropertyValue label) throws URISyntaxException {
-    this(motivation, new URI(id), label);
+  public AnnotationImpl(String motivation, String id, PropertyValue label) {
+    this(motivation, URI.create(id), label);
   }
 
   @Override

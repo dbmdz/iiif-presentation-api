@@ -1,9 +1,11 @@
 package de.digitalcollections.iiif.presentation.model.impl.jackson;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
-
+import com.revinate.assertj.json.JsonPathAssert;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
@@ -25,29 +27,20 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.ServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.ThumbnailImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.CollectionReferenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.ManifestReferenceImpl;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revinate.assertj.json.JsonPathAssert;
-
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import org.apache.commons.io.IOUtils;
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
-
 
 public class IiifPresentationApiObjectMapperTest {
 
@@ -64,26 +57,26 @@ public class IiifPresentationApiObjectMapperTest {
   }
 
   @Test
-  public void testJsonToMinimalManifest() throws JsonProcessingException, IOException, URISyntaxException {
+  public void testJsonToMinimalManifest() throws JsonProcessingException, IOException {
     String json = IOUtils.
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_minimal.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
-    Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
+    Assert.assertTrue(manifest.getId().equals(URI.create("http://example.com/iiif/presentation/test-obj/manifest")));
     PropertyValueLocalizedImpl manifestLabel = (PropertyValueLocalizedImpl) manifest.getLabel();
     Assert.assertTrue(manifestLabel.getValues("en").get(0).equals("testLabel"));
     Assert.assertTrue(manifestLabel.getValues("de").get(0).equals("täschtLäibel"));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
     assertEquals(manifest.getThumbnail().getId(),
-            new URI("http://example.com/iiif/image/test-obj/full/200,/0/default.jpg"));
+            URI.create("http://example.com/iiif/image/test-obj/full/200,/0/default.jpg"));
   }
 
   @Test
-  public void testJsonToMetadata() throws JsonProcessingException, IOException, URISyntaxException {
+  public void testJsonToMetadata() throws JsonProcessingException, IOException {
     String json = IOUtils.
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_metadata.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
-    Assert.assertTrue(manifest.getId().equals(new URI("http://example.com/iiif/presentation/test-obj/manifest")));
+    Assert.assertTrue(manifest.getId().equals(URI.create("http://example.com/iiif/presentation/test-obj/manifest")));
     Assert.assertEquals("testLabel", manifest.getLabel().getValues().get(0));
     Assert.assertTrue(manifest.getType().equals("sc:Manifest"));
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
@@ -93,12 +86,13 @@ public class IiifPresentationApiObjectMapperTest {
   @Test
   public void testJsonToFullFledgedMetadata() throws IOException {
     String json = IOUtils.
-        toString(this.getClass().getClassLoader().getResourceAsStream("manifest.json"), DEFAULT_CHARSET);
+            toString(this.getClass().getClassLoader().getResourceAsStream("manifest.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     PropertyValueLocalizedImpl description = (PropertyValueLocalizedImpl) manifest.getDescription();
     Assert.assertTrue(description.getValues(Locale.GERMAN).get(0).startsWith("303. Bändchen"));
-    Assert.assertEquals("Die Mechanik der festen, flüssigen und gasförmigen Körper; 1. Teil; Die Mechanik der festen Körper",
-                        manifest.getLabel().getValues().get(0));
+    Assert
+            .assertEquals("Die Mechanik der festen, flüssigen und gasförmigen Körper; 1. Teil; Die Mechanik der festen Körper",
+                    manifest.getLabel().getValues().get(0));
     Sequence sequence = manifest.getSequences().get(0);
     Assert.assertEquals("Current Page Order", sequence.getLabel().getValues().get(0));
     PropertyValueLocalizedImpl firstCanvasLabel = (PropertyValueLocalizedImpl) sequence.getCanvases().get(0).getLabel();
@@ -108,10 +102,10 @@ public class IiifPresentationApiObjectMapperTest {
   }
 
   @Test
-  public void testManifestToJson() throws JsonProcessingException, URISyntaxException {
+  public void testManifestToJson() throws JsonProcessingException {
     Manifest manifest = new ManifestImpl("testId", new PropertyValueSimpleImpl("testLabel"));
     Thumbnail thumb = new ThumbnailImpl();
-    thumb.setId(new URI("http://example.com/iiif/test/thumb"));
+    thumb.setId(URI.create("http://example.com/iiif/test/thumb"));
     Service service = new ServiceImpl();
     service.setId("htp://example.com/iiif/test");
     thumb.setService(service);
@@ -127,7 +121,7 @@ public class IiifPresentationApiObjectMapperTest {
   @Test
   public void testMetadataSimpleToJson() throws JsonProcessingException {
     MetadataImpl metadata = new MetadataImpl(new PropertyValueSimpleImpl("testLabel"),
-                                             new PropertyValueSimpleImpl("testValue"));
+            new PropertyValueSimpleImpl("testValue"));
     String jsonString = objectMapper.writeValueAsString(metadata);
     ReadContext ctx = JsonPath.parse(jsonString);
     Assert.assertEquals("testLabel", ctx.read("$.label"));
@@ -158,22 +152,22 @@ public class IiifPresentationApiObjectMapperTest {
   }
 
   @Test
-  public void testCollectionToJson() throws URISyntaxException, JsonProcessingException {
+  public void testCollectionToJson() throws JsonProcessingException {
     PropertyValue labelProp = new PropertyValueSimpleImpl("some label");
     List<Metadata> metadata = new ArrayList<>();
     metadata.add(new MetadataImpl(new PropertyValueSimpleImpl("some key"), new PropertyValueSimpleImpl("some value")));
-    Collection coll = new CollectionImpl(new URI("http://example.com/collection/some-collection"), labelProp, metadata);
+    Collection coll = new CollectionImpl(URI.create("http://example.com/collection/some-collection"), labelProp, metadata);
 
     List<ManifestReference> manifests = new ArrayList<>();
-    manifests.add(new ManifestReferenceImpl(new URI("http://example.com/manifest/some-manifest"),
-                                            new PropertyValueSimpleImpl("some label")));
-    manifests.add(new ManifestReferenceImpl(new URI("http://example.com/manifest/some-other-manifest")));
+    manifests.add(new ManifestReferenceImpl(URI.create("http://example.com/manifest/some-manifest"),
+            new PropertyValueSimpleImpl("some label")));
+    manifests.add(new ManifestReferenceImpl(URI.create("http://example.com/manifest/some-other-manifest")));
     coll.setManifests(manifests);
 
     List<CollectionReference> subColls = new ArrayList<>();
-    subColls.add(new CollectionReferenceImpl(new URI("http://example.com/collection/some-other-collection"),
-                                             new PropertyValueSimpleImpl("some label")));
-    subColls.add(new CollectionReferenceImpl(new URI("http://example.com/collection/yet-another-collection")));
+    subColls.add(new CollectionReferenceImpl(URI.create("http://example.com/collection/some-other-collection"),
+            new PropertyValueSimpleImpl("some label")));
+    subColls.add(new CollectionReferenceImpl(URI.create("http://example.com/collection/yet-another-collection")));
     coll.setSubCollections(subColls);
     String jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(coll);
     DocumentContext ctx = JsonPath.parse(jsonString);
@@ -186,11 +180,11 @@ public class IiifPresentationApiObjectMapperTest {
   }
 
   @Test
-  public void testSeeAlsoToJson() throws URISyntaxException, JsonProcessingException {
+  public void testSeeAlsoToJson() throws JsonProcessingException {
     SeeAlso seeAlso = new SeeAlsoImpl();
-    seeAlso.setId(new URI("http://example.com/test"));
+    seeAlso.setId(URI.create("http://example.com/test"));
     seeAlso.setFormat("application/json");
-    seeAlso.setProfile(new URI("http://example.com/profile"));
+    seeAlso.setProfile(URI.create("http://example.com/profile"));
     String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(seeAlso);
     DocumentContext ctx = JsonPath.parse(json);
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$['@id']").isEqualTo("http://example.com/test");
@@ -201,18 +195,19 @@ public class IiifPresentationApiObjectMapperTest {
   @Test
   public void testSeeAlsoFromJson() throws IOException {
     String json = IOUtils.
-        toString(this.getClass().getClassLoader().getResourceAsStream("manifest_seealso.json"), DEFAULT_CHARSET);
+            toString(this.getClass().getClassLoader().getResourceAsStream("manifest_seealso.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, ManifestImpl.class);
     assertThat(manifest.getSeeAlso()).hasSize(2);
     assertThat(manifest.getSeeAlso().get(0).getFormat()).isEqualTo("application/json");
-    assertThat(manifest.getSeeAlso().get(0).getProfile().toASCIIString()).isEqualTo("http://iiif.io/some-new-api/profile");
+    assertThat(manifest.getSeeAlso().get(0).getProfile().toASCIIString()).
+            isEqualTo("http://iiif.io/some-new-api/profile");
     assertThat(manifest.getSeeAlso().get(1).getFormat()).isNull();
   }
 
   @Test
   public void testBroken() throws IOException {
     String json = IOUtils.
-        toString(this.getClass().getClassLoader().getResourceAsStream("broken.json"), DEFAULT_CHARSET);
+            toString(this.getClass().getClassLoader().getResourceAsStream("broken.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, Manifest.class);
     assertThat(manifest.getLabel()).isNotNull();
 

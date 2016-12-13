@@ -8,18 +8,15 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.node.TextNode;
-import de.digitalcollections.iiif.presentation.model.api.v2.references.AnnotationListReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.IiifReference;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.AnnotationListReferenceImpl;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class IiifReferenceDeserializer extends JsonDeserializer<IiifReference> {
 
   @Override
   public IiifReference deserialize(JsonParser jp, DeserializationContext dc) throws IOException, JsonProcessingException {
-    IiifReference result = null;
     ObjectMapper mapper = (ObjectMapper) jp.getCodec();
     TreeNode node = mapper.readTree(jp);
     String id;
@@ -34,10 +31,6 @@ public class IiifReferenceDeserializer extends JsonDeserializer<IiifReference> {
     } else {
       throw new IllegalArgumentException("Reference must be a string or object!");
     }
-    try {
-      return new AnnotationListReferenceImpl(new URI(id));
-    } catch (URISyntaxException e) {
-      throw new IllegalArgumentException(String.format("ID is not a valid URI: %s", id));
-    }
+    return new AnnotationListReferenceImpl(URI.create(id));
   }
 }

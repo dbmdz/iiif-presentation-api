@@ -1,16 +1,13 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2;
 
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-
 import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2.Image;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.IiifReference;
+import java.net.URI;
+import java.util.List;
 
 public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
 
@@ -44,8 +41,8 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
     type = "sc:Canvas";
   }
 
-  public CanvasImpl(String id, PropertyValue label, int height, int width) throws URISyntaxException {
-    this(new URI(id), label, height, width);
+  public CanvasImpl(String id, PropertyValue label, int height, int width) {
+    this(URI.create(id), label, height, width);
   }
 
   /**
@@ -68,8 +65,8 @@ public class CanvasImpl extends AbstractIiifResourceImpl implements Canvas {
     this.thumbnail = thumbnail;
   }
 
-  public CanvasImpl(String id, PropertyValue label, int height, int width, Thumbnail thumbnail) throws URISyntaxException {
-    this(new URI(id), label, height, width, thumbnail);
+  public CanvasImpl(String id, PropertyValue label, int height, int width, Thumbnail thumbnail) {
+    this(URI.create(id), label, height, width, thumbnail);
   }
 
   @Override

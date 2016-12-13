@@ -2,7 +2,6 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 
 import de.digitalcollections.iiif.presentation.model.api.v2.ImageResource;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class ImageResourceImpl extends ResourceImpl implements ImageResource {
 
@@ -18,8 +17,8 @@ public class ImageResourceImpl extends ResourceImpl implements ImageResource {
     this.id = id;
   }
 
-  public ImageResourceImpl(String id) throws URISyntaxException {
-    this(new URI(id));
+  public ImageResourceImpl(String id) {
+    this(URI.create(id));
   }
 
   @Override

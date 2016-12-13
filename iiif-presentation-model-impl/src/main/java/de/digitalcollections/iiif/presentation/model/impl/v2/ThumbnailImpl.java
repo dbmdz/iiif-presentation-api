@@ -16,9 +16,6 @@ public class ThumbnailImpl implements Thumbnail {
     this.id = id;
   }
 
-//  public void setId(String id) throws URISyntaxException {
-//    this.id = new URI(id);
-//  }
   @Override
   public URI getId() {
     return id;

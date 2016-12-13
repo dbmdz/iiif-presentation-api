@@ -1,7 +1,6 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * <p>
@@ -51,7 +50,7 @@ public interface Service {
    */
   void setId(URI id);
 
-  void setId(String id) throws URISyntaxException;
+  void setId(String id);
 
   PropertyValue getLabel();
 

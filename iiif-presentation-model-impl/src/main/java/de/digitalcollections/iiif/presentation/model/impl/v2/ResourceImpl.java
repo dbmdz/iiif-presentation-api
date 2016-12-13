@@ -3,7 +3,6 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.Resource;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 public class ResourceImpl implements Resource {
 
@@ -28,8 +27,8 @@ public class ResourceImpl implements Resource {
   }
 
   @Override
-  public void setId(String id) throws URISyntaxException {
-    this.id = new URI(id);
+  public void setId(String id) {
+    this.id = URI.create(id);
   }
 
   @Override

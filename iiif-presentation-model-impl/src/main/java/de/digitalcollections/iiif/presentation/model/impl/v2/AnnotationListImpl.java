@@ -6,7 +6,6 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public class AnnotationListImpl extends AbstractIiifResourceImpl implements AnnotationList {
@@ -20,9 +19,9 @@ public class AnnotationListImpl extends AbstractIiifResourceImpl implements Anno
   private String viewingHint; // optional
 
   public AnnotationListImpl() {
-    
+
   }
-  
+
   public AnnotationListImpl(URI id) {
     assert id != null;
     this.id = id;
@@ -30,15 +29,15 @@ public class AnnotationListImpl extends AbstractIiifResourceImpl implements Anno
     type = "sc:AnnotationList";
   }
 
-  public AnnotationListImpl(String id) throws URISyntaxException {
-    this(new URI(id));
+  public AnnotationListImpl(String id) {
+    this(URI.create(id));
   }
 
   @Override
   public String getContext() {
     return context;
   }
-  
+
   @Override
   public PropertyValue getDescription() {
     return description;

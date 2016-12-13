@@ -1,16 +1,13 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2;
 
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Range;
 import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
+import java.net.URI;
+import java.util.List;
 
 public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
 
@@ -37,8 +34,8 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
     this.type = "sc:Manifest";
   }
 
-  public ManifestImpl(String id, PropertyValue label) throws URISyntaxException {
-    this(new URI(id), label);
+  public ManifestImpl(String id, PropertyValue label) {
+    this(URI.create(id), label);
   }
 
   /**
@@ -119,6 +116,11 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
   }
 
   @Override
+  public void setRanges(List<Range> structures) {
+    this.structures = structures;
+  }
+
+  @Override
   public List<Sequence> getSequences() {
     return sequences;
   }
@@ -126,6 +128,16 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
   @Override
   public void setSequences(List<Sequence> sequences) {
     this.sequences = sequences;
+  }
+
+  @Override
+  public List<Range> getStructures() {
+    return structures;
+  }
+
+  @Override
+  public void setStructures(List<Range> structures) {
+    this.structures = structures;
   }
 
   @Override
@@ -158,18 +170,4 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
     this.viewingHint = viewingHint;
   }
 
-  @Override
-  public List<Range> getStructures() {
-    return structures;
-  }
-
-  @Override
-  public void setRanges(List<Range> structures) {
-    this.structures = structures;
-  }
-
-  @Override
-  public void setStructures(List<Range> structures) {
-    this.structures = structures;
-  }
 }

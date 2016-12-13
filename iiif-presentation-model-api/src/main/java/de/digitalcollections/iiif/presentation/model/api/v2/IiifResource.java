@@ -1,10 +1,10 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
 
 public interface IiifResource {
+
   PropertyValue getAttribution();
 
   /**
@@ -16,7 +16,7 @@ public interface IiifResource {
 
   URI getId();
 
-  void setId(String id) throws URISyntaxException;
+  void setId(String id);
 
   void setId(URI id);
 
