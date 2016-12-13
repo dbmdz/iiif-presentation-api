@@ -41,8 +41,8 @@ public class IIIFPresentationApiController {
    * @see <a href="http://iiif.io/api/presentation/2.0/#manifest">IIIF 2.0</a>
    */
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
-  @RequestMapping(value = "{identifier}/manifest", method = RequestMethod.GET,
-          produces = "application/json")
+  @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = {RequestMethod.GET, RequestMethod.HEAD},
+                  produces = "application/json")
   @ResponseBody
   public Manifest getManifest(@PathVariable String identifier) throws NotFoundException {
     LOGGER.info("Manifest version '{}' for identifier '{}' requested.", VERSION, identifier);
