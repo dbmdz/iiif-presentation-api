@@ -27,7 +27,7 @@ public class PresentationServiceImpl implements PresentationService {
       LOGGER.info("Access to manifest for object '{}' is not allowed!", identifier);
       throw new NotFoundException(); // TODO maybe throw an explicitely access disallowed exception
     }
-    LOGGER.info("Access to manifest for object '{}' is allowed.", identifier);
+    LOGGER.debug("Access to manifest for object '{}' is allowed.", identifier);
     try {
       return presentationRepository.getManifest(identifier);
     } catch (de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException ex) {

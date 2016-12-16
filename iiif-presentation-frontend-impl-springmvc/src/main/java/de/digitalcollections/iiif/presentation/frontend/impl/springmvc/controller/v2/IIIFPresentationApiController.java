@@ -1,8 +1,13 @@
 package de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller.v2;
 
+import de.digitalcollections.commons.server.HttpLoggingUtilities;
 import de.digitalcollections.iiif.presentation.business.api.v2.PresentationService;
 import de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
+import javax.servlet.http.HttpServletRequest;
+import net.logstash.logback.marker.LogstashMarker;
+import net.logstash.logback.marker.Markers;
+import static net.logstash.logback.marker.Markers.append;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +49,15 @@ public class IIIFPresentationApiController {
   @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = {RequestMethod.GET, RequestMethod.HEAD},
                   produces = "application/json")
   @ResponseBody
-  public Manifest getManifest(@PathVariable String identifier) throws NotFoundException {
-    LOGGER.info("Manifest version '{}' for identifier '{}' requested.", VERSION, identifier);
+  public Manifest getManifest(@PathVariable String identifier, HttpServletRequest request) throws NotFoundException {
+    LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
+        .and(append("manifestId", identifier));
     Manifest manifest;
     try {
       manifest = presentationService.getManifest(identifier);
+      LOGGER.info(marker, "Serving manifest for {}", identifier);
     } catch (de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException ex) {
+      LOGGER.info(marker, "Did not find manifest for {}", identifier);
       throw new NotFoundException(ex.getMessage());
     }
     return manifest;
