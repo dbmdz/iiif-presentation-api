@@ -6,7 +6,6 @@ import de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import javax.servlet.http.HttpServletRequest;
 import net.logstash.logback.marker.LogstashMarker;
-import net.logstash.logback.marker.Markers;
 import static net.logstash.logback.marker.Markers.append;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,11 +46,11 @@ public class IIIFPresentationApiController {
    */
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
   @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = {RequestMethod.GET, RequestMethod.HEAD},
-                  produces = "application/json")
+          produces = "application/json")
   @ResponseBody
   public Manifest getManifest(@PathVariable String identifier, HttpServletRequest request) throws NotFoundException {
     LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
-        .and(append("manifestId", identifier));
+            .and(append("manifestId", identifier));
     Manifest manifest;
     try {
       manifest = presentationService.getManifest(identifier);
