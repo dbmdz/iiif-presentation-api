@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.config;
 
 import de.digitalcollections.iiif.presentation.frontend.impl.client.rest.IIIFRepository;
+import de.digitalcollections.iiif.presentation.frontend.impl.client.rest.exceptions.IiifErrorDecoder;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
 import feign.Feign;
 import feign.jackson.JacksonDecoder;
@@ -14,7 +15,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @PropertySource(value = {
-  "classpath:de/digitalcollections/iiif/presentation/config/SpringConfigClientRest-${spring.profiles.active:PROD}.properties"
+    "classpath:de/digitalcollections/iiif/presentation/config/SpringConfigClientRest-${spring.profiles.active:PROD}.properties"
 })
 public class SpringConfigClientRest {
 
@@ -27,11 +28,9 @@ public class SpringConfigClientRest {
   public IIIFRepository iiifRepository() {
     LOGGER.info("IIIF Rest Client using Endpoint {}" + iiifRepositoryURL);
     IIIFRepository iiif = Feign.builder()
-            .decoder(new JacksonDecoder(new IiifPresentationApiObjectMapper()))
-            .target(IIIFRepository.class, iiifRepositoryURL);
-    // TODO maybe add custom error handling?
-    // see https://github.com/OpenFeign/feign/wiki/Custom-error-handling
-    // .errorDecoder(new IiifPresentationErrorDecoder())
+        .decoder(new JacksonDecoder(new IiifPresentationApiObjectMapper()))
+        .errorDecoder(new IiifErrorDecoder())
+        .target(IIIFRepository.class, iiifRepositoryURL);
     return iiif;
   }
 
