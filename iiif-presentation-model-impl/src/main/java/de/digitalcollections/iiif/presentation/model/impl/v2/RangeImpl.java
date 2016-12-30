@@ -31,6 +31,7 @@ public class RangeImpl extends AbstractIiifResourceImpl implements Range {
 
   public RangeImpl() {
     this.label = null;
+    type = "sc:Range";
   }
 
   @Override
