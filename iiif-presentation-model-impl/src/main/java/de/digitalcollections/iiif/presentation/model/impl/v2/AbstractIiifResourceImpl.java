@@ -14,7 +14,7 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   protected String logo; // optional
   protected String type; // required
   protected String related; // optional
-  protected Service service; // optional
+  protected List<Service> service; // optional
   protected List<SeeAlso> seeAlso; // optional
   protected URI within; // optional
   protected URI id; // optional
@@ -65,12 +65,12 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   }
 
   @Override
-  public Service getService() {
+  public List<Service> getService() {
     return service;
   }
 
   @Override
-  public void setService(Service service) {
+  public void setService(List<Service> service) {
     this.service = service;
   }
 

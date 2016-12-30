@@ -64,7 +64,7 @@ public interface IiifResource {
    */
   void setSeeAlso(List<SeeAlso> seeAlso);
 
-  Service getService();
+  List<Service> getService();
 
   /**
    * @param service A link to a service that makes more functionality available for the resource, such as from an image
@@ -75,7 +75,7 @@ public interface IiifResource {
    * additional HTTP requests. Please see the Service Profiles document for known services. Any resource type may have
    * one or more links to an external service.
    */
-  void setService(Service service);
+  void setService(List<Service> service);
 
   /**
    * @return The type of the resource. For the resource types defined by this specification, the value of @type will be
