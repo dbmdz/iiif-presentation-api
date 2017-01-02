@@ -3,6 +3,8 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServiceImpl implements Service {
 
@@ -10,7 +12,8 @@ public class ServiceImpl implements Service {
   protected URI id;
   protected PropertyValue label;
   protected String profile;
-
+  protected List<Service> service;
+  
   public ServiceImpl() {
   }
 
@@ -65,6 +68,24 @@ public class ServiceImpl implements Service {
   @Override
   public void setProfile(String profile) {
     this.profile = profile;
+  }
+
+  @Override
+  public List<Service> getService() {
+    return service;
+  }
+
+  @Override
+  public void setService(List<Service> service) {
+    this.service = service;
+  }
+  
+  @Override
+  public void addService(Service serv) {
+	  if (this.service == null) {
+		  this.service = new ArrayList<Service>();
+	  }
+	  this.service.add(serv);
   }
 
 }

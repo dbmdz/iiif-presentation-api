@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 public interface Resource {
 
@@ -17,9 +18,11 @@ public interface Resource {
 
   void setId(String id) throws URISyntaxException;
 
-  Service getService();
+  List<Service> getService();
 
-  void setService(Service service);
+  void setService(List<Service> service);
+  
+  public void addService(Service serv); 
 
   String getType();
 

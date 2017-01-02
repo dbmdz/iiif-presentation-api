@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * <p>
@@ -69,4 +70,18 @@ public interface Service {
    */
   void setProfile(String profile);
 
+  List<Service> getService();
+  
+  /**
+   * @param service A link to a service that makes more functionality available for the resource, such as from an image
+   * to the base URI of an associated IIIF Image API service. The service resource should have additional information
+   * associated with it in order to allow the client to determine how to make appropriate use of it, such as a profile
+   * link to a service description. It may also have relevant information copied from the service itself. This
+   * duplication is permitted in order to increase the performance of rendering the object without necessitating
+   * additional HTTP requests. Please see the Service Profiles document for known services. Any resource type may have
+   * one or more links to an external service.
+   */
+  void setService(List<Service> service);
+
+  void addService(Service serv);
 }

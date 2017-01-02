@@ -154,7 +154,7 @@ public class ManifestGenerator {
     Service service1 = new ServiceImpl(urlPrefix + imageDirectoryName + "/" + fileName.toString() + "?");
     service1.setContext("http://iiif.io/api/image/2/context.json");
     service1.setProfile("http://iiif.io/api/image/2/level1.json");
-    imageResource1.setService(service1);
+    imageResource1.addService(service1);
   }
 
   public ManifestGenerator() {
