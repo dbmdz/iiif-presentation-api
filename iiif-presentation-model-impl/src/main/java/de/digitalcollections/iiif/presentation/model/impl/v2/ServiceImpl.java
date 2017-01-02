@@ -10,7 +10,8 @@ public class ServiceImpl implements Service {
   protected URI id;
   protected PropertyValue label;
   protected String profile;
-
+  protected Service service;
+  
   public ServiceImpl() {
   }
 
@@ -67,4 +68,13 @@ public class ServiceImpl implements Service {
     this.profile = profile;
   }
 
+  @Override
+  public void setService(Service service) {
+	this.service = service;
+  }
+  
+  @Override
+  public Service getService() {
+	return service;
+  }
 }
