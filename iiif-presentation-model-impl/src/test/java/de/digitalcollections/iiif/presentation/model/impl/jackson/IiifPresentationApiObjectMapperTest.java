@@ -108,7 +108,7 @@ public class IiifPresentationApiObjectMapperTest {
     thumb.setId(URI.create("http://example.com/iiif/test/thumb"));
     Service service = new ServiceImpl();
     service.setId("htp://example.com/iiif/test");
-    thumb.addService(service);
+    thumb.setService(service);
     manifest.setThumbnail(thumb);
     String jsonString = objectMapper.writeValueAsString(manifest);
     ReadContext ctx = JsonPath.parse(jsonString);

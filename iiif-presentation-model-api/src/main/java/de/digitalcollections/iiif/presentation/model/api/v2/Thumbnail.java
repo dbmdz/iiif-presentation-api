@@ -1,8 +1,6 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A small image that depicts or pictorially represents the resource that the property is attached to, such as the title
@@ -20,10 +18,8 @@ public interface Thumbnail {
    */
   void setId(URI id);
 
-  List<Service> getService();
+  Service getService();
 
-  void setService(List<Service> service);
-
-  void addService(Service serv);
+  void setService(Service service);
 
 }

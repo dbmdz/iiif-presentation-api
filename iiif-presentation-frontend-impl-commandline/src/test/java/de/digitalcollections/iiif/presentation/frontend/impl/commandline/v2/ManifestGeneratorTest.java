@@ -69,7 +69,7 @@ public class ManifestGeneratorTest {
     Service service1 = new ServiceImpl(urlPrefix + "/demo/bookreader/mechanik1/1.jpg?");
     service1.setContext("http://iiif.io/api/image/2/context.json");
     service1.setProfile("http://iiif.io/api/image/2/level1.json");
-    imageResource1.addService(service1);
+    imageResource1.setService(service1);
   }
 
 }
