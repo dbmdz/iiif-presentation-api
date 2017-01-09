@@ -24,7 +24,6 @@
     <dependency>
       <groupId>de.digitalcollections.commons</groupId>
       <artifactId>digitalcollections-commons-server</artifactId>
-      <version>${version.digitalcollections-commons}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -36,8 +35,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>net.logstash.logback</groupId>
+      <artifactId>logstash-logback-encoder</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -56,11 +64,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>
