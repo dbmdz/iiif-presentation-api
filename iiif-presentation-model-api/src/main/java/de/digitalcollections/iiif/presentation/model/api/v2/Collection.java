@@ -3,6 +3,7 @@ package de.digitalcollections.iiif.presentation.model.api.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
 import java.time.Instant;
+import java.util.List;
 
 /**
  * <p>
