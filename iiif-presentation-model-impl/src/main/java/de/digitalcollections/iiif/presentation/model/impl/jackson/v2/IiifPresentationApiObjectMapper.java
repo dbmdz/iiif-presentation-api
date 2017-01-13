@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.jackson.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import de.digitalcollections.iiif.presentation.model.api.v2.Annotation;
@@ -68,6 +69,9 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.references.Manifest
 public class IiifPresentationApiObjectMapper extends ObjectMapper {
 
   public IiifPresentationApiObjectMapper() {
+    // For correct serialization of Instant types (for navDate)
+    this.findAndRegisterModules();
+    this.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
     registerMixins();
     registerDeserializers();
     setSerializationInclusion(JsonInclude.Include.NON_NULL);

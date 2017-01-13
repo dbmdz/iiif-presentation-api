@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import de.digitalcollections.iiif.presentation.model.api.enums.ViewingDirection;
 import de.digitalcollections.iiif.presentation.model.api.enums.ViewingHint;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -231,4 +232,7 @@ public interface Manifest extends IiifResource {
    */
   void setViewingHint(String viewingHint);
 
+  Instant getNavDate();
+
+  void setNavDate(Instant date);
 }

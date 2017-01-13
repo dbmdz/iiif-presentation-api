@@ -30,6 +30,9 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.references.Manifest
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -210,6 +213,25 @@ public class IiifPresentationApiObjectMapperTest {
             toString(this.getClass().getClassLoader().getResourceAsStream("broken.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, Manifest.class);
     assertThat(manifest.getLabel()).isNotNull();
+  }
 
+  @Test
+  public void testReadNavDate() throws IOException {
+    String json = IOUtils.
+        toString(this.getClass().getClassLoader().getResourceAsStream("navdate.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, Manifest.class);
+    LocalDateTime ldt = LocalDateTime.ofInstant(manifest.getNavDate(), ZoneId.systemDefault());
+    assertThat(ldt.getYear()).isEqualTo(1848);
+    assertThat(ldt.getMonthValue()).isEqualTo(1);
+    assertThat(ldt.getDayOfMonth()).isEqualTo(1);
+  }
+
+  @Test
+  public void testWriteNavDate() throws IOException {
+    Manifest manifest = new ManifestImpl("testId", new PropertyValueSimpleImpl("testLabel"));
+    manifest.setNavDate(LocalDateTime.of(1789, 7, 14, 12, 0).toInstant(ZoneOffset.UTC));
+    String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);
+    DocumentContext ctx = JsonPath.parse(json);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$['navDate']").isEqualTo("1789-07-14T12:00:00Z");
   }
 }

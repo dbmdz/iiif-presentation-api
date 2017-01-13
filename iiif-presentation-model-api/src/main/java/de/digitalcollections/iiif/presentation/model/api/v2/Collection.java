@@ -1,9 +1,8 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
-import java.util.List;
-
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
+import java.time.Instant;
 
 /**
  * <p>
@@ -34,4 +33,8 @@ public interface Collection extends IiifResource {
   List<CollectionReference> getSubCollections();
 
   void setSubCollections(List<CollectionReference> collections);
+
+  Instant getNavDate();
+
+  void setNavDate(Instant date);
 }
