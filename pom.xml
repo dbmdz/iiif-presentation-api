@@ -63,7 +63,7 @@
     <version.digitalcollections-commons>1.1.0-SNAPSHOT</version.digitalcollections-commons>
     <version.digitalcollections-core>1.2.4-SNAPSHOT</version.digitalcollections-core>
     <version.feign>9.4.0</version.feign>
-    <version.fluent-hc>4.3.4</version.fluent-hc>
+    <version.fluent-hc>4.5.2</version.fluent-hc>
     <version.guava>18.0</version.guava>
     <version.hamcrest-core>1.3</version.hamcrest-core>
     <version.jackson-annotations>2.8.1</version.jackson-annotations>
