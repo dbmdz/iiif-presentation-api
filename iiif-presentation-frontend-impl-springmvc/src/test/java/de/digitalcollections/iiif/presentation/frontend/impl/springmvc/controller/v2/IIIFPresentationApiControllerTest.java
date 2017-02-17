@@ -9,7 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -45,6 +47,14 @@ public class IIIFPresentationApiControllerTest {
   public void testGetManifest() throws Exception {
     mockMvc.perform(get("/presentation/" + IIIFPresentationApiController.VERSION + "/abcdef/manifest"))
             .andExpect(status().isOk());
+  }
+
+  @Test
+  public void testCorsHeadersArePresent() throws Exception {
+    ResultActions result = mockMvc.perform(get("/presentation/" + IIIFPresentationApiController.VERSION + "/abcdef/manifest")
+        .header("Origin", "http://example.com"));
+    result.andExpect(status().isOk());
+    result.andExpect(header().string("Access-Control-Allow-Origin", "http://example.com"));
   }
 
 }
