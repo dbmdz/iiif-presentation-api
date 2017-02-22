@@ -65,7 +65,7 @@
     <version.assertj-json>1.0.1</version.assertj-json>
     <version.commons-cli>1.3.1</version.commons-cli>
     <version.commons-io>2.5</version.commons-io>
-    <version.digitalcollections-commons>1.1.0</version.digitalcollections-commons>
+    <version.digitalcollections-commons>1.2.0-SNAPSHOT</version.digitalcollections-commons>
     <version.digitalcollections-core>1.2.4-SNAPSHOT</version.digitalcollections-core>
     <version.feign>9.4.0</version.feign>
     <version.fluent-hc>4.5.3</version.fluent-hc>
