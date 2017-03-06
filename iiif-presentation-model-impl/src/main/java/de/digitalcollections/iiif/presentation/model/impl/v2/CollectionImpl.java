@@ -13,13 +13,16 @@ import java.util.List;
 public class CollectionImpl extends AbstractIiifResourceImpl implements Collection {
 
   private PropertyValue description; // recommended
-  private final PropertyValue label; // required
-  private final List<Metadata> metadata; // recommended
+  private PropertyValue label; // required
+  private List<Metadata> metadata; // recommended
   private List<CollectionReference> subCollections;
   private List<ManifestReference> manifests;
   private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
   private Instant navDate; // optional
+
+  public CollectionImpl() {
+  }
 
   public CollectionImpl(URI id, PropertyValue label, List<Metadata> metadata) {
     assert id != null;

@@ -78,6 +78,20 @@ public class IiifPresentationApiObjectMapperTest {
   }
 
   @Test
+  public void testJsonToCollection() throws JsonProcessingException, IOException {
+    String json = IOUtils.
+            toString(this.getClass().getClassLoader().getResourceAsStream("collection.json"), DEFAULT_CHARSET);
+    Collection collection = objectMapper.readValue(json, CollectionImpl.class);
+    Assert.assertTrue(collection.getId().equals(
+            URI.create("https://api.digitale-sammlungen.de/iiif/presentation/v2/collection/bsbmult00000001")));
+
+    PropertyValueLocalizedImpl label = (PropertyValueLocalizedImpl) collection.getLabel();
+    Assert.assertTrue(label.getValues("de").get(0).equals("Der gerade Weg"));
+
+    Assert.assertTrue(collection.getType().equals("sc:Collection"));
+  }
+
+  @Test
   public void testJsonToMetadata() throws JsonProcessingException, IOException {
     String json = IOUtils.
             toString(this.getClass().getClassLoader().getResourceAsStream("manifest_metadata.json"), DEFAULT_CHARSET);
@@ -221,7 +235,7 @@ public class IiifPresentationApiObjectMapperTest {
   @Test
   public void testReadNavDate() throws IOException {
     String json = IOUtils.
-        toString(this.getClass().getClassLoader().getResourceAsStream("navdate.json"), DEFAULT_CHARSET);
+            toString(this.getClass().getClassLoader().getResourceAsStream("navdate.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, Manifest.class);
     LocalDateTime ldt = LocalDateTime.ofInstant(manifest.getNavDate(), ZoneId.systemDefault());
     assertThat(ldt.getYear()).isEqualTo(1848);

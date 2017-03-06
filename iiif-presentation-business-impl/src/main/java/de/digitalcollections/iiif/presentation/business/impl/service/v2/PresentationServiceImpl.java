@@ -4,6 +4,7 @@ import de.digitalcollections.iiif.presentation.backend.api.repository.v2.Present
 import de.digitalcollections.iiif.presentation.business.api.PresentationSecurityService;
 import de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.business.api.v2.PresentationService;
+import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +21,16 @@ public class PresentationServiceImpl implements PresentationService {
 
   @Autowired(required = false)
   private PresentationSecurityService presentationSecurityService;
+
+  @Override
+  public Collection getCollection(String name) throws NotFoundException {
+    try {
+      return presentationRepository.getCollection(name);
+    } catch (de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException ex) {
+      LOGGER.info("Collection for '{}' not found.", name);
+      throw new NotFoundException(ex.getMessage());
+    }
+  }
 
   @Override
   public Manifest getManifest(String identifier) throws NotFoundException {

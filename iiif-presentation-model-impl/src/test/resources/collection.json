@@ -1,0 +1,42 @@
+{
+  "label": {
+    "@language": "de",
+    "@value": "Der gerade Weg"
+  },
+  "metadata": [{
+      "label": [{
+          "@language": "de",
+          "@value": "Name des Zeitungsunternehmens"
+        }, {
+          "@language": "en",
+          "@value": "Name of the Newspaper Company"
+        }],
+      "value": {
+        "@language": "de",
+        "@value": "Der gerade Weg"
+      }
+    }],
+  "@type": "sc:Collection",
+  "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/collection/bsbmult00000001",
+  "collections": [{
+      "label": [{
+          "@language": "de",
+          "@value": "das Blatt des gesunden Menschenverstandes"
+        }, {
+          "@language": "de",
+          "@value": "Illustrierter Sonntag"
+        }],
+      "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/collection/zdb:1010180-9",
+      "@type": "sc:Collection"
+    }, {
+      "label": [{
+          "@language": "de",
+          "@value": "deutsche Zeitung für Wahrheit und Recht"
+        }, {
+          "@language": "de",
+          "@value": "Der gerade Weg"
+        }],
+      "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/collection/zdb:607248-3",
+      "@type": "sc:Collection"
+    }]
+}
