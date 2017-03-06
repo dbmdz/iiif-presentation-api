@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-
 import de.digitalcollections.iiif.presentation.model.api.v2.Annotation;
 import de.digitalcollections.iiif.presentation.model.api.v2.AnnotationList;
 import de.digitalcollections.iiif.presentation.model.api.v2.AnnotationResource;
@@ -30,6 +29,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.IiifReference;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.AnnotationResourceDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.IiifReferenceDeserializer;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.PropertyValueDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.SeeAlsoDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.AbstractIiifResourceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.AnnotationListMixIn;
@@ -45,6 +45,7 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.Layer
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.ManifestMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.MetadataMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.OtherContentMixIn;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.PhysicalDimensionsMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.PropertyValueLocalizedMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.RangeMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.ResourceMixIn;
@@ -57,7 +58,6 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.refer
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.references.ManifestReferenceMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.serializer.v2.PropertyValueSerializer;
 import de.digitalcollections.iiif.presentation.model.impl.v2.AbstractIiifResourceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.PropertyValueDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueLocalizedImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.CollectionReferenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.IiifReferenceImpl;
@@ -103,6 +103,7 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     addMixIn(Resource.class, ResourceMixIn.class);
     addMixIn(Sequence.class, SequenceMixIn.class);
     addMixIn(Service.class, ServiceMixIn.class);
+    addMixIn(Service.class, PhysicalDimensionsMixin.class);
     addMixIn(Thumbnail.class, ThumbnailMixIn.class);
     addMixIn(SeeAlso.class, SeeAlsoMixin.class);
   }

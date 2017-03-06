@@ -6,6 +6,7 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import com.revinate.assertj.json.JsonPathAssert;
+import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
@@ -17,9 +18,11 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.v2.CanvasImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.CollectionImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.MetadataImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.PhysicalDimensionsServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueLocalizedImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueSimpleImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.SeeAlsoImpl;
@@ -233,5 +236,16 @@ public class IiifPresentationApiObjectMapperTest {
     String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);
     DocumentContext ctx = JsonPath.parse(json);
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$['navDate']").isEqualTo("1789-07-14T12:00:00Z");
+  }
+
+  @Test
+  public void testAddPhysicalDimensionsService() throws IOException {
+    Canvas canvas = new CanvasImpl(URI.create("http://dummy.org/canvas"), new PropertyValueSimpleImpl("dummy"), 800, 600);
+    canvas.setService(new PhysicalDimensionsServiceImpl(0.025, "in"));
+    String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(canvas);
+    DocumentContext ctx = JsonPath.parse(json);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.service.physicalUnits").isEqualTo("in");
+    Canvas deserialized = objectMapper.readValue(json, Canvas.class);
+    assertThat(deserialized.getService().getProfile()).contains("physdim");
   }
 }

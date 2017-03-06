@@ -74,7 +74,7 @@
     <version.jackson-annotations>2.8.6</version.jackson-annotations>
     <version.jackson-core>2.8.5</version.jackson-core>
     <version.jackson-databind>2.8.5</version.jackson-databind>
-    <version.jacoco-maven-plugin>0.7.4.201502262128</version.jacoco-maven-plugin>
+    <version.jacoco-maven-plugin>0.7.9</version.jacoco-maven-plugin>
     <version.javax.servlet-api>3.1.0</version.javax.servlet-api>
     <version.json-path>2.2.0</version.json-path>
     <version.json-simple>1.1.1</version.json-simple>
