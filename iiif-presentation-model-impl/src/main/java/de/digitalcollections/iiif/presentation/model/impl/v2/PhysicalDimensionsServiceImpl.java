@@ -1,8 +1,6 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2;
 
-import de.digitalcollections.iiif.presentation.model.api.v2.PhysicalDimensionsService;
-
-public class PhysicalDimensionsServiceImpl extends ServiceImpl implements PhysicalDimensionsService {
+public class PhysicalDimensionsServiceImpl extends ServiceImpl {
   private double physicalScale;
   private String physicalUnits;
 
@@ -23,12 +21,10 @@ public class PhysicalDimensionsServiceImpl extends ServiceImpl implements Physic
     return "http://iiiif.io/api/annex/services/physdim";
   }
 
-  @Override
   public Double getPhysicalScale() {
     return physicalScale;
   }
 
-  @Override
   public String getPhysicalUnits() {
     return physicalUnits;
   }

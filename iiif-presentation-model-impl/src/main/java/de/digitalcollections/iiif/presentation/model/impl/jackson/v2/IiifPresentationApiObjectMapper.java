@@ -19,6 +19,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Layer;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.OtherContent;
+import de.digitalcollections.iiif.presentation.model.api.v2.PhysicalDimensionsService;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Range;
 import de.digitalcollections.iiif.presentation.model.api.v2.Resource;
@@ -33,6 +34,7 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.IiifReferenceDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.PropertyValueDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.SeeAlsoDeserializer;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.deserializer.v2.ServiceDeserializer;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.AbstractIiifResourceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.AnnotationListMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.AnnotationMixIn;
@@ -98,12 +100,12 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     addMixIn(ManifestReference.class, ManifestReferenceMixin.class);
     addMixIn(Metadata.class, MetadataMixin.class);
     addMixIn(PropertyValueLocalizedImpl.class, PropertyValueLocalizedMixin.class);
+    addMixIn(PhysicalDimensionsService.class, PhysicalDimensionsMixin.class);
     addMixIn(OtherContent.class, OtherContentMixIn.class);
     addMixIn(Range.class, RangeMixIn.class);
     addMixIn(Resource.class, ResourceMixIn.class);
     addMixIn(Sequence.class, SequenceMixIn.class);
     addMixIn(Service.class, ServiceMixIn.class);
-    addMixIn(Service.class, PhysicalDimensionsMixin.class);
     addMixIn(Thumbnail.class, ThumbnailMixIn.class);
     addMixIn(SeeAlso.class, SeeAlsoMixin.class);
   }
@@ -123,6 +125,9 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
 
     SeeAlsoDeserializer seeAlsoDeserializer = new SeeAlsoDeserializer();
     module.addDeserializer(SeeAlso.class, seeAlsoDeserializer);
+
+    ServiceDeserializer serviceDeserializer = new ServiceDeserializer();
+    module.addDeserializer(Service.class, serviceDeserializer);
     registerModule(module);
   }
 }

@@ -8,6 +8,8 @@ import com.jayway.jsonpath.ReadContext;
 import com.revinate.assertj.json.JsonPathAssert;
 import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
+import de.digitalcollections.iiif.presentation.model.api.v2.Image;
+import de.digitalcollections.iiif.presentation.model.api.v2.ImageService;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
@@ -20,6 +22,9 @@ import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestR
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
 import de.digitalcollections.iiif.presentation.model.impl.v2.CanvasImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.CollectionImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ImageImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ImageResourceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ImageServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.MetadataImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PhysicalDimensionsServiceImpl;
@@ -37,6 +42,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import org.apache.commons.io.IOUtils;
@@ -254,12 +260,26 @@ public class IiifPresentationApiObjectMapperTest {
 
   @Test
   public void testAddPhysicalDimensionsService() throws IOException {
+    ImageService imageService = new ImageServiceImpl();
+    imageService.setContext("http://iiif.io/api/image/2/context.json");
+    imageService.setProfile("http://iiif.io/api/image/2/level1.json");
+    imageService.setId("http://some.url.org");
+    Image image = new ImageImpl("http://foo.org");
+    image.setResource(new ImageResourceImpl("http://someresource.io"));
+    image.getResource().setService(imageService);
+    image.getResource().setHeight(100);
+    image.getResource().setWidth(100);
+    image.setOn(URI.create("http://foo.org"));
+    List<Image> images = Collections.singletonList(image);
     Canvas canvas = new CanvasImpl(URI.create("http://dummy.org/canvas"), new PropertyValueSimpleImpl("dummy"), 800, 600);
+    canvas.setImages(images);
     canvas.setService(new PhysicalDimensionsServiceImpl(0.025, "in"));
     String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(canvas);
     DocumentContext ctx = JsonPath.parse(json);
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.service.physicalUnits").isEqualTo("in");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").isEqualTo("http://iiif.io/api/image/2/level1.json");
     Canvas deserialized = objectMapper.readValue(json, Canvas.class);
     assertThat(deserialized.getService().getProfile()).contains("physdim");
+    assertThat(((PhysicalDimensionsServiceImpl) deserialized.getService()).getPhysicalUnits()).isEqualTo("in");
   }
 }
