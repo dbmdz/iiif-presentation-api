@@ -13,12 +13,12 @@ public class PhysicalDimensionsServiceImpl extends ServiceImpl {
 
   @Override
   public String getContext() {
-    return "http://iiiif.io/api/annex/services/physdim/1/context.json";
+    return "http://iiif.io/api/annex/services/physdim/1/context.json";
   }
 
   @Override
   public String getProfile() {
-    return "http://iiiif.io/api/annex/services/physdim";
+    return "http://iiif.io/api/annex/services/physdim";
   }
 
   public Double getPhysicalScale() {
