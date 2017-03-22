@@ -11,6 +11,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.head;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -57,4 +58,11 @@ public class IIIFPresentationApiControllerTest {
     result.andExpect(header().string("Access-Control-Allow-Origin", "http://example.com"));
   }
 
+  @Test
+  public void testCheckManifestExistence() throws Exception {
+    ResultActions result = mockMvc.perform(head("/presentation/" + IIIFPresentationApiController.VERSION + "/abcdef/manifest"));
+    result.andExpect(status().isOk());
+    result = mockMvc.perform(head("/presentation/" + IIIFPresentationApiController.VERSION + "/notfound/manifest"));
+    result.andExpect(status().isNotFound());
+  }
 }

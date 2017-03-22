@@ -1,7 +1,9 @@
 package de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controller.v2;
 
+import de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.business.api.v2.PresentationService;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.when;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +26,9 @@ public class TestConfiguration extends WebMvcConfigurerAdapter {
 //    return new PropertySourcesPlaceholderConfigurer();
 //  }
   @Bean
-  public PresentationService presentationService() {
-    return Mockito.mock(PresentationService.class);
+  public PresentationService presentationService() throws NotFoundException {
+    PresentationService mock = Mockito.mock(PresentationService.class);
+    when(mock.getManifest("notfound")).thenThrow(new NotFoundException());
+    return mock;
   }
 }

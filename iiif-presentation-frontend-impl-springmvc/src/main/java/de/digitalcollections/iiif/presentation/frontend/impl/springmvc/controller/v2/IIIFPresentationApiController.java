@@ -6,6 +6,7 @@ import de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import net.logstash.logback.marker.LogstashMarker;
 import static net.logstash.logback.marker.Markers.append;
 import org.slf4j.Logger;
@@ -46,8 +47,7 @@ public class IIIFPresentationApiController {
    * @see <a href="http://iiif.io/api/presentation/2.0/#manifest">IIIF 2.0</a>
    */
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
-  @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = {RequestMethod.GET, RequestMethod.HEAD},
-          produces = "application/json")
+  @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
   public Manifest getManifest(@PathVariable String identifier, HttpServletRequest request) throws NotFoundException {
     LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
@@ -61,6 +61,18 @@ public class IIIFPresentationApiController {
       throw new NotFoundException(ex.getMessage());
     }
     return manifest;
+  }
+
+  @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
+  @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.HEAD)
+  @ResponseBody
+  public void checkManifest(@PathVariable String identifier, HttpServletResponse response) throws NotFoundException {
+    try {
+      presentationService.getManifest(identifier);
+      response.setStatus(200);
+    } catch (de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException ex) {
+      response.setStatus(404);
+    }
   }
 
   /**
