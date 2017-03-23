@@ -5,7 +5,7 @@
 
   <groupId>de.digitalcollections</groupId>
   <artifactId>iiif-presentation-api</artifactId>
-  <version>3.2.4-SNAPSHOT</version>
+  <version>3.2.5-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -73,6 +73,7 @@
     <version.hamcrest-core>1.3</version.hamcrest-core>
     <version.jackson-annotations>2.8.6</version.jackson-annotations>
     <version.jackson-core>2.8.5</version.jackson-core>
+    <version.jackson-datatype-jsr310>2.8.5</version.jackson-datatype-jsr310>
     <version.jackson-databind>2.8.5</version.jackson-databind>
     <version.jacoco-maven-plugin>0.7.9</version.jacoco-maven-plugin>
     <version.javax.servlet-api>3.1.0</version.javax.servlet-api>
@@ -226,6 +227,11 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>${version.jackson-databind}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.fasterxml.jackson.datatype</groupId>
+        <artifactId>jackson-datatype-jsr310</artifactId>
+        <version>${version.jackson-datatype-jsr310}</version>
       </dependency>
       <dependency>
         <groupId>com.google.guava</groupId>
