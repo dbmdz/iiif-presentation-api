@@ -8,7 +8,8 @@ import de.digitalcollections.core.model.api.MimeType;
 import de.digitalcollections.core.model.api.resource.Resource;
 import de.digitalcollections.core.model.api.resource.enums.ResourcePersistenceType;
 import de.digitalcollections.core.model.api.resource.exceptions.ResourceIOException;
-import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
@@ -47,7 +48,7 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public Collection getCollection(String name) throws NotFoundException {
+  public Collection getCollection(String name) throws NotFoundException, InvalidDataException {
     // to get a regex resolable pattern we add a static prefix for collections
     String collectionName = COLLECTION_PREFIX + name;
 
@@ -63,43 +64,38 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public Collection getCollection(URI collectionUri) throws NotFoundException {
+  public Collection getCollection(URI collectionUri) throws NotFoundException, InvalidDataException {
     String location = collectionUri.toString();
     LOGGER.debug("Trying to get collection from " + location);
 
-    try {
-      Collection collection;
-      String scheme = collectionUri.getScheme();
+    Collection collection;
+    String scheme = collectionUri.getScheme();
 
-      // use caching for remote/http resources
-      if ("http".equals(scheme)) {
-        String cacheKey = location;
-        collection = (Collection) httpCache.getIfPresent(cacheKey);
-        if (collection != null) {
-          LOGGER.debug("HTTP Cache hit for collection " + cacheKey);
-          return collection;
-        }
+    // use caching for remote/http resources
+    if ("http".equals(scheme)) {
+      collection = (Collection) httpCache.getIfPresent(location);
+      if (collection != null) {
+        LOGGER.debug("HTTP Cache hit for collection " + location);
+        return collection;
       }
-
-//      InputStream inputStream = resourceService.getInputStream(manifestUri);
-//      manifest = objectMapper.readValue(inputStream, Manifest.class);
-      String collectionJson = getResourceJson(collectionUri);
-      collection = objectMapper.readValue(collectionJson, Collection.class);
-
-      if ("http".equals(scheme)) {
-        String cacheKey = location;
-        httpCache.put(cacheKey, collection);
-      }
-
-      return collection;
-    } catch (IOException ex) {
-      LOGGER.warn("Error getting collection from location " + location, ex);
-      throw new NotFoundException("No collection for location: " + location);
     }
+
+    String collectionJson = getResourceJson(collectionUri);
+    try {
+      collection = objectMapper.readValue(collectionJson, Collection.class);
+    } catch (IOException e) {
+      throw new InvalidDataException("Error reading from JSON", e);
+    }
+
+    if ("http".equals(scheme)) {
+      httpCache.put(location, collection);
+    }
+
+    return collection;
   }
 
   @Override
-  public Manifest getManifest(String identifier) throws NotFoundException {
+  public Manifest getManifest(String identifier) throws NotFoundException, InvalidDataException {
     Resource resource;
     try {
       resource = resourceService.get(identifier, ResourcePersistenceType.REFERENCED, MimeType.MIME_APPLICATION_JSON);
@@ -112,39 +108,34 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public Manifest getManifest(URI manifestUri) throws NotFoundException {
+  public Manifest getManifest(URI manifestUri) throws NotFoundException, InvalidDataException {
     String location = manifestUri.toString();
     LOGGER.debug("Trying to get manifest from " + location);
 
-    try {
-      Manifest manifest;
-      String scheme = manifestUri.getScheme();
+    Manifest manifest;
+    String scheme = manifestUri.getScheme();
 
-      // use caching for remote/http resources
-      if ("http".equals(scheme)) {
-        String cacheKey = location;
-        manifest = (Manifest) httpCache.getIfPresent(cacheKey);
-        if (manifest != null) {
-          LOGGER.debug("HTTP Cache hit for manifest " + cacheKey);
-          return manifest;
-        }
+    // use caching for remote/http resources
+    if ("http".equals(scheme)) {
+      manifest = (Manifest) httpCache.getIfPresent(location);
+      if (manifest != null) {
+        LOGGER.debug("HTTP Cache hit for manifest " + location);
+        return manifest;
       }
-
-//      InputStream inputStream = resourceService.getInputStream(manifestUri);
-//      manifest = objectMapper.readValue(inputStream, Manifest.class);
-      String manifestJson = getResourceJson(manifestUri);
-      manifest = objectMapper.readValue(manifestJson, Manifest.class);
-
-      if ("http".equals(scheme)) {
-        String cacheKey = location;
-        httpCache.put(cacheKey, manifest);
-      }
-
-      return manifest;
-    } catch (IOException ex) {
-      LOGGER.warn("Error getting manifest from location " + location, ex);
-      throw new NotFoundException("No manifest for location: " + location);
     }
+
+    String manifestJson = getResourceJson(manifestUri);
+    try {
+      manifest = objectMapper.readValue(manifestJson, Manifest.class);
+    } catch (IOException e) {
+      throw new InvalidDataException("Could not read manifest JSON", e);
+    }
+
+    if ("http".equals(scheme)) {
+      httpCache.put(location, manifest);
+    }
+
+    return manifest;
   }
 
   @Override
@@ -164,12 +155,11 @@ public class PresentationRepositoryImpl implements PresentationRepository {
     String json = getResourceJson(resourceUri);
     JSONParser parser = new JSONParser();
     Object obj = parser.parse(json);
-    JSONObject jsonObject = (JSONObject) obj;
-    return jsonObject;
+    return (JSONObject) obj;
   }
 
   @Override
   public JSONObject getResourceAsJsonObject(String resourceUri) throws NotFoundException, ParseException {
-    return PresentationRepositoryImpl.this.getResourceAsJsonObject(URI.create(resourceUri));
+    return this.getResourceAsJsonObject(URI.create(resourceUri));
   }
 }

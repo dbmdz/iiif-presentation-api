@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.business.api.v2;
 
-import de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 
@@ -14,14 +15,13 @@ public interface PresentationService {
    * @return Collection specified by name
    * @throws NotFoundException if no collection found or access disallowed
    */
-  Collection getCollection(String name) throws NotFoundException;
+  Collection getCollection(String name) throws NotFoundException, InvalidDataException;
 
   /**
    * @param identifier unique id for IIIF resource
    * @return Manifest specifying presentation for IIIF resource
-   * @throws de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException if no manifest found or
+   * @throws de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException if no manifest found or
    * access disallowed
    */
-  Manifest getManifest(String identifier) throws NotFoundException;
-
+  Manifest getManifest(String identifier) throws NotFoundException, InvalidDataException;
 }

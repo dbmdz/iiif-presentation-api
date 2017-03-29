@@ -2,7 +2,8 @@ package de.digitalcollections.iiif.presentation.frontend.impl.springmvc.controll
 
 import de.digitalcollections.commons.server.HttpLoggingUtilities;
 import de.digitalcollections.iiif.presentation.business.api.v2.PresentationService;
-import de.digitalcollections.iiif.presentation.frontend.impl.springmvc.exception.NotFoundException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import javax.servlet.http.HttpServletRequest;
@@ -49,30 +50,28 @@ public class IIIFPresentationApiController {
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
   @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
-  public Manifest getManifest(@PathVariable String identifier, HttpServletRequest request) throws NotFoundException {
+  public Manifest getManifest(@PathVariable String identifier, HttpServletRequest request) throws NotFoundException, InvalidDataException {
     LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
             .and(append("manifestId", identifier));
-    Manifest manifest;
     try {
-      manifest = presentationService.getManifest(identifier);
+      Manifest manifest = presentationService.getManifest(identifier);
       LOGGER.info(marker, "Serving manifest for {}", identifier);
-    } catch (de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException ex) {
+      return manifest;
+    } catch (NotFoundException e) {
       LOGGER.info(marker, "Did not find manifest for {}", identifier);
-      throw new NotFoundException(ex.getMessage());
+      throw e;
+    } catch (InvalidDataException e) {
+      LOGGER.error(marker, "Bad data for {}", identifier);
+      throw e;
     }
-    return manifest;
   }
 
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
   @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.HEAD)
   @ResponseBody
-  public void checkManifest(@PathVariable String identifier, HttpServletResponse response) throws NotFoundException {
-    try {
-      presentationService.getManifest(identifier);
-      response.setStatus(200);
-    } catch (de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException ex) {
-      response.setStatus(404);
-    }
+  public void checkManifest(@PathVariable String identifier, HttpServletResponse response) throws NotFoundException, InvalidDataException {
+    presentationService.getManifest(identifier);
+    response.setStatus(200);
   }
 
   /**
@@ -102,17 +101,19 @@ public class IIIFPresentationApiController {
   @RequestMapping(value = {"collection/{name}"}, method = {RequestMethod.GET, RequestMethod.HEAD},
           produces = "application/json")
   @ResponseBody
-  public Collection getCollection(@PathVariable String name, HttpServletRequest request) throws NotFoundException {
+  public Collection getCollection(@PathVariable String name, HttpServletRequest request) throws NotFoundException, InvalidDataException {
     LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
             .and(append("collection name", name));
-    Collection collection;
     try {
-      collection = presentationService.getCollection(name);
+      Collection collection = presentationService.getCollection(name);
       LOGGER.info(marker, "Serving collection for {}", name);
-    } catch (de.digitalcollections.iiif.presentation.business.api.exceptions.NotFoundException ex) {
+      return collection;
+    } catch (NotFoundException e) {
       LOGGER.info(marker, "Did not find collection for {}", name);
-      throw new NotFoundException(ex.getMessage());
+      throw e;
+    } catch (InvalidDataException e) {
+      LOGGER.info(marker, "Bad data for {}", name);
+      throw e;
     }
-    return collection;
   }
 }
