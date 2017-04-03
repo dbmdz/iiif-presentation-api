@@ -6,6 +6,10 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.CollectionImpl;
 
 @JsonDeserialize(as = CollectionImpl.class)
 public abstract class CollectionMixIn extends AbstractIiifResourceMixIn {
+
+  @JsonProperty("@context")
+  abstract String getContext();
+
   @JsonProperty("collections")
   abstract String getSubCollections();
 

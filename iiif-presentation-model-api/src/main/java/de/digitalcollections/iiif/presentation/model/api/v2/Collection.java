@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface Collection extends IiifResource {
 
+  String getContext();
+
   PropertyValue getDescription();
 
   void setDescription(PropertyValue description);

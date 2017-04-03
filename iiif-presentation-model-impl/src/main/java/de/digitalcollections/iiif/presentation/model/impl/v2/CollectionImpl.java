@@ -12,6 +12,7 @@ import java.util.List;
 
 public class CollectionImpl extends AbstractIiifResourceImpl implements Collection {
 
+  private final String context = "http://iiif.io/api/presentation/2/context.json";
   private PropertyValue description; // recommended
   private PropertyValue label; // required
   private List<Metadata> metadata; // recommended
@@ -34,6 +35,11 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
     this.metadata = metadata;
 
     type = "sc:Collection";
+  }
+
+  @Override
+  public String getContext() {
+    return context;
   }
 
   @Override
