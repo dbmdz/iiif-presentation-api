@@ -4,8 +4,11 @@ import de.digitalcollections.commons.server.HttpLoggingUtilities;
 import de.digitalcollections.iiif.presentation.business.api.v2.PresentationService;
 import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
 import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
+import de.digitalcollections.iiif.presentation.model.api.v2.Range;
+import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.logstash.logback.marker.LogstashMarker;
@@ -69,10 +72,36 @@ public class IIIFPresentationApiController {
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
   @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.HEAD)
   @ResponseBody
-  public void checkManifest(@PathVariable String identifier, HttpServletResponse response) throws NotFoundException, InvalidDataException {
+  public void checkManifest(@PathVariable String identifier, HttpServletResponse response)
+      throws NotFoundException, InvalidDataException {
     presentationService.getManifest(identifier);
     response.setStatus(200);
   }
+
+  @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
+  @RequestMapping(value = {"{manifestId}/canvas/{canvasId}"}, method = RequestMethod.GET)
+  @ResponseBody
+  public Canvas getCanvas(@PathVariable String manifestId, @PathVariable String canvasId, HttpServletRequest req)
+      throws NotFoundException, InvalidDataException {
+    return presentationService.getCanvas(manifestId, req.getRequestURL().toString());
+  }
+
+  @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
+  @RequestMapping(value = {"{manifestId}/range/{canvasId}"}, method = RequestMethod.GET)
+  @ResponseBody
+  public Range getRange(@PathVariable String manifestId, @PathVariable String rangeId, HttpServletRequest req)
+      throws NotFoundException, InvalidDataException {
+    return presentationService.getRange(manifestId, req.getRequestURL().toString());
+  }
+
+  @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
+  @RequestMapping(value = {"{manifestId}/sequence/{canvasId}"}, method = RequestMethod.GET)
+  @ResponseBody
+  public Sequence getSequence(@PathVariable String manifestId, @PathVariable String sequencerId, HttpServletRequest req)
+      throws NotFoundException, InvalidDataException {
+    return presentationService.getSequence(manifestId, req.getRequestURL().toString());
+  }
+
 
   /**
    * Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or
