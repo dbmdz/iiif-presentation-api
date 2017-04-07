@@ -9,6 +9,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Range;
 import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
+import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.logstash.logback.marker.LogstashMarker;
@@ -83,23 +84,23 @@ public class IIIFPresentationApiController {
   @ResponseBody
   public Canvas getCanvas(@PathVariable String manifestId, @PathVariable String canvasId, HttpServletRequest req)
       throws NotFoundException, InvalidDataException {
-    return presentationService.getCanvas(manifestId, req.getRequestURL().toString());
+    return presentationService.getCanvas(manifestId, getOriginalUri(req));
   }
 
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
-  @RequestMapping(value = {"{manifestId}/range/{canvasId}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"{manifestId}/range/{rangeId}"}, method = RequestMethod.GET)
   @ResponseBody
   public Range getRange(@PathVariable String manifestId, @PathVariable String rangeId, HttpServletRequest req)
       throws NotFoundException, InvalidDataException {
-    return presentationService.getRange(manifestId, req.getRequestURL().toString());
+    return presentationService.getRange(manifestId, getOriginalUri(req));
   }
 
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
-  @RequestMapping(value = {"{manifestId}/sequence/{canvasId}"}, method = RequestMethod.GET)
+  @RequestMapping(value = {"{manifestId}/sequence/{sequenceId}"}, method = RequestMethod.GET)
   @ResponseBody
-  public Sequence getSequence(@PathVariable String manifestId, @PathVariable String sequencerId, HttpServletRequest req)
+  public Sequence getSequence(@PathVariable String manifestId, @PathVariable String sequenceId, HttpServletRequest req)
       throws NotFoundException, InvalidDataException {
-    return presentationService.getSequence(manifestId, req.getRequestURL().toString());
+    return presentationService.getSequence(manifestId, getOriginalUri(req));
   }
 
 
@@ -143,6 +144,23 @@ public class IIIFPresentationApiController {
     } catch (InvalidDataException e) {
       LOGGER.info(marker, "Bad data for {}", name);
       throw e;
+    }
+  }
+
+  /**
+   * Return the URL as it was originally received from a possible frontend proxy.
+   *
+   * @param request Incoming request
+   * @return URL as it was received at the frontend proxy
+   */
+  private URI getOriginalUri(HttpServletRequest request) {
+    String requestUrl = request.getRequestURL().toString();
+    String incomingScheme = URI.create(requestUrl).getScheme();
+    String originalScheme = request.getHeader("X-Forwarded-Proto");
+    if (originalScheme != null && !incomingScheme.equals(originalScheme)) {
+      return URI.create(requestUrl.replaceFirst("^" + incomingScheme, originalScheme));
+    } else {
+      return URI.create(requestUrl);
     }
   }
 }
