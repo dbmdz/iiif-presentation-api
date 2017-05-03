@@ -2,6 +2,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 
 import de.digitalcollections.iiif.presentation.model.api.v2.IiifResource;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
+import de.digitalcollections.iiif.presentation.model.api.v2.Rendering;
 import de.digitalcollections.iiif.presentation.model.api.v2.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import java.net.URI;
@@ -18,6 +19,7 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   protected List<SeeAlso> seeAlso; // optional
   protected URI within; // optional
   protected URI id; // optional
+  protected List<Rendering> rendering; // optional
 
   @Override
   public PropertyValue getAttribution() {
@@ -95,6 +97,16 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   }
 
   @Override
+  public List<Rendering> getRendering() {
+    return rendering;
+  }
+
+  @Override
+  public void setRendering(List<Rendering> rendering) {
+this.rendering = rendering;
+  }
+
+  @Override
   public URI getId() {
     return id;
   }
@@ -108,5 +120,5 @@ public abstract class AbstractIiifResourceImpl implements IiifResource {
   public void setId(String id) {
     this.id = URI.create(id);
   }
-
+  
 }
