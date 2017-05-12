@@ -65,7 +65,7 @@
     <version.assertj-json>1.0.1</version.assertj-json>
     <version.commons-cli>1.3.1</version.commons-cli>
     <version.commons-io>2.5</version.commons-io>
-    <version.digitalcollections-commons>1.2.1-SNAPSHOT</version.digitalcollections-commons>
+    <version.digitalcollections-commons>1.2.2-SNAPSHOT</version.digitalcollections-commons>
     <version.digitalcollections-core>1.2.4</version.digitalcollections-core>
     <version.feign>9.4.0</version.feign>
     <version.fluent-hc>4.5.3</version.fluent-hc>
@@ -80,8 +80,6 @@
     <version.json-path>2.2.0</version.json-path>
     <version.json-simple>1.1.1</version.json-simple>
     <version.junit>4.12</version.junit>
-    <version.logback>1.1.9</version.logback>
-    <version.logstash>4.7</version.logstash>
     <version.maven-compiler-plugin>3.3</version.maven-compiler-plugin>
     <version.maven-gpg-plugin>1.6</version.maven-gpg-plugin>
     <version.maven-javadoc-plugin>2.10.4</version.maven-javadoc-plugin>
@@ -204,16 +202,6 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${version.logback}</version>
-      </dependency>
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-core</artifactId>
-        <version>${version.logback}</version>
-      </dependency>
-      <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${version.jackson-annotations}</version>
@@ -332,11 +320,6 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>net.logstash.logback</groupId>
-        <artifactId>logstash-logback-encoder</artifactId>
-        <version>${version.logstash}</version>
-      </dependency>
-      <dependency>
         <groupId>org.apache.httpcomponents</groupId>
         <artifactId>fluent-hc</artifactId>
         <version>${version.fluent-hc}</version>
@@ -362,11 +345,6 @@
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>${version.slf4j}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
         <version>${version.slf4j}</version>
       </dependency>
       <dependency>

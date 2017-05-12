@@ -12,10 +12,9 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
 import java.net.URI;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.logstash.logback.marker.LogstashMarker;
-import static net.logstash.logback.marker.Markers.append;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,26 +46,31 @@ public class IIIFPresentationApiController {
    * object. It then embeds the sequence(s) of canvases that should be rendered to the user.
    *
    * @param identifier unique id of object to be shown
+   * @param request request containing client information for logging
    * @return the JSON-Manifest
    * @throws NotFoundException if manifest can not be delivered
+   * @throws de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException if manifest can not be read
    * @see <a href="http://iiif.io/api/presentation/2.0/#manifest">IIIF 2.0</a>
    */
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
-  @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.GET,
+          produces = "application/json")
   @ResponseBody
   public Manifest getManifest(@PathVariable String identifier, HttpServletRequest request) throws NotFoundException, InvalidDataException {
-    LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
-            .and(append("manifestId", identifier));
+    HttpLoggingUtilities.addRequestClientInfoToMDC(request);
+    MDC.put("manifestId", identifier);
     try {
       Manifest manifest = presentationService.getManifest(identifier);
-      LOGGER.info(marker, "Serving manifest for {}", identifier);
+      LOGGER.info("Serving manifest for {}", identifier);
       return manifest;
     } catch (NotFoundException e) {
-      LOGGER.info(marker, "Did not find manifest for {}", identifier);
+      LOGGER.info("Did not find manifest for {}", identifier);
       throw e;
     } catch (InvalidDataException e) {
-      LOGGER.error(marker, "Bad data for {}", identifier);
+      LOGGER.error("Bad data for {}", identifier);
       throw e;
+    } finally {
+      MDC.clear();
     }
   }
 
@@ -74,7 +78,7 @@ public class IIIFPresentationApiController {
   @RequestMapping(value = {"{identifier}/manifest", "{identifier}"}, method = RequestMethod.HEAD)
   @ResponseBody
   public void checkManifest(@PathVariable String identifier, HttpServletResponse response)
-      throws NotFoundException, InvalidDataException {
+          throws NotFoundException, InvalidDataException {
     presentationService.getManifest(identifier);
     response.setStatus(200);
   }
@@ -83,7 +87,7 @@ public class IIIFPresentationApiController {
   @RequestMapping(value = {"{manifestId}/canvas/{canvasId}"}, method = RequestMethod.GET)
   @ResponseBody
   public Canvas getCanvas(@PathVariable String manifestId, @PathVariable String canvasId, HttpServletRequest req)
-      throws NotFoundException, InvalidDataException {
+          throws NotFoundException, InvalidDataException {
     return presentationService.getCanvas(manifestId, getOriginalUri(req));
   }
 
@@ -91,7 +95,7 @@ public class IIIFPresentationApiController {
   @RequestMapping(value = {"{manifestId}/range/{rangeId}"}, method = RequestMethod.GET)
   @ResponseBody
   public Range getRange(@PathVariable String manifestId, @PathVariable String rangeId, HttpServletRequest req)
-      throws NotFoundException, InvalidDataException {
+          throws NotFoundException, InvalidDataException {
     return presentationService.getRange(manifestId, getOriginalUri(req));
   }
 
@@ -99,10 +103,9 @@ public class IIIFPresentationApiController {
   @RequestMapping(value = {"{manifestId}/sequence/{sequenceId}"}, method = RequestMethod.GET)
   @ResponseBody
   public Sequence getSequence(@PathVariable String manifestId, @PathVariable String sequenceId, HttpServletRequest req)
-      throws NotFoundException, InvalidDataException {
+          throws NotFoundException, InvalidDataException {
     return presentationService.getSequence(manifestId, getOriginalUri(req));
   }
-
 
   /**
    * Collections are used to list the manifests available for viewing, and to describe the structures, hierarchies or
@@ -123,8 +126,10 @@ public class IIIFPresentationApiController {
    * and historical.
    *
    * @param name unique name of collection
+   * @param request request containing client information for logging
    * @return the JSON-Collection
    * @throws NotFoundException if collection can not be delivered
+   * @throws de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException if manifest can not be read
    * @see <a href="http://iiif.io/api/presentation/2.1/#collection">IIIF 2.1</a>
    */
   @CrossOrigin(allowedHeaders = {"*"}, origins = {"*"})
@@ -132,18 +137,20 @@ public class IIIFPresentationApiController {
           produces = "application/json")
   @ResponseBody
   public Collection getCollection(@PathVariable String name, HttpServletRequest request) throws NotFoundException, InvalidDataException {
-    LogstashMarker marker = HttpLoggingUtilities.makeRequestLoggingMarker(request)
-            .and(append("collection name", name));
+    HttpLoggingUtilities.addRequestClientInfoToMDC(request);
+    MDC.put("collection name", name);
     try {
       Collection collection = presentationService.getCollection(name);
-      LOGGER.info(marker, "Serving collection for {}", name);
+      LOGGER.info("Serving collection for {}", name);
       return collection;
     } catch (NotFoundException e) {
-      LOGGER.info(marker, "Did not find collection for {}", name);
+      LOGGER.info("Did not find collection for {}", name);
       throw e;
     } catch (InvalidDataException e) {
-      LOGGER.info(marker, "Bad data for {}", name);
+      LOGGER.info("Bad data for {}", name);
       throw e;
+    } finally {
+      MDC.clear();
     }
   }
 
