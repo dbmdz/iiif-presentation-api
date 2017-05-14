@@ -7,6 +7,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Range;
 import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import java.net.URI;
+import java.time.Instant;
 import java.util.List;
 
 public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
@@ -20,6 +21,7 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
   private Thumbnail thumbnail; // recommended
   private String viewingDirection; // optional
   private String viewingHint; // optional
+  private Instant navDate; // optional
 
   public ManifestImpl() {
   }
@@ -170,4 +172,13 @@ public class ManifestImpl extends AbstractIiifResourceImpl implements Manifest {
     this.viewingHint = viewingHint;
   }
 
+  @Override
+  public Instant getNavDate() {
+    return navDate;
+  }
+
+  @Override
+  public void setNavDate(Instant navDate) {
+    this.navDate = navDate;
+  }
 }

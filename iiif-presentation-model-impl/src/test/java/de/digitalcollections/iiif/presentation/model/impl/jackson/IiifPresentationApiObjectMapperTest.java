@@ -6,7 +6,10 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import com.revinate.assertj.json.JsonPathAssert;
+import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
+import de.digitalcollections.iiif.presentation.model.api.v2.Image;
+import de.digitalcollections.iiif.presentation.model.api.v2.ImageService;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
@@ -17,9 +20,14 @@ import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
+import de.digitalcollections.iiif.presentation.model.impl.v2.CanvasImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.CollectionImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ImageImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ImageResourceImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.ImageServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.MetadataImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.PhysicalDimensionsServiceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueLocalizedImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueSimpleImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.SeeAlsoImpl;
@@ -30,7 +38,11 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.references.Manifest
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import org.apache.commons.io.IOUtils;
@@ -69,6 +81,20 @@ public class IiifPresentationApiObjectMapperTest {
     Assert.assertTrue(manifest.getContext().equals("http://iiif.io/api/presentation/2/context.json"));
     assertEquals(manifest.getThumbnail().getId(),
             URI.create("http://example.com/iiif/image/test-obj/full/200,/0/default.jpg"));
+  }
+
+  @Test
+  public void testJsonToCollection() throws JsonProcessingException, IOException {
+    String json = IOUtils.
+            toString(this.getClass().getClassLoader().getResourceAsStream("collection.json"), DEFAULT_CHARSET);
+    Collection collection = objectMapper.readValue(json, CollectionImpl.class);
+    Assert.assertTrue(collection.getId().equals(
+            URI.create("https://api.digitale-sammlungen.de/iiif/presentation/v2/collection/bsbmult00000001")));
+
+    PropertyValueLocalizedImpl label = (PropertyValueLocalizedImpl) collection.getLabel();
+    Assert.assertTrue(label.getValues("de").get(0).equals("Der gerade Weg"));
+
+    Assert.assertTrue(collection.getType().equals("sc:Collection"));
   }
 
   @Test
@@ -210,6 +236,50 @@ public class IiifPresentationApiObjectMapperTest {
             toString(this.getClass().getClassLoader().getResourceAsStream("broken.json"), DEFAULT_CHARSET);
     Manifest manifest = objectMapper.readValue(json, Manifest.class);
     assertThat(manifest.getLabel()).isNotNull();
+  }
 
+  @Test
+  public void testReadNavDate() throws IOException {
+    String json = IOUtils.
+            toString(this.getClass().getClassLoader().getResourceAsStream("navdate.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, Manifest.class);
+    LocalDateTime ldt = LocalDateTime.ofInstant(manifest.getNavDate(), ZoneId.systemDefault());
+    assertThat(ldt.getYear()).isEqualTo(1848);
+    assertThat(ldt.getMonthValue()).isEqualTo(1);
+    assertThat(ldt.getDayOfMonth()).isEqualTo(1);
+  }
+
+  @Test
+  public void testWriteNavDate() throws IOException {
+    Manifest manifest = new ManifestImpl("testId", new PropertyValueSimpleImpl("testLabel"));
+    manifest.setNavDate(LocalDateTime.of(1789, 7, 14, 12, 0).toInstant(ZoneOffset.UTC));
+    String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(manifest);
+    DocumentContext ctx = JsonPath.parse(json);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$['navDate']").isEqualTo("1789-07-14T12:00:00Z");
+  }
+
+  @Test
+  public void testAddPhysicalDimensionsService() throws IOException {
+    ImageService imageService = new ImageServiceImpl();
+    imageService.setContext("http://iiif.io/api/image/2/context.json");
+    imageService.setProfile("http://iiif.io/api/image/2/level1.json");
+    imageService.setId("http://some.url.org");
+    Image image = new ImageImpl("http://foo.org");
+    image.setResource(new ImageResourceImpl("http://someresource.io"));
+    image.getResource().setService(imageService);
+    image.getResource().setHeight(100);
+    image.getResource().setWidth(100);
+    image.setOn(URI.create("http://foo.org"));
+    List<Image> images = Collections.singletonList(image);
+    Canvas canvas = new CanvasImpl(URI.create("http://dummy.org/canvas"), new PropertyValueSimpleImpl("dummy"), 800, 600);
+    canvas.setImages(images);
+    canvas.setService(new PhysicalDimensionsServiceImpl(0.025, "in"));
+    String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(canvas);
+    DocumentContext ctx = JsonPath.parse(json);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.service.physicalUnits").isEqualTo("in");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").isEqualTo("http://iiif.io/api/image/2/level1.json");
+    Canvas deserialized = objectMapper.readValue(json, Canvas.class);
+    assertThat(deserialized.getService().getProfile()).contains("physdim");
+    assertThat(((PhysicalDimensionsServiceImpl) deserialized.getService()).getPhysicalUnits()).isEqualTo("in");
   }
 }

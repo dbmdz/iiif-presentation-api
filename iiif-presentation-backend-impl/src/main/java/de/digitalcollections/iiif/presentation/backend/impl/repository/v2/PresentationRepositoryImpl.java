@@ -8,8 +8,10 @@ import de.digitalcollections.core.model.api.MimeType;
 import de.digitalcollections.core.model.api.resource.Resource;
 import de.digitalcollections.core.model.api.resource.enums.ResourcePersistenceType;
 import de.digitalcollections.core.model.api.resource.exceptions.ResourceIOException;
-import de.digitalcollections.iiif.presentation.backend.api.exceptions.NotFoundException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
+import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
 import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
+import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,9 +32,10 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "PresentationRepositoryImpl-v2.0.0")
 public class PresentationRepositoryImpl implements PresentationRepository {
 
+  private static final String COLLECTION_PREFIX = "collection-";
   private static final Logger LOGGER = LoggerFactory.getLogger(PresentationRepositoryImpl.class);
 
-  private final Cache<String, Manifest> httpCache;
+  private final Cache<String, Object> httpCache;
 
   @Autowired
   private ObjectMapper objectMapper;
@@ -45,7 +48,54 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public Manifest getManifest(String identifier) throws NotFoundException {
+  public Collection getCollection(String name) throws NotFoundException, InvalidDataException {
+    // to get a regex resolable pattern we add a static prefix for collections
+    String collectionName = COLLECTION_PREFIX + name;
+
+    Resource resource;
+    try {
+      resource = resourceService.get(collectionName, ResourcePersistenceType.REFERENCED, MimeType.MIME_APPLICATION_JSON);
+    } catch (ResourceIOException ex) {
+      LOGGER.warn("Error getting collection for name " + collectionName, ex);
+      throw new NotFoundException("No collection for name " + collectionName);
+    }
+    URI uri = resource.getUri();
+    return getCollection(uri);
+  }
+
+  @Override
+  public Collection getCollection(URI collectionUri) throws NotFoundException, InvalidDataException {
+    String location = collectionUri.toString();
+    LOGGER.debug("Trying to get collection from " + location);
+
+    Collection collection;
+    String scheme = collectionUri.getScheme();
+
+    // use caching for remote/http resources
+    if ("http".equals(scheme)) {
+      collection = (Collection) httpCache.getIfPresent(location);
+      if (collection != null) {
+        LOGGER.debug("HTTP Cache hit for collection " + location);
+        return collection;
+      }
+    }
+
+    String collectionJson = getResourceJson(collectionUri);
+    try {
+      collection = objectMapper.readValue(collectionJson, Collection.class);
+    } catch (IOException e) {
+      throw new InvalidDataException("Error reading from JSON", e);
+    }
+
+    if ("http".equals(scheme)) {
+      httpCache.put(location, collection);
+    }
+
+    return collection;
+  }
+
+  @Override
+  public Manifest getManifest(String identifier) throws NotFoundException, InvalidDataException {
     Resource resource;
     try {
       resource = resourceService.get(identifier, ResourcePersistenceType.REFERENCED, MimeType.MIME_APPLICATION_JSON);
@@ -58,47 +108,42 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public Manifest getManifest(URI manifestUri) throws NotFoundException {
+  public Manifest getManifest(URI manifestUri) throws NotFoundException, InvalidDataException {
     String location = manifestUri.toString();
     LOGGER.debug("Trying to get manifest from " + location);
 
-    try {
-      Manifest manifest;
-      String scheme = manifestUri.getScheme();
+    Manifest manifest;
+    String scheme = manifestUri.getScheme();
 
-      // use caching for remote/http resources
-      if ("http".equals(scheme)) {
-        String cacheKey = location;
-        manifest = httpCache.getIfPresent(cacheKey);
-        if (manifest != null) {
-          LOGGER.debug("HTTP Cache hit for manifest " + cacheKey);
-          return manifest;
-        }
+    // use caching for remote/http resources
+    if ("http".equals(scheme)) {
+      manifest = (Manifest) httpCache.getIfPresent(location);
+      if (manifest != null) {
+        LOGGER.debug("HTTP Cache hit for manifest " + location);
+        return manifest;
       }
-
-//      InputStream inputStream = resourceService.getInputStream(manifestUri);
-//      manifest = objectMapper.readValue(inputStream, Manifest.class);
-      String manifestJson = getManifestJson(manifestUri);
-      manifest = objectMapper.readValue(manifestJson, Manifest.class);
-
-      if ("http".equals(scheme)) {
-        String cacheKey = location;
-        httpCache.put(cacheKey, manifest);
-      }
-
-      return manifest;
-    } catch (IOException ex) {
-      LOGGER.warn("Error getting manifest from location " + location, ex);
-      throw new NotFoundException("No manifest for location: " + location);
     }
+
+    String manifestJson = getResourceJson(manifestUri);
+    try {
+      manifest = objectMapper.readValue(manifestJson, Manifest.class);
+    } catch (IOException e) {
+      throw new InvalidDataException("Could not read manifest JSON", e);
+    }
+
+    if ("http".equals(scheme)) {
+      httpCache.put(location, manifest);
+    }
+
+    return manifest;
   }
 
   @Override
-  public String getManifestJson(URI manifestUri) throws NotFoundException {
+  public String getResourceJson(URI resourceUri) throws NotFoundException {
     try {
-      InputStream inputStream = resourceService.getInputStream(manifestUri);
+      InputStream inputStream = resourceService.getInputStream(resourceUri);
       String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
-      LOGGER.debug("DONE getManifestJson() for " + manifestUri.toString());
+      LOGGER.debug("DONE getResourceJson() for " + resourceUri.toString());
       return json;
     } catch (IOException e) {
       throw new NotFoundException(e);
@@ -106,16 +151,15 @@ public class PresentationRepositoryImpl implements PresentationRepository {
   }
 
   @Override
-  public JSONObject getManifestAsJsonObject(URI manifestUri) throws NotFoundException, ParseException {
-    String json = getManifestJson(manifestUri);
+  public JSONObject getResourceAsJsonObject(URI resourceUri) throws NotFoundException, ParseException {
+    String json = getResourceJson(resourceUri);
     JSONParser parser = new JSONParser();
     Object obj = parser.parse(json);
-    JSONObject jsonObject = (JSONObject) obj;
-    return jsonObject;
+    return (JSONObject) obj;
   }
 
   @Override
-  public JSONObject getManifestAsJsonObject(String manifestUri) throws NotFoundException, ParseException {
-    return getManifestAsJsonObject(URI.create(manifestUri));
+  public JSONObject getResourceAsJsonObject(String resourceUri) throws NotFoundException, ParseException {
+    return this.getResourceAsJsonObject(URI.create(resourceUri));
   }
 }

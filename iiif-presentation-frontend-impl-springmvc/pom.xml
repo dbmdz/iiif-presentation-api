@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>3.2.4-SNAPSHOT</version>
+    <version>3.2.5-SNAPSHOT</version>
   </parent>
 
   <artifactId>iiif-presentation-frontend-impl-springmvc</artifactId>
@@ -24,7 +24,6 @@
     <dependency>
       <groupId>de.digitalcollections.commons</groupId>
       <artifactId>digitalcollections-commons-server</artifactId>
-      <version>${version.digitalcollections-commons}</version>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -38,6 +37,11 @@
     <dependency>
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-all</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -56,11 +60,6 @@
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <scope>test</scope>
     </dependency>
   </dependencies>
 </project>

@@ -8,6 +8,7 @@ public class SeeAlsoImpl implements SeeAlso {
   private URI id;
   private String format;
   private URI profile;
+  private String label;
 
   public SeeAlsoImpl() {
   }
@@ -48,5 +49,15 @@ public class SeeAlsoImpl implements SeeAlso {
   @Override
   public void setProfile(URI uri) {
     this.profile = uri;
+  }
+
+  @Override
+  public String getLabel() {
+    return label;
+  }
+
+  @Override
+  public void setLabel(String label) {
+    this.label = label;
   }
 }

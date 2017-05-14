@@ -1,11 +1,17 @@
 package de.digitalcollections.iiif.presentation.model.impl.v2.references;
 
-import java.net.URI;
-
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
+import java.net.URI;
 
 public class ManifestReferenceImpl extends IiifReferenceImpl implements ManifestReference {
+
+  private String type = "sc:Manifest";
+
+  public ManifestReferenceImpl() {
+    this(null);
+  }
+
   public ManifestReferenceImpl(URI id) {
     super(id);
   }
@@ -16,6 +22,10 @@ public class ManifestReferenceImpl extends IiifReferenceImpl implements Manifest
 
   @Override
   public String getType() {
-    return "sc:Manifest";
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
   }
 }

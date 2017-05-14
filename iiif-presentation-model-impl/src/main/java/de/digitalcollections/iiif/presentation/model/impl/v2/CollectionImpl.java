@@ -6,19 +6,24 @@ import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
-
 import java.net.URI;
+import java.time.Instant;
 import java.util.List;
 
 public class CollectionImpl extends AbstractIiifResourceImpl implements Collection {
 
+  private final String context = "http://iiif.io/api/presentation/2/context.json";
   private PropertyValue description; // recommended
-  private final PropertyValue label; // required
-  private final List<Metadata> metadata; // recommended
+  private PropertyValue label; // required
+  private List<Metadata> metadata; // recommended
   private List<CollectionReference> subCollections;
   private List<ManifestReference> manifests;
   private Thumbnail thumbnail; // recommended
   private String viewingHint; // optional
+  private Instant navDate; // optional
+
+  public CollectionImpl() {
+  }
 
   public CollectionImpl(URI id, PropertyValue label, List<Metadata> metadata) {
     assert id != null;
@@ -30,6 +35,11 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
     this.metadata = metadata;
 
     type = "sc:Collection";
+  }
+
+  @Override
+  public String getContext() {
+    return context;
   }
 
   @Override
@@ -90,5 +100,15 @@ public class CollectionImpl extends AbstractIiifResourceImpl implements Collecti
   @Override
   public void setSubCollections(List<CollectionReference> collections) {
     this.subCollections = collections;
+  }
+
+  @Override
+  public Instant getNavDate() {
+    return navDate;
+  }
+
+  @Override
+  public void setNavDate(Instant navDate) {
+    this.navDate = navDate;
   }
 }

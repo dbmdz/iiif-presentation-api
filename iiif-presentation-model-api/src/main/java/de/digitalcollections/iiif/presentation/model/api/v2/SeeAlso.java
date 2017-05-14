@@ -14,4 +14,8 @@ public interface SeeAlso {
   URI getProfile();
 
   void setProfile(URI uri);
+
+  String getLabel();
+
+  void setLabel(String label);
 }
