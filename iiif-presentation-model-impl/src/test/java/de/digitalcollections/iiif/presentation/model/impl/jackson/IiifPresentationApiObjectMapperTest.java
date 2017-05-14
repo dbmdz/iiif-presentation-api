@@ -273,13 +273,15 @@ public class IiifPresentationApiObjectMapperTest {
     List<Image> images = Collections.singletonList(image);
     Canvas canvas = new CanvasImpl(URI.create("http://dummy.org/canvas"), new PropertyValueSimpleImpl("dummy"), 800, 600);
     canvas.setImages(images);
-    canvas.setService(new PhysicalDimensionsServiceImpl(0.025, "in"));
+    List<Service> services = new ArrayList();
+    services.add(new PhysicalDimensionsServiceImpl(0.025, "in"));
+    canvas.setServices(services);
     String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(canvas);
     DocumentContext ctx = JsonPath.parse(json);
-    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.service.physicalUnits").isEqualTo("in");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.services[0].physicalUnits").isEqualTo("in");
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").isEqualTo("http://iiif.io/api/image/2/level1.json");
     Canvas deserialized = objectMapper.readValue(json, Canvas.class);
-    assertThat(deserialized.getService().getProfile()).contains("physdim");
-    assertThat(((PhysicalDimensionsServiceImpl) deserialized.getService()).getPhysicalUnits()).isEqualTo("in");
+    assertThat(deserialized.getServices().get(0).getProfile()).contains("physdim");
+    assertThat(((PhysicalDimensionsServiceImpl) deserialized.getServices().get(0)).getPhysicalUnits()).isEqualTo("in");
   }
 }
