@@ -64,18 +64,18 @@ public interface IiifResource {
    */
   void setSeeAlso(List<SeeAlso> seeAlso);
 
-  Service getService();
+  List<Service> getServices();
 
   /**
-   * @param service A link to a service that makes more functionality available for the resource, such as from an image
-   * to the base URI of an associated IIIF Image API service. The service resource should have additional information
-   * associated with it in order to allow the client to determine how to make appropriate use of it, such as a profile
-   * link to a service description. It may also have relevant information copied from the service itself. This
+   * @param services A link to a list of services that makes more functionality available for the resource, such as from 
+   * an image to the base URI of an associated IIIF Image API service. The services resource should have additional 
+   * information associated with it in order to allow the client to determine how to make appropriate use of it, such as 
+   * a profile link to a service description. It may also have relevant information copied from the service itself. This
    * duplication is permitted in order to increase the performance of rendering the object without necessitating
    * additional HTTP requests. Please see the Service Profiles document for known services. Any resource type may have
    * one or more links to an external service.
    */
-  void setService(Service service);
+  void setServices(List<Service> services);
 
   /**
    * @return The type of the resource. For the resource types defined by this specification, the value of @type will be
