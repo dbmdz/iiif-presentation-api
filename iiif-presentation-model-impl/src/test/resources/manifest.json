@@ -18,6 +18,13 @@
       "profile":"http://iiif.io/api/image/2/level1.json"
     }
   },
+  "rendering" : [{
+    "@id" : "http://some-url.org/some-id/foo.pdf",
+    "label" : "PDF (whole document)"
+  },{
+    "@id" : "http://some-url.org/some-id/foo.txt",
+    "label" : "TXT (whole document)"
+  }],
 
   "viewingDirection": "left-to-right",
   "viewingHint": "paged",

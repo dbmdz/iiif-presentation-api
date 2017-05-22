@@ -101,4 +101,21 @@ public interface IiifResource {
    */
   void setWithin(URI within);
 
+  List<Rendering> getRendering();
+  
+  /**
+   * @param rendering A link to an external resource intended for display or download by a human user. 
+   * This property can be used to link from a manifest, collection or other resource to the preferred viewing 
+   * environment for that resource, such as a viewer page on the publisher’s web site. 
+   *                  
+   * Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, 
+   * or a slide deck with images of the museum object. 
+   * 
+   * A label and the format of the rendering resource must be supplied to allow clients to present the option to the user.
+   * 
+   * Any resource type may have one or more external rendering resources.
+   */
+  void setRendering(List<Rendering> rendering);
+  
+  
 }

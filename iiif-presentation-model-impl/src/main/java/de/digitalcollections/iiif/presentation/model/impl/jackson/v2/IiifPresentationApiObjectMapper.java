@@ -22,6 +22,7 @@ import de.digitalcollections.iiif.presentation.model.api.v2.OtherContent;
 import de.digitalcollections.iiif.presentation.model.api.v2.PhysicalDimensionsService;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Range;
+import de.digitalcollections.iiif.presentation.model.api.v2.Rendering;
 import de.digitalcollections.iiif.presentation.model.api.v2.Resource;
 import de.digitalcollections.iiif.presentation.model.api.v2.SeeAlso;
 import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
@@ -52,6 +53,7 @@ import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.Other
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.PhysicalDimensionsMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.PropertyValueLocalizedMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.RangeMixIn;
+import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.RenderingMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.ResourceMixIn;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.SeeAlsoMixin;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.mixin.v2.SequenceMixIn;
@@ -106,6 +108,7 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     addMixIn(Resource.class, ResourceMixIn.class);
     addMixIn(Sequence.class, SequenceMixIn.class);
     addMixIn(Service.class, ServiceMixIn.class);
+    addMixIn(Rendering.class, RenderingMixIn.class);
     addMixIn(Thumbnail.class, ThumbnailMixIn.class);
     addMixIn(SeeAlso.class, SeeAlsoMixin.class);
   }
