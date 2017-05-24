@@ -3,10 +3,12 @@ package de.digitalcollections.iiif.presentation.model.impl.v2.references;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import java.net.URI;
+import java.time.Instant;
 
 public class CollectionReferenceImpl extends IiifReferenceImpl implements CollectionReference {
 
   private String type = "sc:Collection";
+  private Instant navdate;
 
   public CollectionReferenceImpl() {
     this(null);
@@ -27,5 +29,16 @@ public class CollectionReferenceImpl extends IiifReferenceImpl implements Collec
 
   public void setType(String type) {
     this.type = type;
+  }
+
+  @Override
+  public Instant getNavDate() {
+    return navdate;
+  }
+
+  @Override
+  public void setNavDate(Instant date) {
+    this.navdate = date;
+
   }
 }
