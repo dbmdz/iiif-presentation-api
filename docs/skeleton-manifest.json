@@ -1,0 +1,52 @@
+{
+  "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00032722/manifest",
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "sc:Manifest",
+
+  "attribution": "Bayerische Staatsbibliothek",
+  "license": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+  "logo": "https://api.digitale-sammlungen.de/iiif/images/bsb_logo.png",
+  "label": "Ottheinrich-Bibel, Bd. 3: Lk 5,26 - Joh 5,18 - BSB Cgm 8010(3",
+
+  "metadata": [
+    {
+      "label": "Title", "value": "Ottheinrich-Bibel, Bd. 3: Lk 5,26 - Joh 5,18 - BSB Cgm 8010(3"
+    },
+    {
+      ...
+    }
+  ],
+
+  "structures": [
+    {
+      "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00032722/range/1",
+      "@type": "sc:Range",
+      "label": "Miniatur: Auferweckung des Jünglings zu Nain",
+      "canvases": [ ... ]
+    },
+    {
+      ...
+    }
+  ],
+
+  "sequences": [
+    {
+      "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00032722/sequence/normal",
+      "@type": "sc:Sequence",
+      "label": "Default",
+
+      "canvases": [
+        {
+          "@id": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00032722/canvas/1"
+          "@type": "sc:Canvas",
+          "height": 4701,
+          "width": 3404,
+          "images": [{ ... }]
+        },
+        {
+          ...
+        }
+      ]
+    }
+  ]
+}
