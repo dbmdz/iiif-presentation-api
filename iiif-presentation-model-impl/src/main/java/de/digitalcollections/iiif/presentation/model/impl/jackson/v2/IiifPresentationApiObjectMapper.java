@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.impl.jackson.v2;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -79,7 +80,7 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     registerMixins();
     registerDeserializers();
     setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    //enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+    enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
   }
 
   private void registerMixins() {
