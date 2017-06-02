@@ -239,6 +239,14 @@ public class IiifPresentationApiObjectMapperTest {
   }
 
   @Test
+  public void testBsb10505590() throws IOException {
+    String json = IOUtils.
+            toString(this.getClass().getClassLoader().getResourceAsStream("manifest_bsb10505590.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, Manifest.class);
+    assertThat(manifest.getLabel()).isNotNull();
+  }
+
+  @Test
   public void testReadNavDate() throws IOException {
     String json = IOUtils.
             toString(this.getClass().getClassLoader().getResourceAsStream("navdate.json"), DEFAULT_CHARSET);
@@ -279,7 +287,8 @@ public class IiifPresentationApiObjectMapperTest {
     String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(canvas);
     DocumentContext ctx = JsonPath.parse(json);
     JsonPathAssert.assertThat(ctx).jsonPathAsString("$.services[0].physicalUnits").isEqualTo("in");
-    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").isEqualTo("http://iiif.io/api/image/2/level1.json");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").
+            isEqualTo("http://iiif.io/api/image/2/level1.json");
     Canvas deserialized = objectMapper.readValue(json, Canvas.class);
     assertThat(deserialized.getServices().get(0).getProfile()).contains("physdim");
     assertThat(((PhysicalDimensionsServiceImpl) deserialized.getServices().get(0)).getPhysicalUnits()).isEqualTo("in");
