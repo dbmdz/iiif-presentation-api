@@ -1,6 +1,7 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IiifResource {
@@ -67,15 +68,22 @@ public interface IiifResource {
   List<Service> getServices();
 
   /**
-   * @param services A link to a list of services that makes more functionality available for the resource, such as from 
-   * an image to the base URI of an associated IIIF Image API service. The services resource should have additional 
-   * information associated with it in order to allow the client to determine how to make appropriate use of it, such as 
+   * @param services A link to a list of services that makes more functionality available for the resource, such as from
+   * an image to the base URI of an associated IIIF Image API service. The services resource should have additional
+   * information associated with it in order to allow the client to determine how to make appropriate use of it, such as
    * a profile link to a service description. It may also have relevant information copied from the service itself. This
    * duplication is permitted in order to increase the performance of rendering the object without necessitating
    * additional HTTP requests. Please see the Service Profiles document for known services. Any resource type may have
    * one or more links to an external service.
    */
   void setServices(List<Service> services);
+
+  default void addService(Service service) {
+    if (getServices() == null) {
+      setServices(new ArrayList<>());
+    }
+    getServices().add(service);
+  }
 
   /**
    * @return The type of the resource. For the resource types defined by this specification, the value of @type will be
@@ -102,20 +110,19 @@ public interface IiifResource {
   void setWithin(URI within);
 
   List<Rendering> getRendering();
-  
+
   /**
-   * @param rendering A link to an external resource intended for display or download by a human user. 
-   * This property can be used to link from a manifest, collection or other resource to the preferred viewing 
-   * environment for that resource, such as a viewer page on the publisher’s web site. 
-   *                  
-   * Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book, 
-   * or a slide deck with images of the museum object. 
-   * 
+   * @param rendering A link to an external resource intended for display or download by a human user.
+   * This property can be used to link from a manifest, collection or other resource to the preferred viewing
+   * environment for that resource, such as a viewer page on the publisher’s web site.
+   *
+   * Other uses include a rendering of a manifest as a PDF or EPUB with the images and text of the book,
+   * or a slide deck with images of the museum object.
+   *
    * A label and the format of the rendering resource must be supplied to allow clients to present the option to the user.
-   * 
+   *
    * Any resource type may have one or more external rendering resources.
    */
   void setRendering(List<Rendering> rendering);
-  
-  
+
 }
