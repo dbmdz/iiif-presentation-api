@@ -8,9 +8,9 @@ import de.digitalcollections.core.model.api.MimeType;
 import de.digitalcollections.core.model.api.resource.Resource;
 import de.digitalcollections.core.model.api.resource.enums.ResourcePersistenceType;
 import de.digitalcollections.core.model.api.resource.exceptions.ResourceIOException;
+import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.exceptions.InvalidDataException;
 import de.digitalcollections.iiif.presentation.model.api.exceptions.NotFoundException;
-import de.digitalcollections.iiif.presentation.backend.api.repository.v2.PresentationRepository;
 import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
 import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
 import java.io.IOException;
@@ -140,9 +140,11 @@ public class PresentationRepositoryImpl implements PresentationRepository {
 
   @Override
   public String getResourceJson(URI resourceUri) throws NotFoundException {
+    InputStream inputStream = null;
     try {
-      InputStream inputStream = resourceService.getInputStream(resourceUri);
+      inputStream = resourceService.getInputStream(resourceUri);
       String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+      inputStream.close();
       LOGGER.debug("DONE getResourceJson() for " + resourceUri.toString());
       return json;
     } catch (IOException e) {
