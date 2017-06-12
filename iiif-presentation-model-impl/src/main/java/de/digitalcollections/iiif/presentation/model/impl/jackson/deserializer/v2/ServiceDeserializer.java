@@ -27,7 +27,11 @@ public class ServiceDeserializer extends JsonDeserializer<Service> {
   public Service deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException {
     ObjectMapper mapper = (ObjectMapper) jp.getCodec();
     TreeNode node = mapper.readTree(jp);
-    String profile = ((TextNode) node.get("profile")).textValue();
+    String profile = null;
+    Object profileObj = node.get("profile");
+    if (profileObj != null) {
+      profile = ((TextNode) profileObj).textValue();
+    }
     if (profile == null || profile.contains("image")) {
       ServiceImpl service = new ServiceImpl();
       service.setContext(getAsString(node, "@context"));

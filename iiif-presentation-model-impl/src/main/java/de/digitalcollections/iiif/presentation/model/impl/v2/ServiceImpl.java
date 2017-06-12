@@ -3,6 +3,7 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import java.net.URI;
+import java.util.List;
 
 public class ServiceImpl implements Service {
 
@@ -10,7 +11,7 @@ public class ServiceImpl implements Service {
   protected URI id;
   protected PropertyValue label;
   protected String profile;
-  protected Service service;
+  protected List<Service> services;
   
   public ServiceImpl() {
   }
@@ -69,12 +70,12 @@ public class ServiceImpl implements Service {
   }
 
   @Override
-  public void setService(Service service) {
-	this.service = service;
+  public void setServices(List<Service> services) {
+	this.services = services;
   }
   
   @Override
-  public Service getService() {
-	return service;
+  public List<Service> getServices() {
+	return services;
   }
 }

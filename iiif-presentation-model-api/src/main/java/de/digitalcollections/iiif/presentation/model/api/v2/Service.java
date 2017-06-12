@@ -1,6 +1,8 @@
 package de.digitalcollections.iiif.presentation.model.api.v2;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <p>
@@ -69,13 +71,15 @@ public interface Service {
    */
   void setProfile(String profile);
 
-  	/**
-	 * 
-	 * @param service A Service can have a nested service as for example the autocomplete service of a search service 
-	 * see http://iiif.io/api/search/1.0/#service-description-1
-	 */
-  void setService(Service service);
+  /**
+   * @param services A Service can have a nested service as for example the autocomplete service of a search service
+   * see http://iiif.io/api/search/1.0/#service-description-1
+   */
+  void setServices(List<Service> services);
 
-  Service getService();
+  List<Service> getServices();
 
+  default void setService(Service service) {
+    setServices(Collections.singletonList(service));
+  }
 }

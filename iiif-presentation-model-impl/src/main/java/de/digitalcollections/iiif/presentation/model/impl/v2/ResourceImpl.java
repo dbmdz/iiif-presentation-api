@@ -3,12 +3,13 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.Resource;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import java.net.URI;
+import java.util.List;
 
 public class ResourceImpl implements Resource {
 
   protected String format;
   protected URI id;
-  private Service service;
+  private List<Service> services;
   protected String type;
 
   @Override
@@ -37,13 +38,13 @@ public class ResourceImpl implements Resource {
   }
 
   @Override
-  public Service getService() {
-    return service;
+  public List<Service> getServices() {
+    return services;
   }
 
   @Override
-  public void setService(Service service) {
-    this.service = service;
+  public void setServices(List<Service> services) {
+    this.services = services;
   }
 
   @Override

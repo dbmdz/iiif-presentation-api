@@ -3,11 +3,12 @@ package de.digitalcollections.iiif.presentation.model.impl.v2;
 import de.digitalcollections.iiif.presentation.model.api.v2.Service;
 import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
 import java.net.URI;
+import java.util.List;
 
 public class ThumbnailImpl implements Thumbnail {
 
   protected URI id;
-  protected Service service;
+  private List<Service> services;
 
   public ThumbnailImpl() {
   }
@@ -27,12 +28,13 @@ public class ThumbnailImpl implements Thumbnail {
   }
 
   @Override
-  public Service getService() {
-    return service;
+  public List<Service> getServices() {
+    return this.services;
   }
 
   @Override
-  public void setService(Service service) {
-    this.service = service;
+  public void setServices(List<Service> services) {
+    this.services = services;
+
   }
 }

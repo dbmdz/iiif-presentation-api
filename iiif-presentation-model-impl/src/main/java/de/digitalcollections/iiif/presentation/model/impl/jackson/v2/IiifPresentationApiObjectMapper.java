@@ -81,6 +81,7 @@ public class IiifPresentationApiObjectMapper extends ObjectMapper {
     registerDeserializers();
     setSerializationInclusion(JsonInclude.Include.NON_NULL);
     enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+    enable(SerializationFeature.INDENT_OUTPUT);
   }
 
   private void registerMixins() {

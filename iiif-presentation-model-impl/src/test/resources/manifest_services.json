@@ -1,0 +1,107 @@
+{
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "@type": "sc:Manifest",
+  "@id": "http://example.com/iiif/presentation/test-obj/manifest",
+  "service": [
+    {"@id": "http://example.com/some/service"},
+    {"@id": "http://example.com/some/other/service"}
+  ],
+  "label": "some label",
+  "thumbnail": {
+    "@id": "http://example.com/iiif/image/test-obj/full/200,/0/default.jpg",
+    "service": {
+      "@context": "http://iiif.io/api/image/2/context.json",
+      "@id": "http://example.com/iiif/image/test-obj",
+      "profile": "http://iiif.io/api/image/2/level1.json"
+    }
+  },
+  "sequences" : [
+    {
+      "@id":"http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/sequence/normal",
+      "@type":"sc:Sequence",
+      "label": {"@value": "Current Page Order",
+        "@language": "en"},
+      "canvases": [
+        {
+          "@id":"http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/canvas/p00001",
+          "@type":"sc:Canvas",
+          "label": [{"@value": "Umschlag vorne",
+            "@language": "de"},
+            {"@value": "Front Cover",
+              "@language": "en"}],
+          "height":2236,
+          "width":1498,
+          "images": [
+            {
+              "@id": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/annotation/p00001-image",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1/full/1498,2236/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "2236",
+                "width": "1498",
+                "service": {
+                  "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/canvas/p00001"
+            }
+          ],
+          "service": [
+            {
+              "@context": "http://iiif.io/api/annex/services/physdim/1/context.json",
+              "profile": "http://iiif.io/api/annex/services/physdim",
+              "physicalScale": 0.0025,
+              "physicalUnits": "in"
+            },
+            {
+              "@context" : "http://geojson.org/geojson-ld/geojson-context.jsonld",
+              "@id" : "http://www.example.org/geojson/paris.json"
+            }
+          ]
+        },
+        {
+          "@id": "http://www.example.org/iiif/book1/canvas/p2",
+          "@type": "sc:Canvas",
+          "label": "p. 2",
+          "images": [
+            {
+              "@id": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/annotation/p00001-image",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1/full/1498,2236/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/jpeg",
+                "height": "2236",
+                "width": "1498",
+                "service": [
+                  {
+                    "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1",
+                    "@context": "http://iiif.io/api/image/2/context.json",
+                    "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                  },
+                  {
+                    "@id": "http://www.alexandria.de/iiif/image/alx%3AHJDHSKDHDJSDSDHKJSHKD%3A1_alternative",
+                    "@context": "http://iiif.io/api/image/2/context.json",
+                    "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                  }
+                ]
+              },
+              "on": "http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/canvas/p00001"
+            }
+          ]
+        },
+        {
+          "@id":"http://www.example.org/iiif/book1/canvas/p3",
+          "@type":"sc:Canvas",
+          "label":"p. 3"
+        }
+      ]
+    }
+  ]
+}

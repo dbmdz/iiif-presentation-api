@@ -286,11 +286,20 @@ public class IiifPresentationApiObjectMapperTest {
     canvas.setServices(services);
     String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(canvas);
     DocumentContext ctx = JsonPath.parse(json);
-    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.services[0].physicalUnits").isEqualTo("in");
-    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").
-            isEqualTo("http://iiif.io/api/image/2/level1.json");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.service.physicalUnits").isEqualTo("in");
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.images[0].resource.service.profile").isEqualTo("http://iiif.io/api/image/2/level1.json");
     Canvas deserialized = objectMapper.readValue(json, Canvas.class);
     assertThat(deserialized.getServices().get(0).getProfile()).contains("physdim");
     assertThat(((PhysicalDimensionsServiceImpl) deserialized.getServices().get(0)).getPhysicalUnits()).isEqualTo("in");
+  }
+
+  @Test
+  public void testParseServices() throws IOException {
+    String json = IOUtils.
+        toString(this.getClass().getClassLoader().getResourceAsStream("manifest_services.json"), DEFAULT_CHARSET);
+    Manifest manifest = objectMapper.readValue(json, Manifest.class);
+    assertThat(manifest.getServices()).hasSize(2);
+    assertThat(manifest.getSequences().get(0).getCanvases().get(0).getServices()).hasSize(2);
+    assertThat(manifest.getSequences().get(0).getCanvases().get(1).getImages().get(0).getResource().getServices()).hasSize(2);
   }
 }
