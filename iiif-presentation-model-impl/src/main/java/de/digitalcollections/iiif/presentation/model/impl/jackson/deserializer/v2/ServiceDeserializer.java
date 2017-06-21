@@ -32,13 +32,12 @@ public class ServiceDeserializer extends JsonDeserializer<Service> {
     if (profileObj != null) {
       profile = ((TextNode) profileObj).textValue();
     }
-    if (profile == null || profile.contains("image")) {
-      ServiceImpl service = new ServiceImpl();
-      service.setContext(getAsString(node, "@context"));
-      service.setProfile(getAsString(node, "profile"));
-      service.setId(getAsString(node, "@id"));
-      return service;
-    } else if (profile.contains("physdim")) {
+    
+    if(profile == null) {
+      return null;
+    }
+
+    if (profile.contains("physdim")) {
       PhysicalDimensionsServiceImpl service = new PhysicalDimensionsServiceImpl();
       service.setContext(getAsString(node, "@context"));
       service.setProfile(getAsString(node, "profile"));
@@ -46,7 +45,11 @@ public class ServiceDeserializer extends JsonDeserializer<Service> {
       service.setPhysicalUnits(getAsString(node, "physicalUnits"));
       return service;
     } else {
-      return null;
+      ServiceImpl service = new ServiceImpl();
+      service.setContext(getAsString(node, "@context"));
+      service.setProfile(getAsString(node, "profile"));
+      service.setId(getAsString(node, "@id"));
+      return service;
     }
   }
 }

@@ -3,6 +3,12 @@
   "@id":"http://www.alexandria.de/iiif/presentation/alx%3AHJDHSKDHDJSDSDHKJSHKD/manifest",
   "@type":"sc:Manifest",
 
+  "service" : [ {
+    "profile" : "http://iiif.io/api/search/0/search",
+    "@context" : "http://iiif.io/api/search/0/context.json",
+    "@id" : "http://some-url.org/some-search-api"
+  } ],
+
   "label": "Die Mechanik der festen, flüssigen und gasförmigen Körper; 1. Teil; Die Mechanik der festen Körper",
   "metadata": [
     {"label":"Author", "value":"Albrecht von Ihering"},
