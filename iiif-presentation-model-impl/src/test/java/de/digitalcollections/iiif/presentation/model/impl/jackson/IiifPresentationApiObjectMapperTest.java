@@ -6,35 +6,20 @@ import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.ReadContext;
 import com.revinate.assertj.json.JsonPathAssert;
-import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
-import de.digitalcollections.iiif.presentation.model.api.v2.Collection;
-import de.digitalcollections.iiif.presentation.model.api.v2.Image;
-import de.digitalcollections.iiif.presentation.model.api.v2.ImageService;
-import de.digitalcollections.iiif.presentation.model.api.v2.Manifest;
-import de.digitalcollections.iiif.presentation.model.api.v2.Metadata;
-import de.digitalcollections.iiif.presentation.model.api.v2.PropertyValue;
-import de.digitalcollections.iiif.presentation.model.api.v2.SeeAlso;
-import de.digitalcollections.iiif.presentation.model.api.v2.Sequence;
-import de.digitalcollections.iiif.presentation.model.api.v2.Service;
-import de.digitalcollections.iiif.presentation.model.api.v2.Thumbnail;
+import de.digitalcollections.iiif.presentation.model.api.v2.*;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.CollectionReference;
 import de.digitalcollections.iiif.presentation.model.api.v2.references.ManifestReference;
 import de.digitalcollections.iiif.presentation.model.impl.jackson.v2.IiifPresentationApiObjectMapper;
-import de.digitalcollections.iiif.presentation.model.impl.v2.CanvasImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.CollectionImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.ImageImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.ImageResourceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.ImageServiceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.ManifestImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.MetadataImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.PhysicalDimensionsServiceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueLocalizedImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueSimpleImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.SeeAlsoImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.ServiceImpl;
-import de.digitalcollections.iiif.presentation.model.impl.v2.ThumbnailImpl;
+import de.digitalcollections.iiif.presentation.model.impl.v2.*;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.CollectionReferenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.references.ManifestReferenceImpl;
+import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.Charset;
@@ -45,14 +30,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import org.apache.commons.io.IOUtils;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class IiifPresentationApiObjectMapperTest {
 
@@ -125,8 +105,9 @@ public class IiifPresentationApiObjectMapperTest {
     Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValues(Locale.GERMAN).get(0));
     Assert.assertEquals("Front Cover", firstCanvasLabel.getValues(Locale.ENGLISH).get(0));
     Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValues().get(0));
+    Assert.assertEquals("http://some-url.org/some-search-api", manifest.getServices().get(0).getId().toString());
   }
-
+  
   @Test
   public void testManifestToJson() throws JsonProcessingException {
     Manifest manifest = new ManifestImpl("testId", new PropertyValueSimpleImpl("testLabel"));
