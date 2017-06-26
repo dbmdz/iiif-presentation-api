@@ -66,7 +66,7 @@
     <version.commons-cli>1.3.1</version.commons-cli>
     <version.commons-io>2.5</version.commons-io>
     <version.digitalcollections-commons>1.2.2</version.digitalcollections-commons>
-    <version.digitalcollections-core>1.2.4</version.digitalcollections-core>
+    <version.digitalcollections-core>1.2.5</version.digitalcollections-core>
     <version.feign>9.4.0</version.feign>
     <version.fluent-hc>4.5.3</version.fluent-hc>
     <version.guava>18.0</version.guava>
