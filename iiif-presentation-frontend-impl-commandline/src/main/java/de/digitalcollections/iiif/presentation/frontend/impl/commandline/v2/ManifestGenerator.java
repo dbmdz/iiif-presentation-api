@@ -2,30 +2,6 @@ package de.digitalcollections.iiif.presentation.frontend.impl.commandline.v2;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-
 import de.digitalcollections.iiif.presentation.model.api.v2.Canvas;
 import de.digitalcollections.iiif.presentation.model.api.v2.Image;
 import de.digitalcollections.iiif.presentation.model.api.v2.ImageResource;
@@ -41,6 +17,26 @@ import de.digitalcollections.iiif.presentation.model.impl.v2.ManifestImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.PropertyValueSimpleImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.SequenceImpl;
 import de.digitalcollections.iiif.presentation.model.impl.v2.ServiceImpl;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import javax.imageio.ImageIO;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.ParseException;
 
 public class ManifestGenerator {
 
@@ -57,37 +53,37 @@ public class ManifestGenerator {
       final List<Path> files = new ArrayList<>();
       try {
         Files.walkFileTree(imageDirectory, new SimpleFileVisitor<Path>() {
-          @Override
-          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-            if (!attrs.isDirectory()) {
-              // TODO there must be a more elegant solution for filtering jpeg files...
-              if (file.getFileName().toString().endsWith("jpg")) {
-                files.add(file);
-              }
-            }
-            return FileVisitResult.CONTINUE;
-          }
-        });
+                     @Override
+                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                       if (!attrs.isDirectory()) {
+                         // TODO there must be a more elegant solution for filtering jpeg files...
+                         if (file.getFileName().toString().endsWith("jpg")) {
+                           files.add(file);
+                         }
+                       }
+                       return FileVisitResult.CONTINUE;
+                     }
+                   });
       } catch (IOException e) {
         e.printStackTrace();
       }
       Collections.sort(files, new Comparator() {
-        @Override
-        public int compare(Object fileOne, Object fileTwo) {
-          String filename1 = ((Path) fileOne).getFileName().toString();
-          String filename2 = ((Path) fileTwo).getFileName().toString();
+                 @Override
+                 public int compare(Object fileOne, Object fileTwo) {
+                   String filename1 = ((Path) fileOne).getFileName().toString();
+                   String filename2 = ((Path) fileTwo).getFileName().toString();
 
-          try {
-            // numerical sorting
-            Integer number1 = Integer.parseInt(filename1.substring(0, filename1.lastIndexOf(".")));
-            Integer number2 = Integer.parseInt(filename2.substring(0, filename2.lastIndexOf(".")));
-            return number1.compareTo(number2);
-          } catch (NumberFormatException nfe) {
-            // alpha-numerical sorting
-            return filename1.compareToIgnoreCase(filename2);
-          }
-        }
-      });
+                   try {
+                     // numerical sorting
+                     Integer number1 = Integer.parseInt(filename1.substring(0, filename1.lastIndexOf(".")));
+                     Integer number2 = Integer.parseInt(filename2.substring(0, filename2.lastIndexOf(".")));
+                     return number1.compareTo(number2);
+                   } catch (NumberFormatException nfe) {
+                     // alpha-numerical sorting
+                     return filename1.compareToIgnoreCase(filename2);
+                   }
+                 }
+               });
 
       generateManifest(imageDirectory.getFileName().toString(), files);
     } else {
@@ -98,7 +94,7 @@ public class ManifestGenerator {
   }
 
   private static void generateManifest(final String imageDirectoryName, final List<Path> files)
-      throws JsonProcessingException, IOException, URISyntaxException {
+          throws JsonProcessingException, IOException, URISyntaxException {
     // Start Manifest
     String urlPrefix = "http://www.yourdomain.com/iiif/presentation/2.0.0/";
     PropertyValue manifestLabel = new PropertyValueSimpleImpl("Manifest for " + imageDirectoryName);
@@ -126,7 +122,7 @@ public class ManifestGenerator {
   }
 
   private static void addPage(String urlPrefix, String imageDirectoryName, List<Canvas> canvases, int pageCounter, Path file)
-      throws IOException, URISyntaxException {
+          throws IOException, URISyntaxException {
     Path fileName = file.getFileName();
     System.out.println(fileName.toAbsolutePath());
 
@@ -145,8 +141,7 @@ public class ManifestGenerator {
     image1.setOn(canvas1.getId());
     images.add(image1);
 
-    ImageResource imageResource1 = new ImageResourceImpl(urlPrefix + imageDirectoryName + "/" + fileName.
-        toString());
+    ImageResource imageResource1 = new ImageResourceImpl(urlPrefix + imageDirectoryName + "/" + fileName.toString());
     imageResource1.setHeight(height);
     imageResource1.setWidth(width);
     image1.setResource(imageResource1);
