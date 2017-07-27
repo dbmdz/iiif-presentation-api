@@ -107,7 +107,7 @@ public class IiifPresentationApiObjectMapperTest {
     Assert.assertEquals("Umschlag vorne", firstCanvasLabel.getValues().get(0));
     Assert.assertEquals("http://some-url.org/some-search-api", manifest.getServices().get(0).getId().toString());
   }
-  
+
   @Test
   public void testManifestToJson() throws JsonProcessingException {
     Manifest manifest = new ManifestImpl("testId", new PropertyValueSimpleImpl("testLabel"));
@@ -282,5 +282,20 @@ public class IiifPresentationApiObjectMapperTest {
     assertThat(manifest.getServices()).hasSize(2);
     assertThat(manifest.getSequences().get(0).getCanvases().get(0).getServices()).hasSize(2);
     assertThat(manifest.getSequences().get(0).getCanvases().get(1).getImages().get(0).getResource().getServices()).hasSize(2);
+  }
+
+  @Test
+  public void testCreateThumbnail() throws JsonProcessingException {
+    ImageService service = new ImageServiceImpl();
+    service.setWidth(640);
+    service.setHeight(480);
+    service.setProfile("http://some/profile");
+    service.setId("http://example.com");
+    Thumbnail thumb = new ThumbnailImpl();
+    thumb.setId(URI.create("http://foobar.org"));
+    thumb.setService(service);
+    String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(thumb);
+    DocumentContext ctx = JsonPath.parse(json);
+    JsonPathAssert.assertThat(ctx).jsonPathAsString("$.service.width").isEqualTo("640");
   }
 }
