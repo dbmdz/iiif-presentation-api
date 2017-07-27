@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>3.2.5</version>
+    <version>3.2.6-SNAPSHOT</version>
   </parent>
   
   <artifactId>iiif-presentation-frontend-impl-commandline</artifactId>
