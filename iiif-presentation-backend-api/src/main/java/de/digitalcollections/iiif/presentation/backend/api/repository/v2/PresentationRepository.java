@@ -18,6 +18,7 @@ public interface PresentationRepository {
    * @return Collection specified by name
    * @throws NotFoundException in case Collection does
    * not exist or can not be delivered
+   * @throws InvalidDataException if manifest contains invalid data
    */
   public Collection getCollection(String name) throws NotFoundException, InvalidDataException;
 
@@ -28,6 +29,7 @@ public interface PresentationRepository {
    * @return Manifest specifying presentation for IIIF resource
    * @throws NotFoundException in case Manifest does not
    * exist or can not be delivered
+   * @throws InvalidDataException if manifest contains invalid data
    */
   Manifest getManifest(String identifier) throws NotFoundException, InvalidDataException;
 
