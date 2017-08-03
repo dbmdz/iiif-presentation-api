@@ -21,7 +21,7 @@
   </modules>
 
   <name>DigitalCollections: IIIF Presentation API Library</name>
-  <description>Java libraries implementing the IIIF Presentation API 2.0 and providing Manifest generation (see http://iiif.io/api/presentation/2.0/)</description>
+  <description>Java libraries implementing the IIIF Presentation API 2.1 and providing Manifest generation (see http://iiif.io/api/presentation/2.1/)</description>
   <url>https://github.com/dbmdz/iiif-presentation-api</url>
   <licenses>
     <license>
