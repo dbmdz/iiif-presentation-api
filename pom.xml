@@ -5,7 +5,7 @@
 
   <groupId>de.digitalcollections</groupId>
   <artifactId>iiif-presentation-api</artifactId>
-  <version>3.2.7-SNAPSHOT</version>
+  <version>3.3.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -65,8 +65,8 @@
     <version.assertj-json>1.0.1</version.assertj-json>
     <version.commons-cli>1.3.1</version.commons-cli>
     <version.commons-io>2.5</version.commons-io>
-    <version.digitalcollections-commons>1.2.2</version.digitalcollections-commons>
-    <version.digitalcollections-core>1.2.5</version.digitalcollections-core>
+    <version.digitalcollections-commons>1.2.4-SNAPSHOT</version.digitalcollections-commons>
+    <version.digitalcollections-core>2.0.0-SNAPSHOT</version.digitalcollections-core>
     <version.feign>9.4.0</version.feign>
     <version.fluent-hc>4.5.3</version.fluent-hc>
     <version.guava>18.0</version.guava>
@@ -252,28 +252,6 @@
         <version>${version.commons-io}</version>
       </dependency>
       <dependency>
-        <groupId>de.digitalcollections.commons</groupId>
-        <artifactId>digitalcollections-commons-server</artifactId>
-        <version>${version.digitalcollections-commons}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.digitalcollections</groupId>
-        <artifactId>digitalcollections-core-backend-impl-file</artifactId>
-        <version>${version.digitalcollections-core}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <dependency>
-        <groupId>de.digitalcollections</groupId>
-        <artifactId>digitalcollections-core-business-api</artifactId>
-        <version>${version.digitalcollections-core}</version>
-      </dependency>
-      <dependency>
-        <groupId>de.digitalcollections</groupId>
-        <artifactId>digitalcollections-core-business-impl</artifactId>
-        <version>${version.digitalcollections-core}</version>
-        <scope>runtime</scope>
-      </dependency>
-      <dependency>
         <groupId>de.digitalcollections</groupId>
         <artifactId>iiif-presentation-backend-api</artifactId>
         <version>${project.version}</version>
@@ -297,6 +275,22 @@
         <groupId>de.digitalcollections</groupId>
         <artifactId>iiif-presentation-model-impl</artifactId>
         <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections.commons</groupId>
+        <artifactId>dc-commons-server</artifactId>
+        <version>${version.digitalcollections-commons}</version>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections.core</groupId>
+        <artifactId>dc-core-backend-file</artifactId>
+        <version>${version.digitalcollections-core}</version>
+        <scope>runtime</scope>
+      </dependency>
+      <dependency>
+        <groupId>de.digitalcollections.core</groupId>
+        <artifactId>dc-core-business</artifactId>
+        <version>${version.digitalcollections-core}</version>
       </dependency>
       <dependency>
         <groupId>io.github.openfeign</groupId>

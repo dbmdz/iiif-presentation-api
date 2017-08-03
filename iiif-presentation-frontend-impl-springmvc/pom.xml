@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>3.2.7-SNAPSHOT</version>
+    <version>3.3.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>iiif-presentation-frontend-impl-springmvc</artifactId>
@@ -23,7 +23,7 @@
     </dependency>
     <dependency>
       <groupId>de.digitalcollections.commons</groupId>
-      <artifactId>digitalcollections-commons-server</artifactId>
+      <artifactId>dc-commons-server</artifactId>
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>

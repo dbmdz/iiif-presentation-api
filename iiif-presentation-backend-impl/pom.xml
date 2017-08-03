@@ -5,7 +5,7 @@
   <parent>
     <groupId>de.digitalcollections</groupId>
     <artifactId>iiif-presentation-api</artifactId>
-    <version>3.2.7-SNAPSHOT</version>
+    <version>3.3.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>iiif-presentation-backend-impl</artifactId>
@@ -31,21 +31,16 @@
     </dependency>
     <dependency>
       <groupId>de.digitalcollections</groupId>
-      <artifactId>digitalcollections-core-backend-impl-file</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>de.digitalcollections</groupId>
-      <artifactId>digitalcollections-core-business-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>de.digitalcollections</groupId>
-      <artifactId>digitalcollections-core-business-impl</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>de.digitalcollections</groupId>
       <artifactId>iiif-presentation-backend-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections.core</groupId>
+      <artifactId>dc-core-backend-file</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.digitalcollections.core</groupId>
+      <artifactId>dc-core-business</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.httpcomponents</groupId>
