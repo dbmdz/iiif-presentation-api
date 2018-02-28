@@ -1,3 +1,5 @@
+:warning: **NOTE**: This has been deprecated by https://github.com/dbmdz-iiif-apis :warning:
+
 # IIIF Presentation API Java Libraries
 
 [![Build Status](https://travis-ci.org/dbmdz/iiif-presentation-api.svg?branch=next)](https://travis-ci.org/dbmdz/iiif-presentation-api)
