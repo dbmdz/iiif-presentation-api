@@ -1,4 +1,4 @@
-:warning: **NOTE**: This has been deprecated by https://github.com/dbmdz-iiif-apis :warning:
+:warning: **NOTE**: This has been deprecated by https://github.com/dbmdz/iiif-apis :warning:
 
 # IIIF Presentation API Java Libraries
 
